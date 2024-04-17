@@ -1,4 +1,5 @@
 ﻿using NoahCardOutput;
+using System.Text;
 
 namespace UNSERcasino
 {
@@ -6,6 +7,7 @@ namespace UNSERcasino
     {
         static void Main(string[] args)
         {
+            Console.OutputEncoding = Encoding.UTF8;
             MenuManager.Instance.open(new Menu.MainMenu());
 
             while(true)

@@ -9,14 +9,6 @@
             d[0] = "d";
             d[1] = Convert.ToString(s.Ticks);
             _index++;
-
-            if (i != null)
-            {
-                MenuManager.Instance.open(new MainMenu());
-                return d;
-            }
-
-            MenuManager.Instance.requestInput();
             return d;
         }
     }

@@ -6,6 +6,7 @@ namespace UNSERcasino.Menu
     {
         public override string[] update(TimeSpan s, string? i)
         {
+            BaseMenu.preventBug(); // just simply dont ask why
             string[] result = new string[5];
 
             if(i != null)
@@ -16,6 +17,7 @@ namespace UNSERcasino.Menu
                     switch(x)
                     {
                         case 1: { MenuManager.Instance.open(new TestMenu()); return result; }
+                        case 3: { MenuManager.Instance.open(new Poker()); return result; }
                     }
                 }
             }
@@ -24,7 +26,7 @@ namespace UNSERcasino.Menu
             result[1] = "";
             result[2] = "1: Dice Game";
             result[3] = "2: Mines";
-            result[4] = "3: exit";
+            result[4] = "3: Poker";
 
             MenuManager.Instance.requestInput();
 

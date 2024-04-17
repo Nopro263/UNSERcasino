@@ -100,6 +100,11 @@ namespace UNSERcasino
                 if (_input)
                 {
                     Console.CursorVisible = true;
+
+                    Console.CursorLeft = 0;
+                    Console.Write(new string(' ', Console.BufferWidth));
+                    Console.CursorLeft = 0;
+
                     i = read();
                     if(i == null)
                     {
@@ -123,8 +128,6 @@ namespace UNSERcasino
                 }
 
                 string[] content;
-
-                BaseMenu.preventBug(); // just simply dont ask why
 
                 if (_input)
                 {
@@ -166,7 +169,12 @@ namespace UNSERcasino
                 Console.Write(" ");
             }
             //Console.WriteLine("L");
-            Console.WriteLine(line);
+            Console.Write(line);
+            for (int i = 0; i < spaces; i++)
+            {
+                Console.Write(" ");
+            }
+            Console.WriteLine();
         }
     }
 }
