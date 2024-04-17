@@ -27,17 +27,17 @@
             }
         }
 
-        private void CheckTile(int x, int y)
+        private bool CheckTile(int x, int y)
         {
             if (SafeOrNot[x][y] == true)
             {
                 _revealedDiamonds++;
+                return true;
             }
-            else if (SafeOrNot[x][y] == false)
+            else
             {
-                // End Game
                 _revealedDiamonds = 0;
-                return;
+                return false;
             }
         }
 
