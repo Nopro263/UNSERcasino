@@ -6,8 +6,13 @@ namespace UNSERcasino
     {
         static void Main(string[] args)
         {
-            CardPrinter.print(PrintableCard.FromKarte("König Herz"));
-            Console.ReadLine();
+            MenuManager m = new MenuManager();
+            m.open(new Menu.TestMenu());
+
+            while(true)
+            {
+                m.update();
+            }
         }
     }
 }

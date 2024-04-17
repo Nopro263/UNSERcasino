@@ -3,6 +3,7 @@ namespace UNSERcasino
     internal class MenuManager
     {
         private Stack<BaseMenu> menus = new Stack<BaseMenu>();
+        private TimeSpan last_update = TimeSpan.Zero;
         public MenuManager()
         {
 
@@ -38,6 +39,9 @@ namespace UNSERcasino
         {
             if (menus.Count > 0)
             {
+                Console.CursorTop = 0;
+                Console.CursorLeft = 0;
+                Console.CursorVisible = false;
                 string[] content = menus.Peek().update();
                 foreach (string item in content)
                 {
