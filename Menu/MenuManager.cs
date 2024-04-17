@@ -23,6 +23,7 @@ namespace UNSERcasino
 
         public void open(BaseMenu menu)
         {
+            Console.Clear();
             if (_menus.Count > 0)
             {
                 _menus.Peek().exit(true);
@@ -49,6 +50,7 @@ namespace UNSERcasino
             {
                 Environment.Exit(0);
             }
+            Console.Clear();
 
             update();
         }
@@ -105,7 +107,6 @@ namespace UNSERcasino
                         return;
                     }
                     Console.Clear();
-                    //Console.WriteLine(i);
                 } else
                 {
                     if(hasPressedEsc())
@@ -123,6 +124,8 @@ namespace UNSERcasino
 
                 string[] content;
 
+                BaseMenu.preventBug(); // just simply dont ask why
+
                 if (_input)
                 {
                     content = _menus.Peek().update(span, i);
@@ -132,8 +135,6 @@ namespace UNSERcasino
                 }
 
                 if(_menus.Count == 0 || oldTop != _menus.Peek()) {
-                    Console.WriteLine("ok");
-                    Console.ReadLine();
                     return;
                 }
 
@@ -162,10 +163,10 @@ namespace UNSERcasino
 
             for (int i = 0; i < spaces; i++)
             {
-                Console.Write("#");
+                Console.Write(" ");
             }
-            Console.WriteLine("L");
-            //Console.WriteLine(line);
+            //Console.WriteLine("L");
+            Console.WriteLine(line);
         }
     }
 }
