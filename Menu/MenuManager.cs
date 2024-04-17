@@ -1,53 +1,156 @@
+using System.Transactions;
+
 namespace UNSERcasino
 {
     internal class MenuManager
     {
-        private Stack<BaseMenu> menus = new Stack<BaseMenu>();
-        private TimeSpan last_update = TimeSpan.Zero;
-        public MenuManager()
+        private Stack<BaseMenu> _menus = new Stack<BaseMenu>();
+        private DateTime? _lastUpdate = null;
+        private static MenuManager? _instance = null;
+        private bool _input = false;
+        private MenuManager() {}
+        public static MenuManager Instance
         {
-
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = new MenuManager();
+                }
+                return _instance;
+            }
         }
 
         public void open(BaseMenu menu)
         {
-            if (menus.Count > 0)
+            if (_menus.Count > 0)
             {
-                menus.Peek().exit(true);
+                _menus.Peek().exit(true);
             }
             menu.enter(false);
-            menus.Push(menu);
+            _menus.Push(menu);
         }
 
         public void close()
         {
-            if (menus.Count > 0)
+            _input = false;
+            if (_menus.Count > 0)
             {
-                BaseMenu menu = menus.Pop();
+                BaseMenu menu = _menus.Pop();
                 menu.exit(false);
                 menu.destroy();
             }
 
-            if (menus.Count > 0)
+            if (_menus.Count > 0)
             {
-                BaseMenu menu = menus.Peek();
+                BaseMenu menu = _menus.Peek();
                 menu.enter(true);
+            } else
+            {
+                Environment.Exit(0);
             }
+
+            update();
+        }
+
+        private string? read()
+        {
+            string s = "";
+            while(true)
+            {
+                if (Console.KeyAvailable)
+                {
+                    ConsoleKeyInfo k = Console.ReadKey();
+                    if (k.Key == ConsoleKey.Escape)
+                    {
+                        return null;
+                    }
+                    if(k.Key == ConsoleKey.Enter)
+                    {
+                        return s;
+                    } else
+                    {
+                        s += k.KeyChar;
+                    }
+                }
+            }
+        }
+
+        private bool hasPressedEsc()
+        {
+            if(Console.KeyAvailable)
+            {
+                if(Console.ReadKey().Key == ConsoleKey.Escape)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public void update()
         {
-            if (menus.Count > 0)
+            if (_menus.Count > 0)
             {
+                BaseMenu oldTop = _menus.Peek();
+                string? i = "";
+
+                if (_input)
+                {
+                    Console.CursorVisible = true;
+                    i = read();
+                    if(i == null)
+                    {
+                        close();
+                        return;
+                    }
+                    Console.Clear();
+                    //Console.WriteLine(i);
+                } else
+                {
+                    if(hasPressedEsc())
+                    {
+                        close();
+                        return;
+                    }
+                }
+
+                TimeSpan span = TimeSpan.Zero;
+                if(_lastUpdate != null )
+                {
+                    span = DateTime.Now - (DateTime)_lastUpdate;
+                }
+
+                string[] content;
+
+                if (_input)
+                {
+                    content = _menus.Peek().update(span, i);
+                    _input = false;
+                } else {
+                    content = _menus.Peek().update(span);
+                }
+
+                if(_menus.Count == 0 || oldTop != _menus.Peek()) {
+                    Console.WriteLine("ok");
+                    Console.ReadLine();
+                    return;
+                }
+
                 Console.CursorTop = 0;
                 Console.CursorLeft = 0;
                 Console.CursorVisible = false;
-                string[] content = menus.Peek().update();
                 foreach (string item in content)
                 {
                     WriteCenteredLine(item);
                 }
+                _lastUpdate = DateTime.Now;
             }
+        }
+
+        public void requestInput()
+        {
+            _input = true;
         }
 
 
@@ -59,9 +162,10 @@ namespace UNSERcasino
 
             for (int i = 0; i < spaces; i++)
             {
-                Console.Write(" ");
+                Console.Write("#");
             }
-            Console.WriteLine(line);
+            Console.WriteLine("L");
+            //Console.WriteLine(line);
         }
     }
 }

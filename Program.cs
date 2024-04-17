@@ -6,12 +6,11 @@ namespace UNSERcasino
     {
         static void Main(string[] args)
         {
-            MenuManager m = new MenuManager();
-            m.open(new Menu.TestMenu());
+            MenuManager.Instance.open(new Menu.MainMenu());
 
             while(true)
             {
-                m.update();
+                MenuManager.Instance.update();
             }
         }
     }
