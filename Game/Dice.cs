@@ -2,6 +2,14 @@
 {
     internal class Dice
     {
+        private bool _wonOrNot = false;
+        private double _betAmount;
+
+        public Dice(double betAmount)
+        {
+            _betAmount = betAmount;
+        }
+
         private double SelectRoll()
         {
             const int maxRoll = 100;
@@ -11,19 +19,38 @@
             return roll;
         }
 
-        public bool ValidateRoll(double input, bool OverOrUnder) // Over -> True | Under -> False
+        private bool ValidateRoll(double input, bool _overOrUnder) // Over -> True | Under -> False
         {
             double roll = SelectRoll();
 
-            if (OverOrUnder == true)
+
+            if (_overOrUnder == true)
             {
-                return roll > input; // If correct, will return true
+                if (roll > input)
+                {
+                    return true;
+                }
+                else { return false; }
             }
-            else if (OverOrUnder == false)
+            else if (_overOrUnder == false)
             {
-                return roll < input; // If correct, will return true
+                if (roll < input)
+                {
+                    return true;
+                }
+                else { return false; }
             }
             else { return false; } // If Number matches Roll, will return false
+        }
+
+        public double Play(double input, double _betAmount, bool _overOrUnder)
+        {
+            _wonOrNot = ValidateRoll(input, _overOrUnder);
+            if (_wonOrNot == true)
+            {
+                return _betAmount * 2;
+            }
+            else { return 0; }
         }
     }
 }
