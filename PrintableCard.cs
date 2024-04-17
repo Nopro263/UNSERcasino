@@ -6,7 +6,7 @@ namespace NoahCardOutput
     {
         public PrintableCardType Type { get; private set; }
         public PrintableCardValue Value { get; private set; }
-        public bool Hidden { get; private set; }
+        public bool Hidden { get; set; }
         /// <summary>
         /// Constructor for Creating Printable Cards
         /// </summary>
@@ -277,6 +277,20 @@ namespace NoahCardOutput
             }
 
             return new PrintableCard(type, value, false);
+        }
+
+        public static PrintableCard[] getAllCards()
+        {
+            PrintableCard[] result = new PrintableCard[4 * 13];
+            int i = 0;
+            foreach(PrintableCardType type in Enum.GetValues(typeof(PrintableCardType))) {
+                foreach (PrintableCardValue value in Enum.GetValues(typeof(PrintableCardValue)))
+                {
+                    result[i++] = new PrintableCard(type, value, false);
+                }
+            }
+
+            return result;
         }
     }
 

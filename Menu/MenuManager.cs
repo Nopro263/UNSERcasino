@@ -111,7 +111,7 @@ namespace UNSERcasino
                         close();
                         return;
                     }
-                    Console.Clear();
+                    //Console.Clear();
                 } else
                 {
                     if(hasPressedEsc())
