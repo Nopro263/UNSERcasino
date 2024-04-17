@@ -6,6 +6,7 @@ namespace UNSERcasino.Menu
     {
         public override string[] update(TimeSpan s, string? i)
         {
+            preventBug();
             string[] result = new string[5];
 
             if(i != null)
