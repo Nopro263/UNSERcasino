@@ -3,18 +3,19 @@
     internal class Mines
     {
         private bool[][] SafeOrNot = new bool[5][]; // True -> No Mine | False -> Mine
-        private int _revealedMines;
+        private int _revealedDiamonds;
+        private int _mineAmount;
 
         public Mines()
         {
             for (int i = 0; i < 5; i++) { SafeOrNot[i] = new bool[5]; }
         }
 
-        private void PlantMines(int wantedMines)
+        private void PlantMines()
         {
             Random random = new Random();
-            int minecount = wantedMines;
-            while (minecount != wantedMines)
+            int minecount = _mineAmount;
+            while (minecount != _mineAmount)
             {
                 int x = random.Next(1, 5);
                 int y = random.Next(1, 5);
@@ -26,17 +27,36 @@
             }
         }
 
-        //private double CalcMultiplier()
-        //{
-        //    double house_edge = 0.02;
-        //    return (1 - house_edge) * nCr(25, diamonds) / nCr(25 - mines, diamonds);
+        private void CheckTile(int x, int y)
+        {
+            if (SafeOrNot[x][y] == true)
+            {
+                _revealedDiamonds++;
+            }
+            else if (SafeOrNot[x][y] == false)
+            {
+                // End Game
+                _revealedDiamonds = 0;
+                return;
+            }
+        }
 
-        //}
+        private double CalcMultiplier()
+        {
+            double house_edge = 0.02;
+            return (1 - house_edge) * NCr(25, _revealedDiamonds) / NCr(25 - _mineAmount, _revealedDiamonds);
 
-        //private double nCr(n, r)
-        //{
-        //    f = System.Math.F
-        //    return f(n) / f(r) / f(n - r)
-        //}
+        }
+
+        private int NCr(int n, int r)
+        {
+            return Factorial(n) / Factorial(r) / Factorial(n - r);
+        }
+
+        private int Factorial(int n) // Recursive Factorial Function
+        {
+            if (n == 0) return 1;
+            return n * Factorial(n - 1);
+        }
     }
 }
