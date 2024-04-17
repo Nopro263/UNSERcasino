@@ -124,6 +124,8 @@ namespace UNSERcasino
 
                 string[] content;
 
+                BaseMenu.preventBug(); // just simply dont ask why
+
                 if (_input)
                 {
                     content = _menus.Peek().update(span, i);

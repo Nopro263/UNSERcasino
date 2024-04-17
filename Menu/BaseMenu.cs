@@ -8,7 +8,7 @@ namespace UNSERcasino
         public virtual string[] update(TimeSpan s) { return update(s, null); }
         public virtual string[] update(TimeSpan s, string? i) { return new string[0]; }
 
-        protected void preventBug()
+        public static void preventBug()
         {
             Console.WriteLine("Test1234567891011121314151617181920"); // just dont ask
         }
