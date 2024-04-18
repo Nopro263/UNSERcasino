@@ -57,6 +57,12 @@
             Canvas c = new Canvas(Console.BufferWidth, Console.BufferHeight);
             Console.CursorVisible = false;
 
+            if (_currentButtonsIndex >= 0)
+            {
+                ((ButtonView)_views[_currentButtons[_currentButtonsIndex]].BaseView).Selected = true;
+            }
+            
+
             foreach (ViewData vd in _views)
             {
                 vd.BaseView.printToCanvas(c, vd.X, vd.Y);
