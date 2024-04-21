@@ -4,18 +4,20 @@
     {
         private bool _wonOrNot = false;
         private double _betAmount;
+        private int _min;
+        private int _max;
 
-        public Dice(double betAmount)
+        public Dice(double betAmount, int min, int max)
         {
             _betAmount = betAmount;
+            _min = min;
+            _max = max;
         }
 
         private double SelectRoll()
         {
-            const int maxRoll = 100;
-
             Random random = new Random();
-            double roll = random.NextDouble() * maxRoll;
+            double roll = random.NextDouble() * _max;
             return roll;
         }
 
@@ -51,6 +53,19 @@
                 return _betAmount * 2;
             }
             else { return 0; }
+        }
+
+        public double CalcMultiplier(double input, bool _overOrUnder)
+        {
+            double house_edge = 0.02;
+            if (_overOrUnder == true)
+            {
+                return 1 - ((1 - house_edge) * (_max - input) / _max) + 1;
+            }
+            else
+            {
+                return 1 - ((1 - house_edge) * input / _max);
+            }
         }
     }
 }
