@@ -52,6 +52,16 @@
                         }
                         break;
                     }
+
+                default:
+                    {
+                        if(_views[_currentButtons[_currentButtonsIndex]].BaseView is IKeyListener)
+                        {
+                            IKeyListener keyListener = (IKeyListener)_views[_currentButtons[_currentButtonsIndex]].BaseView;
+                            keyListener.onKey(key);
+                        }
+                        break;
+                    }
             }
         }
 
@@ -74,7 +84,7 @@
 
             if (_currentButtonsIndex >= 0)
             {
-                ((ButtonView)_views[_currentButtons[_currentButtonsIndex]].BaseView).Selected = true;
+                ((IClickable)_views[_currentButtons[_currentButtonsIndex]].BaseView).select();
             }
             
 
