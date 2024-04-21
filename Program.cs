@@ -15,6 +15,10 @@ namespace UNSERcasino
             do
             {
                 Scene scene1 = UI.Menu.MenuManager.getTopMenu().GetScene();
+                if(UI.Menu.MenuManager.getTopMenu() is IUpdateable)
+                {
+                    ((IUpdateable)UI.Menu.MenuManager.getTopMenu()).Update();
+                }
                 scene1.print();
 
                 if(Console.KeyAvailable)
