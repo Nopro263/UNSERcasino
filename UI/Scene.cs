@@ -22,7 +22,10 @@
         {
             switch (key)
             {
-                case ConsoleKey.Escape: { break; }
+                case ConsoleKey.Escape: {
+                        UI.Menu.MenuManager.close();
+                        return;
+                }
                 case ConsoleKey.UpArrow: {
                         if (_currentButtonsIndex - 1 < 0) { break; }
                         ((IClickable)_views[_currentButtons[_currentButtonsIndex]].BaseView).deselect();
@@ -56,6 +59,15 @@
         {
             Canvas c = new Canvas(Console.BufferWidth, Console.BufferHeight);
             Console.CursorVisible = false;
+
+            foreach (ViewData vd in _views)
+            {
+                if(vd.BaseView is IUpdateable)
+                {
+                    IUpdateable updateable = (IUpdateable)vd.BaseView;
+                    updateable.Update();
+                }
+            }
 
             if (_currentButtonsIndex >= 0)
             {

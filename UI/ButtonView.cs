@@ -14,7 +14,7 @@
 
         public void onClick()
         {
-
+            Menu.MenuManager.getTopMenu().onClick(this);
         }
 
         public void select()
