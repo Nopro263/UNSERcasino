@@ -9,7 +9,7 @@
         public Scene() { }
 
         public void addView(BaseView view, int x, int y) {
-            if(view is ButtonView)
+            if(view is IClickable)
             {
                 _currentButtonsIndex = _currentButtons.Count;
                 _currentButtons.Add(_views.Count);
@@ -25,9 +25,9 @@
                 case ConsoleKey.Escape: { break; }
                 case ConsoleKey.UpArrow: {
                         if (_currentButtonsIndex - 1 < 0) { break; }
-                        ((ButtonView)_views[_currentButtons[_currentButtonsIndex]].BaseView).Selected = false;
+                        ((IClickable)_views[_currentButtons[_currentButtonsIndex]].BaseView).deselect();
                         _currentButtonsIndex--;
-                        ((ButtonView)_views[_currentButtons[_currentButtonsIndex]].BaseView).Selected = true;
+                        ((IClickable)_views[_currentButtons[_currentButtonsIndex]].BaseView).select();
                         break;
                 }
                 case ConsoleKey.DownArrow:
@@ -35,9 +35,9 @@
                         if (_currentButtonsIndex + 1 >= _currentButtons.Count) { break; }
                         if(_currentButtonsIndex >= 0)
                         {
-                            ((ButtonView)_views[_currentButtons[_currentButtonsIndex]].BaseView).Selected = false;
+                            ((IClickable)_views[_currentButtons[_currentButtonsIndex]].BaseView).deselect();
                             _currentButtonsIndex++;
-                            ((ButtonView)_views[_currentButtons[_currentButtonsIndex]].BaseView).Selected = true;
+                            ((IClickable)_views[_currentButtons[_currentButtonsIndex]].BaseView).select();
                         }
                         break;
                     }
@@ -45,7 +45,7 @@
                     {
                         if (_currentButtonsIndex >= 0)
                         {
-                            ((ButtonView)_views[_currentButtons[_currentButtonsIndex]].BaseView).onClick();
+                            ((IClickable)_views[_currentButtons[_currentButtonsIndex]].BaseView).onClick();
                         }
                         break;
                     }
