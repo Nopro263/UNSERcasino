@@ -65,7 +65,10 @@
                 if(vd.BaseView is IUpdateable)
                 {
                     IUpdateable updateable = (IUpdateable)vd.BaseView;
-                    updateable.Update();
+                    try
+                    {
+                        updateable.Update();
+                    } catch (SkipThisUpdateException) {}
                 }
             }
 
