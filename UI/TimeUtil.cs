@@ -2,27 +2,26 @@
 {
     internal class TimeUtil
     {
+        public static double Tps {get; set; }
         //TODO: Fix memoryleak with many ENTER + ESC
-        private static Dictionary<int, int> objTicksToSleep = new Dictionary<int, int>();
+        private static Dictionary<int, DateTime> objTicksToSleep = new Dictionary<int, DateTime>();
         public static void T(object obj) {
             if(objTicksToSleep.ContainsKey(obj.GetHashCode())) {
-                int tts = objTicksToSleep[obj.GetHashCode()] - 1;
-                if(tts > 0)
+                if(DateTime.Now < objTicksToSleep[obj.GetHashCode()])
                 {
-                    objTicksToSleep[obj.GetHashCode()] = tts;
                     throw new SkipThisUpdateException();
-                } else if(tts == 0)
+                } else
                 {
-                    objTicksToSleep[obj.GetHashCode()] = -1;
+                    objTicksToSleep.Remove(obj.GetHashCode());
                 }
             }
         }
-        public static void Sleep(int ticks, object obj)
+        public static void Sleep(double seconds, object obj)
         {
-            objTicksToSleep[obj.GetHashCode()] = ticks;
+            objTicksToSleep[obj.GetHashCode()] = DateTime.Now.AddSeconds(seconds);
         }
 
-        public static void OnlyEvery(int ticks, object obj)
+        public static void OnlyEvery(double ticks, object obj)
         {
             T(obj);
             Sleep(ticks, obj);

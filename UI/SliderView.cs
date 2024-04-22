@@ -8,14 +8,14 @@ namespace UNSERcasino.UI
             int p = (int)((val-min) / (float)(max-min) * width);
 
             string e = "";
-            string d = new string('-', width-p); ;
+            string d = new string('.', width-p); ;
 
             if(p > 0)
             {
-                e = new string('=', p);
+                e = new string('#', p);
             }
 
-            string r = "[" + e + d + "]";
+            string r = "[" + e + d + "] " + val;
             return r;
         }
 
