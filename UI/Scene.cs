@@ -6,7 +6,11 @@
         private List<int> _currentButtons = new List<int>();
         private int _currentButtonsIndex = -1;
 
-        public Scene() { }
+        private Canvas _canvas;
+
+        public Scene() {
+            _canvas = new Canvas(Console.BufferWidth, Console.BufferHeight);
+        }
 
         public void addView(BaseView view, int x, int y) {
             if(view is IClickable)
@@ -67,7 +71,6 @@
 
         public void print()
         {
-            Canvas c = new Canvas(Console.BufferWidth, Console.BufferHeight);
             Console.CursorVisible = false;
 
             foreach (ViewData vd in _views)
@@ -86,10 +89,10 @@
                     ((IClickable)_views[_currentButtons[_currentButtonsIndex]].BaseView).select();
                 }
 
-                vd.BaseView.printToCanvas(c, vd.X, vd.Y);
+                vd.BaseView.printToCanvas(_canvas, vd.X, vd.Y);
             }
 
-            c.show();
+            _canvas.show();
         }
     }
 
