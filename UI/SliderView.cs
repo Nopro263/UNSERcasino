@@ -19,7 +19,7 @@ namespace UNSERcasino.UI
             return r;
         }
 
-        private int _value;
+        public int Value { get; set; }
         private int _min;
         private int _max;
         private int _width;
@@ -28,7 +28,7 @@ namespace UNSERcasino.UI
         {
             _min = min;
             _max = max;
-            _value = min;
+            Value = min;
             _width = width;
         }
 
@@ -45,22 +45,22 @@ namespace UNSERcasino.UI
         public void onKey(ConsoleKey key)
         {
             if(key == ConsoleKey.LeftArrow) {
-                _value--;
-                if(_value < _min)
+                Value--;
+                if(Value < _min)
                 {
-                    _value = _min;
+                    Value = _min;
                 }
             }
             if (key == ConsoleKey.RightArrow)
             {
-                _value++;
-                if (_value > _max)
+                Value++;
+                if (Value > _max)
                 {
-                    _value = _max;
+                    Value = _max;
                 }
             }
 
-            Text.setContent(_g(_min, _max, _value, _width));
+            Text.setContent(_g(_min, _max, Value, _width));
         }
 
         public void select()
