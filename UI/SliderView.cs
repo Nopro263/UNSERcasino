@@ -15,7 +15,7 @@ namespace UNSERcasino.UI
                 e = new string('#', p);
             }
 
-            string r = "[" + e + d + "] " + val;
+            string r = "[" + e + d + "] " + val.ToString().PadLeft(2);
             return r;
         }
 

@@ -80,16 +80,12 @@
                         updateable.Update();
                     } catch (SkipThisUpdateException) {}
                 }
-            }
 
-            if (_currentButtonsIndex >= 0)
-            {
-                ((IClickable)_views[_currentButtons[_currentButtonsIndex]].BaseView).select();
-            }
-            
+                if (_currentButtonsIndex >= 0)
+                {
+                    ((IClickable)_views[_currentButtons[_currentButtonsIndex]].BaseView).select();
+                }
 
-            foreach (ViewData vd in _views)
-            {
                 vd.BaseView.printToCanvas(c, vd.X, vd.Y);
             }
 

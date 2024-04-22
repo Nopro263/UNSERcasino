@@ -75,26 +75,34 @@
 
         public void show()
         {
-            for (int i = 0; i < _data.Length; i++)
+            int imax = _data.Length;
+            int jmax = _data[0].Length;
+            for (int i = 0; i < imax; i++)
             {
-                for (int j = 0; j < _data[0].Length; j++)
+                for (int j = 0; j < jmax; j++)
                 {
-                    if(_data[i][j] != null)
+                    char? d = _data[i][j];
+                    ConsoleColor? fg = _fg[i][j];
+                    ConsoleColor? bg = _bg[i][j];
+
+                    if (d != null)
                     {
                         Console.CursorLeft = i;
                         Console.CursorTop = j;
-                        if (_bg[i][j] != null)
-                        {
-                            Console.BackgroundColor = (ConsoleColor)_bg[i][j];
-                        }
-                        if (_fg[i][j] != null)
-                        {
-                            Console.ForegroundColor = (ConsoleColor)_fg[i][j];
-                        }
-                        Console.Write(_data[i][j]);
 
                         Console.ForegroundColor = ConsoleColor.White;
                         Console.BackgroundColor = ConsoleColor.Black;
+
+                        if (bg != null)
+                        {
+                            Console.BackgroundColor = (ConsoleColor)bg;
+                        }
+                        if (fg != null)
+                        {
+                            Console.ForegroundColor = (ConsoleColor)fg;
+                        }
+
+                        Console.Write(d);
                     }
                 }
             }
