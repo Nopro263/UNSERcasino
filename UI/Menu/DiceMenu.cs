@@ -19,7 +19,7 @@
             _random = new Random();
             _dices = new DiceView[row * col];
             _diceSum = new TextView(new Text("??"), false, false);
-            _betSlider = new SliderView(6, 72, col * 10 - 3);
+            _betSlider = new SliderView(12, 72, col * 10 - 3);
             scene.addView(_diceSum, Console.BufferWidth / 2-1, y-1);
 
             for (int i  = 0; i < _dices.Length; i++)
