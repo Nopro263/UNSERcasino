@@ -1,4 +1,6 @@
-﻿namespace UNSERcasino.UI.Menu
+﻿using UNSERcasino.Game;
+
+namespace UNSERcasino.UI.Menu
 {
     internal class DiceMenu : Menu, IUpdateable
     {
@@ -12,7 +14,7 @@
         private DateTime? _rollStopTime;
         private Random _random;
 
-        private int _bet;
+        private Dice _dice;
 
         public DiceMenu() : base()
         {
@@ -21,7 +23,7 @@
             int x = Console.BufferWidth / 2 - (col * 10 / 2);
             int y = Console.BufferHeight / 2 - (row * 6 / 2);
 
-            _bet = 0;
+            _dice = new Dice();
 
             _random = new Random();
             _dices = new DiceView[row * col];
@@ -74,6 +76,7 @@
                         v += _dices[i].Value;
                     }
 
+                    Console.WriteLine(_dice.Play(v));
                     _diceSum.Text.setContent(v.ToString());
                 } else
                 {
@@ -91,13 +94,16 @@
 
         public override void onClick(IClickable i)
         {
-
+            int x = 0;
             if(_rollStopTime == null)
             {
                 if(i == _over)
                 {
-                    if(int.TryParse(_textInput.FullContent, out _bet) && _bet > 1)
+                    if(int.TryParse(_textInput.FullContent, out x) && x > 1)
                     {
+                        _dice.Bet = x;
+                        _dice.Over = true;
+                        _dice.Value = _betSlider.Value;
                         _textInput.FullContent = "";
                         roll();
                     }
@@ -105,8 +111,11 @@
 
                 if(i == _under)
                 {
-                    if (int.TryParse(_textInput.FullContent, out _bet) && _bet > 1)
+                    if (int.TryParse(_textInput.FullContent, out x) && x > 1)
                     {
+                        _dice.Bet = x;
+                        _dice.Over = false;
+                        _dice.Value = _betSlider.Value;
                         _textInput.FullContent = "";
                         roll();
                     }
