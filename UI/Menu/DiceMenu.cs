@@ -7,9 +7,12 @@
         private ButtonView _over;
         private ButtonView _under;
         private SliderView _betSlider;
+        private TextInputView _textInput;
 
         private DateTime? _rollStopTime;
         private Random _random;
+
+        private int _bet;
 
         public DiceMenu() : base()
         {
@@ -18,10 +21,13 @@
             int x = Console.BufferWidth / 2 - (col * 10 / 2);
             int y = Console.BufferHeight / 2 - (row * 6 / 2);
 
+            _bet = 0;
+
             _random = new Random();
             _dices = new DiceView[row * col];
             _diceSum = new TextView(new Text("??"), false, false);
             _betSlider = new SliderView(12, 72, col * 10 - 3);
+            _textInput = new TextInputView(false, 5);
 
             _over = new ButtonView(new Text("Over"), false);
             _under = new ButtonView(new Text("Under"), false);
@@ -29,6 +35,7 @@
             scene.addView(_diceSum, Console.BufferWidth / 2-1, y-1);
             scene.addView(_over, 0, 0);
             scene.addView(_under, 0, 1);
+            scene.addView(_textInput, 0, 2);
 
             for (int i  = 0; i < _dices.Length; i++)
             {
@@ -89,12 +96,20 @@
             {
                 if(i == _over)
                 {
-                    roll();
+                    if(int.TryParse(_textInput.FullContent, out _bet) && _bet > 1)
+                    {
+                        _textInput.FullContent = "";
+                        roll();
+                    }
                 }
 
                 if(i == _under)
                 {
-                    roll();
+                    if (int.TryParse(_textInput.FullContent, out _bet) && _bet > 1)
+                    {
+                        _textInput.FullContent = "";
+                        roll();
+                    }
                 }
             }
         }
