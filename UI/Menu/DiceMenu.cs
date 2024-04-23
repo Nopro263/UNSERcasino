@@ -4,6 +4,8 @@
     {
         private DiceView[] _dices;
         private TextView _diceSum;
+        private ButtonView _over;
+        private ButtonView _under;
         private SliderView _betSlider;
 
         private DateTime? _rollStopTime;
@@ -20,7 +22,13 @@
             _dices = new DiceView[row * col];
             _diceSum = new TextView(new Text("??"), false, false);
             _betSlider = new SliderView(12, 72, col * 10 - 3);
+
+            _over = new ButtonView(new Text("Over"), false);
+            _under = new ButtonView(new Text("Under"), false);
+
             scene.addView(_diceSum, Console.BufferWidth / 2-1, y-1);
+            scene.addView(_over, 0, 0);
+            scene.addView(_under, 0, 1);
 
             for (int i  = 0; i < _dices.Length; i++)
             {
@@ -77,9 +85,17 @@
         public override void onClick(IClickable i)
         {
 
-            if(i == _betSlider && _rollStopTime == null)
+            if(_rollStopTime == null)
             {
-                roll();
+                if(i == _over)
+                {
+                    roll();
+                }
+
+                if(i == _under)
+                {
+                    roll();
+                }
             }
         }
     }

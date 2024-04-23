@@ -18,9 +18,12 @@
         public static void close() {
             if(stack.Count == 1)
             {
+                getTopMenu().onHide();
                 Environment.Exit(0);
             } else
             {
+                getTopMenu().onHide();
+
                 stack.Pop();
                 Console.Clear();
 

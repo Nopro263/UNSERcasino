@@ -17,6 +17,10 @@
         {
             scene.reset();
         }
+        public virtual void onHide()
+        {
+            scene.reset();
+        }
 
         public virtual void onClick(IClickable button)
         {
