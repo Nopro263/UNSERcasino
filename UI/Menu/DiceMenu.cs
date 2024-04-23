@@ -19,7 +19,7 @@
             _random = new Random();
             _dices = new DiceView[row * col];
             _diceSum = new TextView(new Text("??"), false, false);
-            _betSlider = new SliderView(6, 72, col * 10 - 7);
+            _betSlider = new SliderView(6, 72, col * 10 - 3);
             scene.addView(_diceSum, Console.BufferWidth / 2-1, y-1);
 
             for (int i  = 0; i < _dices.Length; i++)
@@ -35,10 +35,9 @@
             }
             
 
-            scene.addView(new ButtonView(new Text("Roll"), false), x, y);
-            scene.addView(_betSlider, x+5, y);
+            scene.addView(_betSlider, x, y);
 
-            roll();
+            //roll();
         }
 
         public void roll()
@@ -48,7 +47,7 @@
 
         public void Update()
         {
-            TimeUtil.OnlyEvery(0.1, this);
+            TimeUtil.OnlyEvery(0.05, this);
             if(_rollStopTime != null)
             {
                 if(_rollStopTime < DateTime.Now)
@@ -75,11 +74,10 @@
         }
 
 
-        public override void onClick(ButtonView button)
+        public override void onClick(IClickable i)
         {
-            base.onClick(button);
 
-            if(button.Text.getContent() == "Roll" && _rollStopTime == null)
+            if(i == _betSlider && _rollStopTime == null)
             {
                 roll();
             }

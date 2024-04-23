@@ -12,68 +12,24 @@
 
         private bool _first;
 
+        private int _width;
+        private int _height;
+
         public Canvas(int width, int height)
         {
+            _width = width;
+            _height = height;
+
             _first = true;
 
             _data1 = new char?[width][];
-
-            for(int i = 0; i < width; i++)
-            {
-                _data1[i] = new char?[height];
-                for (int j = 0; j < height; j++)
-                {
-                    _data1[i][j] = null;
-                }
-            }
             _data2 = new char?[width][];
-
-            for (int i = 0; i < width; i++)
-            {
-                _data2[i] = new char?[height];
-                for (int j = 0; j < height; j++)
-                {
-                    _data2[i][j] = null;
-                }
-            }
-
             _fg1 = new ConsoleColor?[width][];
-            for (int i = 0; i < width; i++)
-            {
-                _fg1[i] = new ConsoleColor?[height];
-                for (int j = 0; j < height; j++)
-                {
-                    _fg1[i][j] = null;
-                }
-            }
             _fg2 = new ConsoleColor?[width][];
-            for (int i = 0; i < width; i++)
-            {
-                _fg2[i] = new ConsoleColor?[height];
-                for (int j = 0; j < height; j++)
-                {
-                    _fg2[i][j] = null;
-                }
-            }
-
             _bg1 = new ConsoleColor?[width][];
-            for (int i = 0; i < width; i++)
-            {
-                _bg1[i] = new ConsoleColor?[height];
-                for (int j = 0; j < height; j++)
-                {
-                    _bg1[i][j] = null;
-                }
-            }
             _bg2 = new ConsoleColor?[width][];
-            for (int i = 0; i < width; i++)
-            {
-                _bg2[i] = new ConsoleColor?[height];
-                for (int j = 0; j < height; j++)
-                {
-                    _bg2[i][j] = null;
-                }
-            }
+
+            reset();
         }
 
         public void print(int x, int y, char c)
@@ -120,6 +76,67 @@
             {
                 print(x, y + i, s[i]);
             }
+        }
+
+        public void reset()
+        {
+            for (int i = 0; i < _width; i++)
+            {
+                _data1[i] = new char?[_height];
+                for (int j = 0; j < _height; j++)
+                {
+                    _data1[i][j] = null;
+                }
+            }
+
+            for (int i = 0; i < _width; i++)
+            {
+                _data2[i] = new char?[_height];
+                for (int j = 0; j < _height; j++)
+                {
+                    _data2[i][j] = null;
+                }
+            }
+
+            for (int i = 0; i < _width; i++)
+            {
+                _fg1[i] = new ConsoleColor?[_height];
+                for (int j = 0; j < _height; j++)
+                {
+                    _fg1[i][j] = null;
+                }
+            }
+
+            for (int i = 0; i < _width; i++)
+            {
+                _fg2[i] = new ConsoleColor?[_height];
+                for (int j = 0; j < _height; j++)
+                {
+                    _fg2[i][j] = null;
+                }
+            }
+
+
+            for (int i = 0; i < _width; i++)
+            {
+                _bg1[i] = new ConsoleColor?[_height];
+                for (int j = 0; j < _height; j++)
+                {
+                    _bg1[i][j] = null;
+                }
+            }
+
+            for (int i = 0; i < _width; i++)
+            {
+                _bg2[i] = new ConsoleColor?[_height];
+                for (int j = 0; j < _height; j++)
+                {
+                    _bg2[i][j] = null;
+                }
+            }
+
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.ForegroundColor = ConsoleColor.White;
         }
 
         public void show()

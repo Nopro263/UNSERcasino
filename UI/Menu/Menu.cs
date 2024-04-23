@@ -13,7 +13,12 @@
             return scene;
         }
 
-        public virtual void onClick(ButtonView button)
+        public virtual void onResume()
+        {
+            scene.reset();
+        }
+
+        public virtual void onClick(IClickable button)
         {
 
         }

@@ -23,6 +23,8 @@
             {
                 stack.Pop();
                 Console.Clear();
+
+                getTopMenu().onResume();
             }
         }
     }

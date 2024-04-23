@@ -22,6 +22,11 @@
             _views.Add(new ViewData(view, x, y));
         }
 
+        public void reset()
+        {
+            _canvas.reset();
+        }
+
         public void onKey(ConsoleKey key)
         {
             switch (key)
@@ -53,6 +58,7 @@
                         if (_currentButtonsIndex >= 0)
                         {
                             ((IClickable)_views[_currentButtons[_currentButtonsIndex]].BaseView).onClick();
+                            UI.Menu.MenuManager.getTopMenu().onClick(((IClickable)_views[_currentButtons[_currentButtonsIndex]].BaseView));
                         }
                         break;
                     }
