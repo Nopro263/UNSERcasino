@@ -26,7 +26,7 @@ namespace UNSERcasino
 
                 if(Console.KeyAvailable)
                 {
-                    scene1.onKey(Console.ReadKey(true).Key);
+                    scene1.onKey(Console.ReadKey(true));
                 }
             } while (true);
         }

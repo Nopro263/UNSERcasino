@@ -2,6 +2,6 @@
 {
     internal interface IKeyListener : IClickable
     {
-        public void onKey(ConsoleKey key);
+        public void onKey(ConsoleKeyInfo key);
     }
 }

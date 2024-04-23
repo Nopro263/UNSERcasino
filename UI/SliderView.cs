@@ -42,16 +42,16 @@ namespace UNSERcasino.UI
             
         }
 
-        public void onKey(ConsoleKey key)
+        public void onKey(ConsoleKeyInfo key)
         {
-            if(key == ConsoleKey.LeftArrow) {
+            if(key.Key == ConsoleKey.LeftArrow) {
                 Value--;
                 if(Value < _min)
                 {
                     Value = _min;
                 }
             }
-            if (key == ConsoleKey.RightArrow)
+            if (key.Key == ConsoleKey.RightArrow)
             {
                 Value++;
                 if (Value > _max)

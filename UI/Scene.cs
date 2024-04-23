@@ -27,9 +27,9 @@
             _canvas.reset();
         }
 
-        public void onKey(ConsoleKey key)
+        public void onKey(ConsoleKeyInfo key)
         {
-            switch (key)
+            switch (key.Key)
             {
                 case ConsoleKey.Escape: {
                         UI.Menu.MenuManager.close();
