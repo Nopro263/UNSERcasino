@@ -30,21 +30,21 @@ namespace NoahCardOutput
         {
             Console.OutputEncoding = Encoding.UTF8;
             List<String[]> strings = new List<String[]>();
-            foreach(PrintableCard card in cards)
+            foreach (PrintableCard card in cards)
             {
                 strings.Add(card.getStrings());
             }
-            if(strings.Count == 0)
+            if (strings.Count == 0)
             {
                 return;
             }
 
-            for(int i = 0;i < strings[0].Length;i++)
+            for (int i = 0; i < strings[0].Length; i++)
             {
-                for(int j = 0; j < strings.Count;j++)
+                for (int j = 0; j < strings.Count; j++)
                 {
                     Console.Write(strings[j][i]);
-                    if(j < strings.Count - 1)
+                    if (j < strings.Count - 1)
                     {
                         Console.Write(" ");
                     }

@@ -5,12 +5,12 @@ namespace UNSERcasino.UI
     {
         private static string _g(int min, int max, int val, int width)
         {
-            int p = (int)((val-min) / (float)(max-min) * width);
+            int p = (int)((val - min) / (float)(max - min) * width); // % of width
 
             string e = "";
-            string d = new string('.', width-p); ;
+            string d = new string('.', width - p); ;
 
-            if(p > 0)
+            if (p > 0)
             {
                 e = new string('#', p);
             }
@@ -39,19 +39,20 @@ namespace UNSERcasino.UI
 
         public void onClick()
         {
-            
+
         }
 
         public void onKey(ConsoleKeyInfo key)
         {
-            if(key.Key == ConsoleKey.LeftArrow) {
+            if (key.Key == ConsoleKey.LeftArrow) // Decrease
+            {
                 Value--;
-                if(Value < _min)
+                if (Value < _min)
                 {
                     Value = _min;
                 }
             }
-            if (key.Key == ConsoleKey.RightArrow)
+            if (key.Key == ConsoleKey.RightArrow) // Increase
             {
                 Value++;
                 if (Value > _max)

@@ -16,7 +16,7 @@ namespace UNSERcasino.Game
             PrintableCard[] r = PrintableCard.getAllCards();
             Random random = new Random();
 
-            for(int i = 0; i < 1000; i++)
+            for (int i = 0; i < 1000; i++)
             {
                 int i1 = random.Next(r.Length);
                 int i2 = random.Next(r.Length);
@@ -30,7 +30,8 @@ namespace UNSERcasino.Game
         }
 
 
-        public PokerGame() {
+        public PokerGame()
+        {
             _cards = new Stack<PrintableCard>(shuffle());
 
             _players = new List<PokerPlayer>();
@@ -38,7 +39,7 @@ namespace UNSERcasino.Game
 
             _communityCards = new PrintableCard[5];
 
-            for(int i = 0; i < _communityCards.Length; i++)
+            for (int i = 0; i < _communityCards.Length; i++)
             {
                 _communityCards[i] = _cards.Pop();
                 _communityCards[i].Hidden = true;
@@ -53,18 +54,19 @@ namespace UNSERcasino.Game
 
             _players.Add(new PokerPlayer(name, hand, token));
 
-            if(_currentPlayer == null)
+            if (_currentPlayer == null)
             {
                 _currentPlayer = name;
             }
         }
 
-        public List<PokerPlayer> getOpponents() {
-            List<PokerPlayer> r = new List<PokerPlayer> ();
+        public List<PokerPlayer> getOpponents()
+        {
+            List<PokerPlayer> r = new List<PokerPlayer>();
 
-            foreach(PokerPlayer p in _players)
+            foreach (PokerPlayer p in _players)
             {
-                if(p.Name != _currentPlayer)
+                if (p.Name != _currentPlayer)
                 {
                     r.Add(p);
                 }

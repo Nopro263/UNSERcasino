@@ -5,18 +5,18 @@
         public MainMenu() : base()
         {
             scene.addView(new ButtonView(new Text("Crash"), false), Console.BufferWidth / 2, Console.BufferHeight / 2);
-            scene.addView(new ButtonView(new Text("Dice"), false), Console.BufferWidth / 2, Console.BufferHeight / 2 + 1);
-            scene.addView(new ButtonView(new Text("Exit"), false), Console.BufferWidth / 2, Console.BufferHeight / 2 + 2);
+            scene.addView(new ButtonView(new Text("Dice"), false), Console.BufferWidth / 2, (Console.BufferHeight / 2) + 1);
+            scene.addView(new ButtonView(new Text("Exit"), false), Console.BufferWidth / 2, (Console.BufferHeight / 2) + 2);
         }
 
         public override void onClick(IClickable i)
         {
             ButtonView? button = i as ButtonView;
-            if(button == null)
+            if (button == null)
             {
                 return;
             }
-            if(button.Text.getContent() == "Crash")
+            if (button.Text.getContent() == "Crash")
             {
                 MenuManager.open(new CrashMenu());
             }

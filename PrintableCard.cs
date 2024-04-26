@@ -13,7 +13,7 @@ namespace NoahCardOutput
         /// <param name="type">color of the card</param>
         /// <param name="value">value of the card (numeric, king, etc)</param>
         /// <param name="hidden">should the card be on the back</param>
-        public PrintableCard (PrintableCardType type, PrintableCardValue value, bool hidden)
+        public PrintableCard(PrintableCardType type, PrintableCardValue value, bool hidden)
         {
             Type = type;
             Value = value;
@@ -37,7 +37,8 @@ namespace NoahCardOutput
             {
                 numberTop = Char.ToString((char)Value);
                 numberBottom = Char.ToString((char)Value);
-            } else
+            }
+            else
             {
                 numberTop = Convert.ToString((int)Value);
                 numberBottom = Convert.ToString((int)Value);
@@ -46,7 +47,7 @@ namespace NoahCardOutput
             numberBottom = numberBottom.PadRight(2, ' ');
 
             String color = "?";
-            switch(Type)
+            switch (Type)
             {
                 case PrintableCardType.Pik: { color = "♠"; break; }
                 case PrintableCardType.Kreuz: { color = "♣"; break; }
@@ -54,16 +55,16 @@ namespace NoahCardOutput
                 case PrintableCardType.Karo: { color = "♦"; break; }
             }
 
-            r[0]  = " ------------- ";
-            r[1]  = "|" + numberTop + color + "          |";
-            r[2]  = "|   -------   |";
-            r[3]  = "|  |       |  |";
-            r[4]  = "|  |       |  |";
-            r[5]  = "|  |       |  |";
-            r[6]  = "|  |       |  |";
-            r[7]  = "|  |       |  |";
-            r[8]  = "|  |       |  |";
-            r[9]  = "|  |       |  |";
+            r[0] = " ------------- ";
+            r[1] = "|" + numberTop + color + "          |";
+            r[2] = "|   -------   |";
+            r[3] = "|  |       |  |";
+            r[4] = "|  |       |  |";
+            r[5] = "|  |       |  |";
+            r[6] = "|  |       |  |";
+            r[7] = "|  |       |  |";
+            r[8] = "|  |       |  |";
+            r[9] = "|  |       |  |";
             r[10] = "|   -------   |";
             r[11] = "|          " + color + numberBottom + "|";
             r[12] = " ------------- ";
@@ -75,16 +76,16 @@ namespace NoahCardOutput
         {
             String[] r = new String[13];
 
-            r[0]  = " ------------- ";
-            r[1]  = "| * * * * * * |";
-            r[2]  = "|* * * * * * *|";
-            r[3]  = "| * * * * * * |";
-            r[4]  = "|* * * * * * *|";
-            r[5]  = "| * * * * * * |";
-            r[6]  = "|* * * * * * *|";
-            r[7]  = "| * * * * * * |";
-            r[8]  = "|* * * * * * *|";
-            r[9]  = "| * * * * * * |";
+            r[0] = " ------------- ";
+            r[1] = "| * * * * * * |";
+            r[2] = "|* * * * * * *|";
+            r[3] = "| * * * * * * |";
+            r[4] = "|* * * * * * *|";
+            r[5] = "| * * * * * * |";
+            r[6] = "|* * * * * * *|";
+            r[7] = "| * * * * * * |";
+            r[8] = "|* * * * * * *|";
+            r[9] = "| * * * * * * |";
             r[10] = "|* * * * * * *|";
             r[11] = "| * * * * * * |";
             r[12] = " ------------- ";
@@ -95,10 +96,11 @@ namespace NoahCardOutput
         private void addDesign(String[] inp)
         {
             char color = (char)Type;
-            
-            switch(Value)
+
+            switch (Value)
             {
-                case PrintableCardValue.BUB: {
+                case PrintableCardValue.BUB:
+                    {
                         inp[3] = setAt(inp[3], 4, color);
                         inp[6] = setAt(inp[6], 7, 'B');
                         inp[9] = setAt(inp[9], 10, color);
@@ -240,7 +242,8 @@ namespace NoahCardOutput
                 String[] r = addNumber();
                 addDesign(r);
                 return r;
-            } else
+            }
+            else
             {
                 return getHidden();
             }
@@ -252,9 +255,9 @@ namespace NoahCardOutput
             PrintableCardType type;
             PrintableCardValue value;
             int zahl;
-            switch(s[1])
+            switch (s[1])
             {
-                case "Pik": { type = PrintableCardType.Pik;break; }
+                case "Pik": { type = PrintableCardType.Pik; break; }
                 case "Kreuz": { type = PrintableCardType.Kreuz; break; }
                 case "Herz": { type = PrintableCardType.Herz; break; }
                 case "Karo": { type = PrintableCardType.Karo; break; }
@@ -263,10 +266,11 @@ namespace NoahCardOutput
 
             if (int.TryParse(s[0], out zahl))
             {
-                value = (PrintableCardValue) zahl;
-            } else
+                value = (PrintableCardValue)zahl;
+            }
+            else
             {
-                switch(s[0])
+                switch (s[0])
                 {
                     case "Bube": { value = PrintableCardValue.BUB; break; }
                     case "Dame": { value = PrintableCardValue.DAME; break; }
@@ -283,7 +287,8 @@ namespace NoahCardOutput
         {
             PrintableCard[] result = new PrintableCard[4 * 13];
             int i = 0;
-            foreach(PrintableCardType type in Enum.GetValues(typeof(PrintableCardType))) {
+            foreach (PrintableCardType type in Enum.GetValues(typeof(PrintableCardType)))
+            {
                 foreach (PrintableCardValue value in Enum.GetValues(typeof(PrintableCardValue)))
                 {
                     result[i++] = new PrintableCard(type, value, false);

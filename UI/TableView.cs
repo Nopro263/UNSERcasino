@@ -3,14 +3,19 @@
     internal class TableView : IView
     {
         protected Text[][] _data;
-        public TableView(Text[][] data) {
+        public TableView(Text[][] data)
+        {
             _data = data;
         }
 
+        /// <summary>
+        /// gets the longes values for each row in every column
+        /// </summary>
+        /// <returns>the longest values for each column</returns>
         private int[] getLongestValue()
         {
             int[] res = new int[_data.Length];
-            for(int i = 0; i < _data.Length; i++)
+            for (int i = 0; i < _data.Length; i++)
             {
                 res[i] = 0;
                 for (int j = 0; j < _data[i].Length; j++)
@@ -29,7 +34,7 @@
             int[] longestWords = getLongestValue();
             int offset = 0;
             int _x = 0;
-            
+
 
             for (int j = 0; j < _data.Length; j++)
             {
@@ -37,9 +42,9 @@
                 _x = 0;
                 for (int i = 0; i < column.Length; i++)
                 {
-                    if(i > 0)
+                    if (i > 0)
                     {
-                        _x = 1;
+                        _x = 1; // space between columns
                     }
                     for (int k = 0; k < column[i].getContent().Length; k++)
                     {
@@ -56,7 +61,7 @@
         {
             int[] v = getLongestValue();
             int max = 0;
-            for(int i = 0; i < v.Length; i++)
+            for (int i = 0; i < v.Length; i++)
             {
                 max += v[i];
             }
@@ -67,7 +72,7 @@
         public int getYSize()
         {
             int max = 0;
-            for(int i = 0; i < _data.Length; i++)
+            for (int i = 0; i < _data.Length; i++)
             {
                 if (_data[i].Length > max)
                 {
@@ -75,7 +80,7 @@
                 }
             }
 
-            return max+1;
+            return max + 1;
         }
     }
 }
