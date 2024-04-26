@@ -6,6 +6,7 @@
         public Menu()
         {
             scene = new Scene();
+            scene.addView(new PlayerBalanceView(), Flow.END, Flow.START);
         }
 
         public Scene GetScene()

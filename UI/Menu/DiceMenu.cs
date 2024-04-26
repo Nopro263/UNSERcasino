@@ -60,6 +60,8 @@ namespace UNSERcasino.UI.Menu
         public void roll()
         {
             _rollStopTime = DateTime.Now.AddSeconds(1);
+
+            CasinoManager.Instance.bet(_dice.Bet);
         }
 
         public void Update()
@@ -76,7 +78,7 @@ namespace UNSERcasino.UI.Menu
                         v += _dices[i].Value;
                     }
 
-                    Console.WriteLine(_dice.Play(v));
+                    CasinoManager.Instance.add(_dice.Play(v));
                     _diceSum.Text.setContent(v.ToString());
                 } else
                 {

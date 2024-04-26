@@ -35,7 +35,7 @@
 
         public void reset()
         {
-            _canvas.reset();
+            _canvas.resetAll();
         }
 
         public void onKey(ConsoleKeyInfo key)
