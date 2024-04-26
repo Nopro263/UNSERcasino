@@ -38,5 +38,15 @@
                 case 6: { canvas.print(x + 1, y + 1, 'o'); canvas.print(x + 7, y + 3, 'o'); canvas.print(x + 7, y + 1, 'o'); canvas.print(x + 1, y + 3, 'o'); canvas.print(x + 1, y + 2, 'o'); canvas.print(x + 7, y + 2, 'o'); break; }
             }
         }
+
+        public override int getXSize()
+        {
+            return 10;
+        }
+
+        public override int getYSize()
+        {
+            return 5;
+        }
     }
 }

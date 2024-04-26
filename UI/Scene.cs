@@ -22,6 +22,17 @@
             _views.Add(new ViewData(view, x, y));
         }
 
+        public void addView(BaseView view, Flow x, Flow y)
+        {
+            if (view is IClickable)
+            {
+                _currentButtonsIndex = _currentButtons.Count;
+                _currentButtons.Add(_views.Count);
+            }
+
+            _views.Add(new ViewData(view, x, y));
+        }
+
         public void reset()
         {
             _canvas.reset();
@@ -95,7 +106,7 @@
                     ((IClickable)_views[_currentButtons[_currentButtonsIndex]].BaseView).select();
                 }
 
-                vd.BaseView.printToCanvas(_canvas, vd.X, vd.Y);
+                vd.BaseView.printToCanvas(_canvas, vd.getX(_canvas.getWidth()), vd.getY(_canvas.getHeight()));
             }
 
             _canvas.show();
@@ -105,12 +116,59 @@
     internal class ViewData
     {
         public BaseView BaseView { get; private set; }
-        public int X { get; private set; }
-        public int Y { get; private set; }
+        public int getX(int maxX)
+        {
+            if(_x != null)
+            {
+                return (int)_x;
+            } else
+            {
+                if(_fx == Flow.START) { return 0; }
+                if (_fx == Flow.CENTER) { return (maxX - BaseView.getXSize()) / 2; }
+                if (_fx == Flow.END) { return maxX-BaseView.getXSize(); }
+
+                throw new NotImplementedException();
+            }
+        }
+
+        public int getY(int maxY)
+        {
+            if (_y != null)
+            {
+                return (int)_y;
+            }
+            else
+            {
+                if (_fy == Flow.START) { return 0; }
+                if (_fy == Flow.CENTER) { return (maxY - BaseView.getYSize()) / 2; }
+                if (_fy == Flow.END) { return maxY - BaseView.getYSize(); }
+
+                throw new NotImplementedException();
+            }
+        }
+
+        private int? _x;
+        private int? _y;
+
+        private Flow? _fx;
+        private Flow? _fy;
         public ViewData(BaseView view, int x, int y) {
             BaseView = view;
-            X = x;
-            Y = y;
+            _x = x;
+            _y = y;
         }
+        public ViewData(BaseView view, Flow x, Flow y)
+        {
+            BaseView = view;
+            _fx = x;
+            _fy = y;
+        }
+    }
+
+    internal enum Flow
+    {
+        START,
+        CENTER,
+        END
     }
 }

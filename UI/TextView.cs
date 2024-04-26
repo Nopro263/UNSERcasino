@@ -40,5 +40,15 @@
                 canvas.print(x, y, Text.getContent());
             }
         }
+
+        public override int getXSize()
+        {
+            return Text.getContent().Length;
+        }
+
+        public override int getYSize()
+        {
+            return 1;
+        }
     }
 }

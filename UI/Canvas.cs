@@ -15,6 +15,16 @@
         private int _width;
         private int _height;
 
+        public int getWidth()
+        {
+            return _width;
+        }
+
+        public int getHeight()
+        {
+            return _height;
+        }
+
         public Canvas(int width, int height)
         {
             _width = width;

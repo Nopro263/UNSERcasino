@@ -2,7 +2,7 @@
 {
     internal class TableView : BaseView
     {
-        private Text[][] _data;
+        protected Text[][] _data;
         public TableView(Text[][] data) {
             _data = data;
         }
@@ -50,6 +50,32 @@
 
                 offset += longestWords[j] + 2;
             }
+        }
+
+        public override int getXSize()
+        {
+            int[] v = getLongestValue();
+            int max = 0;
+            for(int i = 0; i < v.Length; i++)
+            {
+                max += v[i];
+            }
+
+            return max;
+        }
+
+        public override int getYSize()
+        {
+            int max = 0;
+            for(int i = 0; i < _data.Length; i++)
+            {
+                if (_data[i].Length > max)
+                {
+                    max = _data[i].Length;
+                }
+            }
+
+            return max+1;
         }
     }
 }
