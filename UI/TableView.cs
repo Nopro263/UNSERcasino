@@ -1,6 +1,6 @@
 ﻿namespace UNSERcasino.UI
 {
-    internal class TableView : BaseView
+    internal class TableView : IView
     {
         private Text[][] _data;
         public TableView(Text[][] data) {

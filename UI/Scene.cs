@@ -12,7 +12,7 @@
             _canvas = new Canvas(Console.BufferWidth, Console.BufferHeight);
         }
 
-        public void addView(BaseView view, int x, int y) {
+        public void addView(IView view, int x, int y) {
             if(view is IClickable)
             {
                 _currentButtonsIndex = _currentButtons.Count;
@@ -104,10 +104,10 @@
 
     internal class ViewData
     {
-        public BaseView BaseView { get; private set; }
+        public IView BaseView { get; private set; }
         public int X { get; private set; }
         public int Y { get; private set; }
-        public ViewData(BaseView view, int x, int y) {
+        public ViewData(IView view, int x, int y) {
             BaseView = view;
             X = x;
             Y = y;

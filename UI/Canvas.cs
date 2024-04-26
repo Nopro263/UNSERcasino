@@ -55,7 +55,7 @@
                 if (bg != null) { _bg2[x][y] = bg; }
             }
         }
-        public void print(int x, int y, BaseView view)
+        public void print(int x, int y, IView view)
         {
             view.printToCanvas(this, x, y);
         }

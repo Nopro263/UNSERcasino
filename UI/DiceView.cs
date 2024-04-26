@@ -1,6 +1,6 @@
 ﻿namespace UNSERcasino.UI
 {
-    internal class DiceView : BaseView
+    internal class DiceView : IView
     {
         private int _value;
         public int Value { 

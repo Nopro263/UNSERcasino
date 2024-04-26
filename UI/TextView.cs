@@ -1,6 +1,6 @@
 ﻿namespace UNSERcasino.UI
 {
-    internal class TextView : BaseView
+    internal class TextView : IView
     {
         public Text Text { get; private set; }
         public bool Vertical { get; private set; }
