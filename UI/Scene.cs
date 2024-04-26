@@ -12,7 +12,7 @@
             _canvas = new Canvas(Console.BufferWidth, Console.BufferHeight);
         }
 
-        public void addView(BaseView view, int x, int y) {
+        public void addView(IView view, int x, int y) {
             if(view is IClickable)
             {
                 _currentButtonsIndex = _currentButtons.Count;
@@ -22,7 +22,7 @@
             _views.Add(new ViewData(view, x, y));
         }
 
-        public void addView(BaseView view, Flow x, Flow y)
+        public void addView(IView view, Flow x, Flow y)
         {
             if (view is IClickable)
             {
@@ -115,7 +115,8 @@
 
     internal class ViewData
     {
-        public BaseView BaseView { get; private set; }
+
+        public IView BaseView { get; private set; }
         public int getX(int maxX)
         {
             if(_x != null)
@@ -152,12 +153,12 @@
 
         private Flow? _fx;
         private Flow? _fy;
-        public ViewData(BaseView view, int x, int y) {
+        public ViewData(IView view, int x, int y) {
             BaseView = view;
             _x = x;
             _y = y;
         }
-        public ViewData(BaseView view, Flow x, Flow y)
+        public ViewData(IView view, Flow x, Flow y)
         {
             BaseView = view;
             _fx = x;

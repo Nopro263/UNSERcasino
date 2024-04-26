@@ -1,6 +1,6 @@
 ﻿namespace UNSERcasino.UI
 {
-    internal class TableView : BaseView
+    internal class TableView : IView
     {
         protected Text[][] _data;
         public TableView(Text[][] data) {
@@ -24,7 +24,7 @@
 
             return res;
         }
-        public override void printToCanvas(Canvas canvas, int x, int y)
+        public void printToCanvas(Canvas canvas, int x, int y)
         {
             int[] longestWords = getLongestValue();
             int offset = 0;
@@ -52,7 +52,7 @@
             }
         }
 
-        public override int getXSize()
+        public int getXSize()
         {
             int[] v = getLongestValue();
             int max = 0;
@@ -64,7 +64,7 @@
             return max;
         }
 
-        public override int getYSize()
+        public int getYSize()
         {
             int max = 0;
             for(int i = 0; i < _data.Length; i++)

@@ -1,6 +1,6 @@
 ﻿namespace UNSERcasino.UI
 {
-    internal class DiceView : BaseView
+    internal class DiceView : IView
     {
         private int _value;
         public int Value { 
@@ -20,7 +20,7 @@
             Value = value;
         }
 
-        public override void printToCanvas(Canvas canvas, int x, int y)
+        public void printToCanvas(Canvas canvas, int x, int y)
         {
             canvas.print(x, y,   " ------- ");
             canvas.print(x, y+1, "|       |");
@@ -39,12 +39,12 @@
             }
         }
 
-        public override int getXSize()
+        public int getXSize()
         {
             return 10;
         }
 
-        public override int getYSize()
+        public int getYSize()
         {
             return 5;
         }

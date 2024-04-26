@@ -1,6 +1,6 @@
 ﻿namespace UNSERcasino.UI
 {
-    internal class TextView : BaseView
+    internal class TextView : IView
     {
         public Text Text { get; private set; }
         public bool Vertical { get; private set; }
@@ -12,7 +12,7 @@
             Selected = selected;
         }
 
-        public override void printToCanvas(Canvas canvas, int x, int y)
+        public virtual void printToCanvas(Canvas canvas, int x, int y)
         {
             ConsoleColor fg = Text.Fg;
             ConsoleColor bg = Text.Bg;
@@ -41,12 +41,12 @@
             }
         }
 
-        public override int getXSize()
+        public int getXSize()
         {
             return Text.getContent().Length;
         }
 
-        public override int getYSize()
+        public int getYSize()
         {
             return 1;
         }
