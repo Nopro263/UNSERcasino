@@ -1,6 +1,6 @@
 ﻿namespace UNSERcasino.UI
 {
-    internal class Text
+    internal class Text // Wrapper-class for using colored text.
     {
         private string _content;
         public ConsoleColor Bg;

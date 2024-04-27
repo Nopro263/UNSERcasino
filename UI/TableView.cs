@@ -1,16 +1,21 @@
 ﻿namespace UNSERcasino.UI
 {
-    internal class TableView : BaseView
+    internal class TableView : IView
     {
-        private Text[][] _data;
-        public TableView(Text[][] data) {
+        protected Text[][] _data;
+        public TableView(Text[][] data)
+        {
             _data = data;
         }
 
+        /// <summary>
+        /// gets the longes values for each row in every column
+        /// </summary>
+        /// <returns>the longest values for each column</returns>
         private int[] getLongestValue()
         {
             int[] res = new int[_data.Length];
-            for(int i = 0; i < _data.Length; i++)
+            for (int i = 0; i < _data.Length; i++)
             {
                 res[i] = 0;
                 for (int j = 0; j < _data[i].Length; j++)
@@ -24,12 +29,12 @@
 
             return res;
         }
-        public override void printToCanvas(Canvas canvas, int x, int y)
+        public void printToCanvas(Canvas canvas, int x, int y)
         {
             int[] longestWords = getLongestValue();
             int offset = 0;
             int _x = 0;
-            
+
 
             for (int j = 0; j < _data.Length; j++)
             {
@@ -37,9 +42,9 @@
                 _x = 0;
                 for (int i = 0; i < column.Length; i++)
                 {
-                    if(i > 0)
+                    if (i > 0)
                     {
-                        _x = 1;
+                        _x = 1; // space between columns
                     }
                     for (int k = 0; k < column[i].getContent().Length; k++)
                     {
@@ -50,6 +55,32 @@
 
                 offset += longestWords[j] + 2;
             }
+        }
+
+        public int getXSize()
+        {
+            int[] v = getLongestValue();
+            int max = 0;
+            for (int i = 0; i < v.Length; i++)
+            {
+                max += v[i];
+            }
+
+            return max;
+        }
+
+        public int getYSize()
+        {
+            int max = 0;
+            for (int i = 0; i < _data.Length; i++)
+            {
+                if (_data[i].Length > max)
+                {
+                    max = _data[i].Length;
+                }
+            }
+
+            return max + 1;
         }
     }
 }
