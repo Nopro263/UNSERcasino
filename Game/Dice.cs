@@ -22,7 +22,7 @@
         private double calculateMultiplier(int x)
         {
             double xnew = ScaleInput(x);
-            double houseAdvantage = 0.02; // 2%
+            double houseAdvantage = 0.02; // 2% house advantage
             double winchance = 100 - x;
             double multiplier = 0;
 
