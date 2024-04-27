@@ -4,9 +4,10 @@
     {
         public MainMenu() : base()
         {
-            scene.addView(new ButtonView(new Text("Crash"), false), Console.BufferWidth / 2, Console.BufferHeight / 2);
-            scene.addView(new ButtonView(new Text("Dice"), false), Console.BufferWidth / 2, (Console.BufferHeight / 2) + 1);
-            scene.addView(new ButtonView(new Text("Exit"), false), Console.BufferWidth / 2, (Console.BufferHeight / 2) + 2);
+            scene.addView(new ButtonView(new Text("Crash"), false), Flow.CENTER, Flow.CENTER);
+            scene.addView(new ButtonView(new Text("Dice"), false), Flow.CENTER, Flow.CENTER, 0, 1);
+            scene.addView(new ButtonView(new Text("Poker"), false), Flow.CENTER, Flow.CENTER, 0, 2);
+            scene.addView(new ButtonView(new Text("Exit"), false), Flow.CENTER, Flow.CENTER, 0, 3);
         }
 
         public override void onClick(IClickable i)
@@ -23,6 +24,10 @@
             if (button.Text.getContent() == "Dice")
             {
                 MenuManager.open(new DiceMenu());
+            }
+            if (button.Text.getContent() == "Poker")
+            {
+                MenuManager.open(new PokerMenu());
             }
             if (button.Text.getContent() == "Exit")
             {
