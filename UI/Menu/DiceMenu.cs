@@ -20,37 +20,37 @@ namespace UNSERcasino.UI.Menu
         {
             const int col = 4;
             const int row = 3;
-            int x = Console.BufferWidth / 2 - (col * 10 / 2);
-            int y = Console.BufferHeight / 2 - (row * 6 / 2);
+            int x = (Console.BufferWidth / 2) - (col * 10 / 2);
+            int y = (Console.BufferHeight / 2) - (row * 6 / 2);
 
             _dice = new Dice();
 
             _random = new Random();
             _dices = new DiceView[row * col];
             _diceSum = new TextView(new Text("??"), false, false);
-            _betSlider = new SliderView(12, 72, col * 10 - 3);
+            _betSlider = new SliderView(12, 72, (col * 10) - 3);
             _textInput = new TextInputView(false, 5);
 
             _over = new ButtonView(new Text("Over"), false);
             _under = new ButtonView(new Text("Under"), false);
 
-            scene.addView(_diceSum, Console.BufferWidth / 2-1, y-1);
+            scene.addView(_diceSum, (Console.BufferWidth / 2) - 1, y - 1);
             scene.addView(_over, 0, 0);
             scene.addView(_under, 0, 1);
             scene.addView(_textInput, 0, 2);
 
-            for (int i  = 0; i < _dices.Length; i++)
+            for (int i = 0; i < _dices.Length; i++)
             {
                 _dices[i] = new DiceView(1);
                 scene.addView(_dices[i], x, y);
                 x += 10;
-                if((i+1) % 4 == 0)
+                if ((i + 1) % 4 == 0)
                 {
-                    x = Console.BufferWidth / 2 - (col * 10 / 2);
+                    x = (Console.BufferWidth / 2) - (col * 10 / 2);
                     y += 6;
                 }
             }
-            
+
 
             scene.addView(_betSlider, x, y);
 
@@ -60,25 +60,28 @@ namespace UNSERcasino.UI.Menu
         public void roll()
         {
             _rollStopTime = DateTime.Now.AddSeconds(1);
+
+            CasinoManager.Instance.bet(_dice.Bet);
         }
 
         public void Update()
         {
             TimeUtil.OnlyEvery(0.05, this);
-            if(_rollStopTime != null)
+            if (_rollStopTime != null)
             {
-                if(_rollStopTime < DateTime.Now)
+                if (_rollStopTime < DateTime.Now)
                 {
                     _rollStopTime = null;
                     int v = 0;
-                    for(int i = 0; i < _dices.Length; i++)
+                    for (int i = 0; i < _dices.Length; i++)
                     {
                         v += _dices[i].Value;
                     }
 
-                    Console.WriteLine(_dice.Play(v));
+                    CasinoManager.Instance.add(_dice.Play(v));
                     _diceSum.Text.setContent(v.ToString());
-                } else
+                }
+                else
                 {
                     _diceSum.Text.setContent("??");
                     for (int i = 0; i < _dices.Length; i++)
@@ -95,11 +98,11 @@ namespace UNSERcasino.UI.Menu
         public override void onClick(IClickable i)
         {
             int x = 0;
-            if(_rollStopTime == null)
+            if (_rollStopTime == null)
             {
-                if(i == _over)
+                if (i == _over)
                 {
-                    if(int.TryParse(_textInput.FullContent, out x) && x > 1)
+                    if (int.TryParse(_textInput.FullContent, out x) && x > 1)
                     {
                         _dice.Bet = x;
                         _dice.Over = true;
@@ -109,7 +112,7 @@ namespace UNSERcasino.UI.Menu
                     }
                 }
 
-                if(i == _under)
+                if (i == _under)
                 {
                     if (int.TryParse(_textInput.FullContent, out x) && x > 1)
                     {

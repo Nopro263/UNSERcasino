@@ -2,74 +2,91 @@
 {
     internal class Canvas
     {
-        private char?[][] _data1;
+        private char?[][] _data1; // The data we are building
         private ConsoleColor?[][] _fg1;
         private ConsoleColor?[][] _bg1;
 
-        private char?[][] _data2;
-        private ConsoleColor?[][] _fg2;
-        private ConsoleColor?[][] _bg2;
-
-        private bool _first;
+        private char?[][] _currentView; // The currently shown data
+        private ConsoleColor?[][] _currentFg;
+        private ConsoleColor?[][] _currentBg;
 
         private int _width;
         private int _height;
+
+        public int getWidth()
+        {
+            return _width;
+        }
+
+        public int getHeight()
+        {
+            return _height;
+        }
 
         public Canvas(int width, int height)
         {
             _width = width;
             _height = height;
 
-            _first = true;
-
             _data1 = new char?[width][];
-            _data2 = new char?[width][];
+            _currentView = new char?[width][];
             _fg1 = new ConsoleColor?[width][];
-            _fg2 = new ConsoleColor?[width][];
+            _currentFg = new ConsoleColor?[width][];
             _bg1 = new ConsoleColor?[width][];
-            _bg2 = new ConsoleColor?[width][];
+            _currentBg = new ConsoleColor?[width][];
 
-            reset();
+            resetAll();
         }
 
+
+        /// <summary>
+        /// print [c] at [x],[y]
+        /// </summary>
+        /// <param name="x">X-pos</param>
+        /// <param name="y">Y-pos</param>
+        /// <param name="c">char to print</param>
         public void print(int x, int y, char c)
         {
-            if (_first)
-            {
-                _data1[x][y] = c;
-            } else
-            {
-                _data2[x][y] = c;
-            }
+            _data1[x][y] = c;
         }
 
         public void setColor(int x, int y, ConsoleColor? fg = null, ConsoleColor? bg = null)
         {
-            if (_first)
-            {
-                if (fg != null) { _fg1[x][y] = fg; }
-                if (bg != null) { _bg1[x][y] = bg; }
-            } else
-            {
-                if (fg != null) { _fg2[x][y] = fg; }
-                if (bg != null) { _bg2[x][y] = bg; }
-            }
+            if (fg != null) { _fg1[x][y] = fg; }
+            if (bg != null) { _bg1[x][y] = bg; }
         }
-        public void print(int x, int y, BaseView view)
+        /// <summary>
+        /// print a view to this canvas. (calls printToCanvas)
+        /// </summary>
+        /// <param name="x">X-pos</param>
+        /// <param name="y">Y-pos</param>
+        /// <param name="view">view to print</param>
+        public void print(int x, int y, IView view)
         {
             view.printToCanvas(this, x, y);
         }
 
 
-
+        /// <summary>
+        /// print a string horizontal
+        /// </summary>
+        /// <param name="x">X-pos</param>
+        /// <param name="y">Y-pos</param>
+        /// <param name="s">string to print</param>
         public void print(int x, int y, string s)
         {
-            for(int i = 0; i < s.Length; i++)
+            for (int i = 0; i < s.Length; i++)
             {
-                print(x+i, y, s[i]);
+                print(x + i, y, s[i]);
             }
         }
 
+        /// <summary>
+        /// print a string vertical
+        /// </summary>
+        /// <param name="x">X-pos</param>
+        /// <param name="y">Y-pos</param>
+        /// <param name="s">string to print</param>
         public void printVertical(int x, int y, string s)
         {
             for (int i = 0; i < s.Length; i++)
@@ -78,7 +95,10 @@
             }
         }
 
-        public void reset()
+        /// <summary>
+        /// reset the buffer for our current output
+        /// </summary>
+        public void resetWorking()
         {
             for (int i = 0; i < _width; i++)
             {
@@ -86,15 +106,6 @@
                 for (int j = 0; j < _height; j++)
                 {
                     _data1[i][j] = null;
-                }
-            }
-
-            for (int i = 0; i < _width; i++)
-            {
-                _data2[i] = new char?[_height];
-                for (int j = 0; j < _height; j++)
-                {
-                    _data2[i][j] = null;
                 }
             }
 
@@ -109,36 +120,59 @@
 
             for (int i = 0; i < _width; i++)
             {
-                _fg2[i] = new ConsoleColor?[_height];
-                for (int j = 0; j < _height; j++)
-                {
-                    _fg2[i][j] = null;
-                }
-            }
-
-
-            for (int i = 0; i < _width; i++)
-            {
                 _bg1[i] = new ConsoleColor?[_height];
                 for (int j = 0; j < _height; j++)
                 {
                     _bg1[i][j] = null;
                 }
             }
+        }
+
+        /// <summary>
+        /// reset the buffer of the previous outputed values
+        /// </summary>
+        public void resetCurrent()
+        {
+            for (int i = 0; i < _width; i++)
+            {
+                _currentView[i] = new char?[_height];
+                for (int j = 0; j < _height; j++)
+                {
+                    _currentView[i][j] = null;
+                }
+            }
 
             for (int i = 0; i < _width; i++)
             {
-                _bg2[i] = new ConsoleColor?[_height];
+                _currentFg[i] = new ConsoleColor?[_height];
                 for (int j = 0; j < _height; j++)
                 {
-                    _bg2[i][j] = null;
+                    _currentFg[i][j] = null;
                 }
             }
+
+            for (int i = 0; i < _width; i++)
+            {
+                _currentBg[i] = new ConsoleColor?[_height];
+                for (int j = 0; j < _height; j++)
+                {
+                    _currentBg[i][j] = null;
+                }
+            }
+        }
+
+        public void resetAll()
+        {
+            resetWorking();
+            resetCurrent();
 
             Console.BackgroundColor = ConsoleColor.Black;
             Console.ForegroundColor = ConsoleColor.White;
         }
 
+        /// <summary>
+        /// print the canvas to screen
+        /// </summary>
         public void show()
         {
             int imax = _data1.Length;
@@ -151,19 +185,13 @@
                     ConsoleColor? fg;
                     ConsoleColor? bg;
 
-                    if(_first)
-                    {
-                        d = _data1[i][j];
-                        fg = _fg1[i][j];
-                        bg = _bg1[i][j];
-                    } else
-                    {
-                        d = _data2[i][j];
-                        fg = _fg2[i][j];
-                        bg = _bg2[i][j];
-                    }
+                    d = _data1[i][j];
+                    fg = _fg1[i][j];
+                    bg = _bg1[i][j];
 
-                    if (d != null && (_data1[i][j] != _data2[i][j] || _fg1[i][j] != _fg2[i][j] || _bg1[i][j] != _bg2[i][j]))
+                    if (_data1[i][j] != _currentView[i][j] ||
+                        _fg1[i][j] != _currentFg[i][j] ||
+                        _bg1[i][j] != _currentBg[i][j]) // sth. has changed
                     {
                         Console.CursorLeft = i;
                         Console.CursorTop = j;
@@ -171,24 +199,39 @@
                         if (bg != null)
                         {
                             Console.BackgroundColor = (ConsoleColor)bg;
-                        } else
+                            _currentBg[i][j] = bg;
+                        }
+                        else
                         {
                             Console.BackgroundColor = ConsoleColor.Black;
+                            _currentBg[i][j] = ConsoleColor.Black;
                         }
                         if (fg != null)
                         {
                             Console.ForegroundColor = (ConsoleColor)fg;
-                        } else
+                            _currentFg[i][j] = fg;
+                        }
+                        else
                         {
                             Console.ForegroundColor = ConsoleColor.White;
+                            _currentFg[i][j] = ConsoleColor.White;
                         }
 
-                        Console.Write(d);
+                        if (d != null)
+                        {
+                            Console.Write(d);
+                            _currentView[i][j] = d;
+                        }
+                        else
+                        {
+                            Console.Write(' ');
+                            _currentView[i][j] = null;
+                        }
                     }
                 }
             }
 
-            _first = !_first;
+            resetWorking();
         }
     }
 }

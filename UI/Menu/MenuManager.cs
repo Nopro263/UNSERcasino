@@ -15,12 +15,14 @@
             Console.Clear();
         }
 
-        public static void close() {
-            if(stack.Count == 1)
+        public static void close()
+        {
+            if (stack.Count == 1) // last menu open?
             {
                 getTopMenu().onHide();
                 Environment.Exit(0);
-            } else
+            }
+            else
             {
                 getTopMenu().onHide();
 

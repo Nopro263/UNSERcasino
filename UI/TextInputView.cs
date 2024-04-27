@@ -3,14 +3,20 @@ namespace UNSERcasino.UI
 {
     internal class TextInputView : TextView, IKeyListener
     {
-        public string FullContent { get {
+        public string FullContent // The content the user has inputed
+        {
+            get
+            {
                 return _fullContent;
-            } set {
+            }
+            set
+            {
                 _fullContent = value;
-            } }
+            }
+        }
 
         private string _fullContent;
-        private int _maxLen;
+        private int _maxLen; // the max len in X direction
         public TextInputView(bool vertical, int maxLen) : base(new Text("###", ConsoleColor.White, ConsoleColor.DarkGray), vertical, false)
         {
             _fullContent = "";
@@ -26,7 +32,7 @@ namespace UNSERcasino.UI
 
         public void onClick()
         {
-            
+
         }
 
         public void onKey(ConsoleKeyInfo key)
@@ -35,15 +41,16 @@ namespace UNSERcasino.UI
             {
                 if (_fullContent.Length > 0)
                 {
-                    _fullContent = _fullContent.Substring(0, _fullContent.Length - 1);
-                } else
+                    _fullContent = _fullContent.Substring(0, _fullContent.Length - 1); // remove the last Element
+                }
+                else
                 {
                     _fullContent = "";
                 }
             }
             else
             {
-                _fullContent += key.KeyChar.ToString();
+                _fullContent += key.KeyChar.ToString(); // add it
             }
         }
 
@@ -55,13 +62,16 @@ namespace UNSERcasino.UI
         public override void printToCanvas(Canvas canvas, int x, int y)
         {
             string content;
-            if(_fullContent.Length > _maxLen)
+            // Bring the string to _maxLen.
+            if (_fullContent.Length > _maxLen)
             {
                 content = _fullContent.Substring(_fullContent.Length - _maxLen, _maxLen);
-            } else if(_fullContent.Length < _maxLen)
+            }
+            else if (_fullContent.Length < _maxLen)
             {
                 content = _fullContent + new string(' ', _maxLen - _fullContent.Length);
-            } else
+            }
+            else
             {
                 content = _fullContent;
             }

@@ -1,5 +1,4 @@
-﻿using NoahCardOutput;
-using System.Text;
+﻿using System.Text;
 using UNSERcasino.UI;
 
 namespace UNSERcasino
@@ -15,16 +14,17 @@ namespace UNSERcasino
             do
             {
                 Scene scene1 = UI.Menu.MenuManager.getTopMenu().GetScene();
-                if(UI.Menu.MenuManager.getTopMenu() is IUpdateable)
+                if (UI.Menu.MenuManager.getTopMenu() is IUpdateable)
                 {
                     try
                     {
                         ((IUpdateable)UI.Menu.MenuManager.getTopMenu()).Update();
-                    } catch (SkipThisUpdateException) {}
+                    }
+                    catch (SkipThisUpdateException) { }
                 }
                 scene1.print();
 
-                if(Console.KeyAvailable)
+                if (Console.KeyAvailable)
                 {
                     scene1.onKey(Console.ReadKey(true));
                 }

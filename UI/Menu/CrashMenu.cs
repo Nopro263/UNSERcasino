@@ -11,6 +11,8 @@
             scene.addView(new ButtonView(new Text("Bet"), false), 10, 11);
 
             scene.addView(new TextInputView(false, 10), 20, 0);
+
+            scene.addView(new CardView(new Card(CardValue.ASS, CardType.Herz, false)), Flow.CENTER, Flow.CENTER);
         }
 
         public void Update()
