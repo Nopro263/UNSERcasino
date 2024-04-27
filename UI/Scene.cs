@@ -15,16 +15,14 @@
 
         public void addView(IView view, int x, int y)
         {
-            if (view is IClickable)
-            {
-                _currentButtonsIndex = _currentButtons.Count;
-                _currentButtons.Add(_views.Count);
-            }
-
-            _views.Add(new ViewData(view, x, y)); // ViewData combined View and position
+            addView(view, Flow.START, Flow.START, x, y);
+        }
+        public void addView(IView view, Flow x, Flow y)
+        {
+            addView(view, x, y, 0, 0);
         }
 
-        public void addView(IView view, Flow x, Flow y)
+        public void addView(IView view, Flow xo, Flow yo, int x, int y)
         {
             if (view is IClickable)
             {
@@ -32,7 +30,7 @@
                 _currentButtons.Add(_views.Count);
             }
 
-            _views.Add(new ViewData(view, x, y));
+            _views.Add(new ViewData(view, xo, yo, x, y));
         }
 
         public void reset()
@@ -124,52 +122,42 @@
         public IView BaseView { get; private set; }
         public int getX(int maxX)
         {
-            if (_x != null)
-            {
-                return (int)_x;
-            }
-            else // calculate position with getXSize
-            {
-                if (_fx == Flow.START) { return 0; }
-                if (_fx == Flow.CENTER) { return (maxX - BaseView.getXSize()) / 2; }
-                if (_fx == Flow.END) { return maxX - BaseView.getXSize(); }
+            if (_fx == Flow.START) { return _x; }
+            if (_fx == Flow.CENTER) { return (maxX - BaseView.getXSize()) / 2 + _x; }
+            if (_fx == Flow.END) { return maxX - BaseView.getXSize() + _x; }
 
-                throw new NotImplementedException();
-            }
+            throw new NotImplementedException();
         }
 
         public int getY(int maxY)
         {
-            if (_y != null)
-            {
-                return (int)_y;
-            }
-            else // calculate position with getYSize
-            {
-                if (_fy == Flow.START) { return 0; }
-                if (_fy == Flow.CENTER) { return (maxY - BaseView.getYSize()) / 2; }
-                if (_fy == Flow.END) { return maxY - BaseView.getYSize(); }
+            if (_fy == Flow.START) { return _y; }
+            if (_fy == Flow.CENTER) { return (maxY - BaseView.getYSize()) / 2 + _y; }
+            if (_fy == Flow.END) { return maxY - BaseView.getYSize() + _y; }
 
-                throw new NotImplementedException();
-            }
+            throw new NotImplementedException();
         }
 
-        private int? _x;
-        private int? _y;
+        private int _x;
+        private int _y;
 
-        private Flow? _fx;
-        private Flow? _fy;
+        private Flow _fx;
+        private Flow _fy;
         public ViewData(IView view, int x, int y)
         {
             BaseView = view;
             _x = x;
             _y = y;
+            _fx = Flow.START;
+            _fy = Flow.START;
         }
-        public ViewData(IView view, Flow x, Flow y)
+        public ViewData(IView view, Flow xo, Flow yo, int x, int y)
         {
             BaseView = view;
-            _fx = x;
-            _fy = y;
+            _fx = xo;
+            _fy = yo;
+            _x = x;
+            _y = y;
         }
     }
 

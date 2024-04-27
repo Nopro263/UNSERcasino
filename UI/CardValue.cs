@@ -43,5 +43,10 @@
         public static readonly CardValue DAME = new CardValue('D');
         public static readonly CardValue KOENIG = new CardValue('K');
         public static readonly CardValue ASS = new CardValue('A');
+
+        public static CardValue[] GetValues()
+        {
+            return new CardValue[] { ZWEI, DREI, VIER, FUENF, SECHS, SIEBEN, ACHT, NEUN, ZEHN, BUB, DAME, KOENIG, ASS };
+        }
     }
 }

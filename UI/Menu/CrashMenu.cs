@@ -3,6 +3,7 @@
     internal class CrashMenu : Menu, IUpdateable
     {
         private DiceView _view;
+        private Card _card;
         public CrashMenu() : base()
         {
             _view = new DiceView(1);
@@ -12,7 +13,9 @@
 
             scene.addView(new TextInputView(false, 10), 20, 0);
 
-            scene.addView(new CardView(new Card(CardValue.ASS, CardType.Herz, false)), Flow.CENTER, Flow.CENTER);
+            _card = new Card(CardValue.ASS, CardType.Herz, false);
+
+            scene.addView(new CardView(_card), Flow.CENTER, Flow.CENTER);
         }
 
         public void Update()
@@ -24,6 +27,8 @@
                 nval = 1;
             }
             _view.Value = nval;
+
+            _card.Hidden = !_card.Hidden;
         }
     }
 }
