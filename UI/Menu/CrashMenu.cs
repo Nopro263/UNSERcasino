@@ -12,7 +12,7 @@
 
             scene.addView(new TextInputView(false, 10), 20, 0);
 
-            scene.addView(new PlayerBalanceView(), Flow.CENTER, Flow.CENTER);
+            scene.addView(new CardView(new Card(CardValue.ASS, CardType.Herz, false)), Flow.CENTER, Flow.CENTER);
         }
 
         public void Update()
