@@ -78,10 +78,13 @@
 
                 default:
                     {
-                        if (_views[_currentButtons[_currentButtonsIndex]].BaseView is IKeyListener)
+                        if (_currentButtonsIndex >= 0)
                         {
-                            IKeyListener keyListener = (IKeyListener)_views[_currentButtons[_currentButtonsIndex]].BaseView; // else call onKey
-                            keyListener.onKey(key);
+                            if (_views[_currentButtons[_currentButtonsIndex]].BaseView is IKeyListener)
+                            {
+                                IKeyListener keyListener = (IKeyListener)_views[_currentButtons[_currentButtonsIndex]].BaseView; // else call onKey
+                                keyListener.onKey(key);
+                            }
                         }
                         break;
                     }
