@@ -5,11 +5,24 @@
         private string _content;
         public ConsoleColor Bg;
         public ConsoleColor Fg;
-        public Text(string content, ConsoleColor fg = ConsoleColor.White, ConsoleColor bg = ConsoleColor.Black)
+        public Text(string content, ConsoleColor? fg = null, ConsoleColor? bg = null)
         {
             _content = content;
-            Fg = fg;
-            Bg = bg;
+            if (fg != null)
+            {
+                Fg = (ConsoleColor)fg;
+            } else
+            {
+                Fg = Canvas.FOREGROUND;
+            }
+
+            if (bg != null)
+            {
+                Bg = (ConsoleColor)bg;
+            } else
+            {
+                Bg = Canvas.BACKGROUND;
+            }
         }
 
         public string getContent()

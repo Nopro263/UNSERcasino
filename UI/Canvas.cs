@@ -13,8 +13,8 @@
         private int _width;
         private int _height;
 
-        private static readonly ConsoleColor FOREGROUND = ConsoleColor.White;
-        private static readonly ConsoleColor BACKGROUND = ConsoleColor.Black;
+        public static readonly ConsoleColor FOREGROUND = ConsoleColor.White;
+        public static readonly ConsoleColor BACKGROUND = ConsoleColor.Black;
 
         public int getWidth()
         {
