@@ -204,7 +204,7 @@
                         else
                         {
                             Console.BackgroundColor = ConsoleColor.Black;
-                            _currentBg[i][j] = ConsoleColor.Black;
+                            _currentBg[i][j] = null;
                         }
                         if (fg != null)
                         {
@@ -214,7 +214,7 @@
                         else
                         {
                             Console.ForegroundColor = ConsoleColor.White;
-                            _currentFg[i][j] = ConsoleColor.White;
+                            _currentFg[i][j] = null;
                         }
 
                         if (d != null)
