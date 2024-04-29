@@ -11,8 +11,20 @@ namespace UNSERcasino
 
             UI.Menu.MenuManager.open(new UI.Menu.MainMenu());
 
+
+            int fps = 0;
+            int sec = DateTime.Now.Second;
+            int updateFps = 0;
+
+            bool showFps = false;
             do
             {
+                if(sec != DateTime.Now.Second)
+                {
+                    sec = DateTime.Now.Second;
+                    updateFps = fps;
+                    fps = 0;
+                }
                 Scene scene1 = UI.Menu.MenuManager.getTopMenu().GetScene();
                 if (UI.Menu.MenuManager.getTopMenu() is IUpdateable)
                 {
@@ -22,7 +34,8 @@ namespace UNSERcasino
                     }
                     catch (SkipThisUpdateException) { }
                 }
-                scene1.print();
+                scene1.print(updateFps, showFps);
+                fps++;
 
                 if (Console.KeyAvailable)
                 {
