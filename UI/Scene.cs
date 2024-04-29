@@ -8,6 +8,8 @@
 
         private Canvas _canvas;
 
+        private int _fps = 0;
+
         public Scene()
         {
             _canvas = new Canvas(Console.BufferWidth, Console.BufferHeight); // Create Canvas
@@ -78,17 +80,20 @@
 
                 default:
                     {
-                        if (_views[_currentButtons[_currentButtonsIndex]].BaseView is IKeyListener)
+                        if (_currentButtonsIndex >= 0)
                         {
-                            IKeyListener keyListener = (IKeyListener)_views[_currentButtons[_currentButtonsIndex]].BaseView; // else call onKey
-                            keyListener.onKey(key);
+                            if (_views[_currentButtons[_currentButtonsIndex]].BaseView is IKeyListener)
+                            {
+                                IKeyListener keyListener = (IKeyListener)_views[_currentButtons[_currentButtonsIndex]].BaseView; // else call onKey
+                                keyListener.onKey(key);
+                            }
                         }
                         break;
                     }
             }
         }
 
-        public void print()
+        public void print(int? fps, bool showFps)
         {
             Console.CursorVisible = false;
 
@@ -110,6 +115,16 @@
                 }
 
                 vd.BaseView.printToCanvas(_canvas, vd.getX(_canvas.getWidth()), vd.getY(_canvas.getHeight()));
+            }
+
+            if(fps != null)
+            {
+                _fps = (int)fps;
+            }
+
+            if (showFps)
+            {
+                _canvas.print(0, 0, new TextView(new Text(_fps.ToString()), false, true));
             }
 
             _canvas.show();
