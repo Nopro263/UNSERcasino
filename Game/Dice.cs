@@ -17,7 +17,7 @@
             return ((input - InputMin) / (InputMax - InputMin)) * (OutputMax - OutputMin) + OutputMin;
         }
 
-        private double calculateMultiplier(int x)
+        private double CalculateMultiplier(int x)
         {
             double xnew = ScaleInput(x);
             double winchance;
@@ -43,14 +43,14 @@
             {
                 if (randomValue > Value) // Win
                 {
-                    result = Bet * calculateMultiplier(Value);
+                    result = Bet * CalculateMultiplier(Value);
                 }
             }
             else
             {
                 if (randomValue < Value) // Win
                 {
-                    result = Bet * calculateMultiplier(Value);
+                    result = Bet * CalculateMultiplier(Value);
                 }
             }
 
