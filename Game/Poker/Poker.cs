@@ -4,22 +4,26 @@ namespace UNSERcasino.Game.Poker
 {
     internal class Poker
     {
-        public Card[] Hand { get; private set; }
         public Card[] DealerHand { get; private set; }
 
+        public int Pot { get; private set; }
+
         private Stack<Card> _cards;
+        public List<PokerPlayer> Players { get; private set; }
+
+        public PokerPlayer Me { get; private set; }
 
         public Poker()
         {
+            Players = new List<PokerPlayer>();
+
             Card[] c = Card.GetCards();
             shuffle(c);
 
             _cards = new Stack<Card>(c);
 
-            Hand = new Card[] {
-                _cards.Pop(),
-                _cards.Pop()
-            };
+            Me = createPlayer("Noah");
+            createPlayer("Emilio");
 
             DealerHand = new Card[] {
                 _cards.Pop(),
@@ -28,6 +32,20 @@ namespace UNSERcasino.Game.Poker
                 _cards.Pop(),
                 _cards.Pop()
             };
+
+            Pot = 100;
+        }
+
+        public PokerPlayer createPlayer(string name)
+        {
+            Card[] hand = new Card[] {
+                _cards.Pop(),
+                _cards.Pop()
+            };
+
+            PokerPlayer player = new PokerPlayer(name, name.Length, hand);
+            Players.Add(player);
+            return player;
         }
 
         private static void shuffle(Card[] cards)
