@@ -2,7 +2,7 @@
 
 namespace UNSERcasino
 {
-    internal class Card
+    internal class Card : IComparable<Card>
     {
         public CardValue CardValue { get; set; }
         public CardType CardType { get; set; }
@@ -36,6 +36,11 @@ namespace UNSERcasino
         private static CardType[] GetTypes()
         {
             return new CardType[] {CardType.Pik, CardType.Kreuz, CardType.Herz, CardType.Karo};
+        }
+
+        public int CompareTo(Card? other)
+        {
+            return CardValue.Rating - other.CardValue.Rating;
         }
     }
 }

@@ -4,6 +4,19 @@
     {
         private int? _value;
         private char? _char;
+
+        public int Rating {  get
+            {
+                if(_value != null) return _value.Value;
+                switch(_char)
+                {
+                    case 'B': return 11;
+                    case 'D': return 12;
+                    case 'K': return 13;
+                    case 'A': return 1;
+                }
+                return 0;
+            } }
         private CardValue(int v) {
             _value = v;
         }
@@ -47,6 +60,14 @@
         public static CardValue[] GetValues()
         {
             return new CardValue[] { ZWEI, DREI, VIER, FUENF, SECHS, SIEBEN, ACHT, NEUN, ZEHN, BUB, DAME, KOENIG, ASS };
+        }
+
+        public override bool Equals(object? obj)
+        {
+            return obj != null &&
+                obj.GetType() == this.GetType() &&
+                this._value == ((CardValue)obj)._value &&
+                this._char == ((CardValue)obj)._char;
         }
     }
 }

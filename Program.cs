@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using UNSERcasino.Game.Poker;
 using UNSERcasino.UI;
 
 namespace UNSERcasino

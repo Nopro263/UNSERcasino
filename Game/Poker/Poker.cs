@@ -1,4 +1,5 @@
 ﻿using System.Security.Cryptography;
+using UNSERcasino.UI;
 
 namespace UNSERcasino.Game.Poker
 {
@@ -34,6 +35,8 @@ namespace UNSERcasino.Game.Poker
             };
 
             Pot = 100;
+
+            PokerEvaluator.evaluateHand(DealerHand, Me.Hand);
         }
 
         public PokerPlayer createPlayer(string name)

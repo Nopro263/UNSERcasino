@@ -43,6 +43,10 @@ namespace UNSERcasino.UI.Menu
             scene.addView(new TextView(_potText, false, true), Flow.CENTER, Flow.CENTER);
             scene.addView(new TableView(_opponents), Flow.START, Flow.END);
 
+            scene.addView(new ButtonView(new Text("Fold"), false), Flow.END, Flow.END, -12, 0);
+            scene.addView(new ButtonView(new Text("Raise"), false), Flow.END, Flow.END, -6, 0);
+            scene.addView(new ButtonView(new Text("Check"), false), Flow.END, Flow.END, 0, 0);
+
             renderOpponents();
         }
 
