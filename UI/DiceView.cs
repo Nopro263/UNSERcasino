@@ -26,11 +26,14 @@
 
         public void printToCanvas(Canvas canvas, int x, int y)
         {
-            canvas.print(x, y, " ------- ");
-            canvas.print(x, y + 1, "|       |");
-            canvas.print(x, y + 2, "|       |");
-            canvas.print(x, y + 3, "|       |");
-            canvas.print(x, y + 4, " ------- "); // Base Framework
+            canvas.print(x+1, y, "-------");
+            canvas.print(x, y + 1, '|');
+            canvas.print(x, y + 2, '|');
+            canvas.print(x, y + 3, '|');
+            canvas.print(x+8, y + 1, '|');
+            canvas.print(x+8, y + 2, '|');
+            canvas.print(x+8, y + 3, '|');
+            canvas.print(x+1, y + 4, "-------"); // Base Framework
 
             switch (Value) // print the eyes
             {

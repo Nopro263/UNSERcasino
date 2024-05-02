@@ -13,6 +13,9 @@
         private int _width;
         private int _height;
 
+        public static readonly ConsoleColor FOREGROUND = ConsoleColor.White;
+        public static readonly ConsoleColor BACKGROUND = ConsoleColor.Black;
+
         public int getWidth()
         {
             return _width;
@@ -52,8 +55,8 @@
 
         public void setColor(int x, int y, ConsoleColor? fg = null, ConsoleColor? bg = null)
         {
-            if (fg != null) { _fg1[x][y] = fg; }
-            if (bg != null) { _bg1[x][y] = bg; }
+            if (fg != null && fg != FOREGROUND) { _fg1[x][y] = fg; }
+            if (bg != null && bg != BACKGROUND) { _bg1[x][y] = bg; }
         }
         /// <summary>
         /// print a view to this canvas. (calls printToCanvas)
@@ -166,8 +169,8 @@
             resetWorking();
             resetCurrent();
 
-            Console.BackgroundColor = ConsoleColor.Black;
-            Console.ForegroundColor = ConsoleColor.White;
+            Console.BackgroundColor = BACKGROUND;
+            Console.ForegroundColor = FOREGROUND;
         }
 
         /// <summary>
@@ -203,8 +206,8 @@
                         }
                         else
                         {
-                            Console.BackgroundColor = ConsoleColor.Black;
-                            _currentBg[i][j] = ConsoleColor.Black;
+                            Console.BackgroundColor = BACKGROUND;
+                            _currentBg[i][j] = null;
                         }
                         if (fg != null)
                         {
@@ -213,8 +216,8 @@
                         }
                         else
                         {
-                            Console.ForegroundColor = ConsoleColor.White;
-                            _currentFg[i][j] = ConsoleColor.White;
+                            Console.ForegroundColor = FOREGROUND;
+                            _currentFg[i][j] = null;
                         }
 
                         if (d != null)

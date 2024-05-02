@@ -28,7 +28,7 @@ namespace UNSERcasino.UI.Menu
             _random = new Random();
             _dices = new DiceView[row * col];
             _diceSum = new TextView(new Text("??"), false, false);
-            _betSlider = new SliderView(12, 72, (col * 10) - 3);
+            _betSlider = new SliderView(14, 70, (col * 10) - 3);
             _textInput = new TextInputView(false, 5);
 
             _over = new ButtonView(new Text("Over"), false);
