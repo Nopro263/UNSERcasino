@@ -52,9 +52,13 @@
                 case ConsoleKey.UpArrow:
                     {
                         if (_currentButtonsIndex - 1 < 0) { break; }
-                        ((IClickable)_views[_currentButtons[_currentButtonsIndex]].BaseView).deselect(); // Deselect the curret
-                        _currentButtonsIndex--;
-                        ((IClickable)_views[_currentButtons[_currentButtonsIndex]].BaseView).select(); // Select the previous
+                        if (_views[_currentButtons[_currentButtonsIndex]].BaseView.canSelectNext())
+                        {
+                            ((IClickable)_views[_currentButtons[_currentButtonsIndex]].BaseView).deselect(); // Deselect the curret
+                            _currentButtonsIndex--;
+                            ((IClickable)_views[_currentButtons[_currentButtonsIndex]].BaseView).select(); // Select the previous
+                            return;
+                        }
                         break;
                     }
                 case ConsoleKey.DownArrow:
@@ -62,9 +66,13 @@
                         if (_currentButtonsIndex + 1 >= _currentButtons.Count) { break; }
                         if (_currentButtonsIndex >= 0)
                         {
-                            ((IClickable)_views[_currentButtons[_currentButtonsIndex]].BaseView).deselect(); // Deselect the curret
-                            _currentButtonsIndex++;
-                            ((IClickable)_views[_currentButtons[_currentButtonsIndex]].BaseView).select(); // Select the next
+                            if (_views[_currentButtons[_currentButtonsIndex]].BaseView.canSelectPrev())
+                            {
+                                ((IClickable)_views[_currentButtons[_currentButtonsIndex]].BaseView).deselect(); // Deselect the curret
+                                _currentButtonsIndex++;
+                                ((IClickable)_views[_currentButtons[_currentButtonsIndex]].BaseView).select(); // Select the next
+                                return;
+                            }
                         }
                         break;
                     }
@@ -74,22 +82,19 @@
                         {
                             ((IClickable)_views[_currentButtons[_currentButtonsIndex]].BaseView).onClick();
                             UI.Menu.MenuManager.getTopMenu().onClick((IClickable)_views[_currentButtons[_currentButtonsIndex]].BaseView); // Let the top menu handle this
+                            return;
                         }
                         break;
                     }
+            }
 
-                default:
-                    {
-                        if (_currentButtonsIndex >= 0)
-                        {
-                            if (_views[_currentButtons[_currentButtonsIndex]].BaseView is IKeyListener)
-                            {
-                                IKeyListener keyListener = (IKeyListener)_views[_currentButtons[_currentButtonsIndex]].BaseView; // else call onKey
-                                keyListener.onKey(key);
-                            }
-                        }
-                        break;
-                    }
+            if (_currentButtonsIndex >= 0)
+            {
+                if (_views[_currentButtons[_currentButtonsIndex]].BaseView is IKeyListener)
+                {
+                    IKeyListener keyListener = (IKeyListener)_views[_currentButtons[_currentButtonsIndex]].BaseView; // else call onKey
+                    keyListener.onKey(key);
+                }
             }
         }
 
