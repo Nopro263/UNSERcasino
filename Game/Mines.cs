@@ -2,13 +2,25 @@
 {
     internal class Mines
     {
-        private bool[][] SafeOrNot = new bool[5][]; // True -> No Mine | False -> Mine
+        private int[][] SafeOrNot = new int[5][]; // True -> No Mine | False -> Mine ----------> NOW: 0 -> No Mine | 1 -> Revealed | 2 -> Mine
         private int _revealedDiamonds;
         private int _mineAmount;
 
         public Mines()
         {
-            for (int i = 0; i < 5; i++) { SafeOrNot[i] = new bool[5]; }
+            for (int i = 0; i < 5; i++) { SafeOrNot[i] = new int[5]; }
+        }
+
+        public double Play(int x, int y)
+        {
+            if (CheckTile(x, y))
+            {
+                return CalcMultiplier();
+            }
+            else
+            {
+                return 0;
+            }
         }
 
         private void PlantMines()
@@ -19,9 +31,9 @@
             {
                 int x = random.Next(1, 5);
                 int y = random.Next(1, 5);
-                if (SafeOrNot[x][y] == true)
+                if (SafeOrNot[x][y] == 0)
                 {
-                    SafeOrNot[x][y] = false;
+                    SafeOrNot[x][y] = 2;
                     minecount++;
                 }
             }
@@ -29,9 +41,10 @@
 
         private bool CheckTile(int x, int y)
         {
-            if (SafeOrNot[x][y] == true)
+            if (SafeOrNot[x][y] == 0)
             {
                 _revealedDiamonds++;
+                SafeOrNot[x][y] = 1;
                 return true;
             }
             else
