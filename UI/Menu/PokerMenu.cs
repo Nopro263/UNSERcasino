@@ -7,6 +7,10 @@ namespace UNSERcasino.UI.Menu
         private Poker _poker;
         private Text _potText;
         private Text[][] _opponents;
+
+        private Text btFold;
+        private Text btRaise;
+        private Text btCheck;
         public PokerMenu() : base() {
             _poker = new Poker();
 
@@ -43,9 +47,13 @@ namespace UNSERcasino.UI.Menu
             scene.addView(new TextView(_potText, false, true), Flow.CENTER, Flow.CENTER);
             scene.addView(new TableView(_opponents), Flow.START, Flow.END);
 
-            scene.addView(new ButtonView(new Text("Fold"), false), Flow.END, Flow.END, -12, 0);
-            scene.addView(new ButtonView(new Text("Raise"), false), Flow.END, Flow.END, -6, 0);
-            scene.addView(new ButtonView(new Text("Check"), false), Flow.END, Flow.END, 0, 0);
+            btFold = new Text("Fold");
+            btCheck = new Text("Check");
+            btRaise = new Text("Raise");
+
+            scene.addView(new ButtonView(btFold, false), Flow.END, Flow.END, -12, 0);
+            scene.addView(new ButtonView(btRaise, false), Flow.END, Flow.END, -6, 0);
+            scene.addView(new ButtonView(btCheck, false), Flow.END, Flow.END, 0, 0);
 
             renderOpponents();
         }
@@ -59,7 +67,14 @@ namespace UNSERcasino.UI.Menu
             foreach(PokerPlayer player in _poker.Players)
             {
                 players[i].setContent(player.Name);
-                bets[i].setContent(player.Bet.ToString());
+                if (player.Folded)
+                {
+                    bets[i].setContent("-");
+                }
+                else
+                {
+                    bets[i].setContent(player.Bet.ToString());
+                }
                 i++;
             }
         }
@@ -68,6 +83,52 @@ namespace UNSERcasino.UI.Menu
         {
             renderOpponents();
             _potText.setContent($"Pot: {_poker.Pot}");
+
+            if(!_poker.isCurrentMe)
+            {
+                btFold.Fg = ConsoleColor.DarkGray;
+                btCheck.Fg = ConsoleColor.DarkGray;
+                btRaise.Fg = ConsoleColor.DarkGray;
+            } else
+            {
+                btFold.Fg = Canvas.FOREGROUND;
+                btCheck.Fg = Canvas.FOREGROUND;
+                btRaise.Fg = Canvas.FOREGROUND;
+            }
+
+            if(_poker.Ended)
+            {
+                MenuManager.close();
+            }
+        }
+
+        public override void onClick(IClickable button)
+        {
+            base.onClick(button);
+
+            ButtonView? bv = button as ButtonView;
+
+            if (bv != null)
+            {
+                switch(bv.Text.getContent())
+                {
+                    case "Fold":
+                        {
+                            _poker.Me.Fold();
+                            break;
+                        }
+                    case "Raise":
+                        {
+                            _poker.Me.Raise(5);
+                            break;
+                        }
+                    case "Check":
+                        {
+                            _poker.Me.Check();
+                            break;
+                        }
+                    }
+            }
         }
     }
 }
