@@ -5,7 +5,7 @@
         protected Scene scene;
         public Menu()
         {
-            scene = new Scene();
+            scene = new Scene(this);
             scene.addView(new PlayerBalanceView(), Flow.END, Flow.START); // Put the players balance top-right.
         }
 

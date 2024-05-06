@@ -1,4 +1,6 @@
-﻿namespace UNSERcasino.UI
+﻿using UNSERcasino.UI.Menu;
+
+namespace UNSERcasino.UI
 {
     internal class Scene
     {
@@ -9,10 +11,12 @@
         private Canvas _canvas;
 
         private int _fps = 0;
+        private Menu.Menu _menu;
 
-        public Scene()
+        public Scene(Menu.Menu menu)
         {
             _canvas = new Canvas(Console.BufferWidth, Console.BufferHeight); // Create Canvas
+            _menu = menu;
         }
 
         public void addView(IView view, int x, int y)
@@ -102,7 +106,7 @@
         {
             Console.CursorVisible = false;
 
-            foreach (ViewData vd in _views)
+            foreach(ViewData vd in _views)
             {
                 if (vd.BaseView is IUpdateable) // Update the updateable
                 {
@@ -113,6 +117,15 @@
                     }
                     catch (SkipThisUpdateException) { }
                 }
+            }
+
+            if(MenuManager.getTopMenu() != _menu)
+            {
+                return;
+            }
+
+            foreach (ViewData vd in _views)
+            {
 
                 if (_currentButtonsIndex >= 0)
                 {
