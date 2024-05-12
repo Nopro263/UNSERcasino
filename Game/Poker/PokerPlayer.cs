@@ -59,5 +59,10 @@
 
         }
 
+        public virtual void OnWin(int win)
+        {
+
+        }
+
     }
 }

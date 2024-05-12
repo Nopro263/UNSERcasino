@@ -15,5 +15,12 @@
         {
             CasinoManager.Instance.bet(_game.CurrentBet - Bet);
         }
+
+        public override void OnWin(int win)
+        {
+            base.OnWin(win);
+
+            CasinoManager.Instance.add(win);
+        }
     }
 }
