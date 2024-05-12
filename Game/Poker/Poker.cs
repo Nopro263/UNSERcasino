@@ -23,7 +23,7 @@ namespace UNSERcasino.Game.Poker
         {
             get
             {
-                return Me == Current;
+                return !Ended && Me == Current;
             }
         }
 
@@ -31,7 +31,7 @@ namespace UNSERcasino.Game.Poker
         {
             get
             {
-                return Players[currentPlayer];
+                return AlivePlayers[currentPlayer];
             }
         }
 
@@ -53,6 +53,8 @@ namespace UNSERcasino.Game.Poker
 
             Me = createBalancedPlayer();
             createBotPlayer("Emilio");
+            createBotPlayer("Jonas");
+            createBotPlayer("Tim");
 
             DealerHand = new Card[] {
                 _cards.Pop(),
@@ -109,6 +111,8 @@ namespace UNSERcasino.Game.Poker
             if (AlivePlayers.Count == 1)
             {
                 Ended = true;
+                AlivePlayers[0].OnWin(Pot);
+                Pot = 0;
                 return;
             }
 
@@ -147,7 +151,6 @@ namespace UNSERcasino.Game.Poker
             if (player != Current) { throw new NotYouException(); }
             CurrentBet = CurrentBet + change;
             player.Bet += change;
-
             next();
         }
 

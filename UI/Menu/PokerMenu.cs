@@ -23,6 +23,7 @@ namespace UNSERcasino.UI.Menu
                     new Text("Player"),
                     new Text(""),
                     new Text(""),
+                    new Text(""),
                     new Text("")
                 },
                 new Text[]
@@ -31,6 +32,7 @@ namespace UNSERcasino.UI.Menu
                     new Text(""),
                     new Text(""),
                     new Text(""),
+                    new Text("")
                 }
             };
 
@@ -74,6 +76,16 @@ namespace UNSERcasino.UI.Menu
                 else
                 {
                     bets[i].setContent(player.Bet.ToString());
+                }
+
+                if(!_poker.Ended && _poker.Current == player)
+                {
+                    bets[i].Bg = ConsoleColor.DarkYellow;
+                    players[i].Bg = ConsoleColor.DarkYellow;
+                } else
+                {
+                    bets[i].Bg = Canvas.BACKGROUND;
+                    players[i].Bg = Canvas.BACKGROUND;
                 }
                 i++;
             }
