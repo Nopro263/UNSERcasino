@@ -7,6 +7,8 @@ namespace UNSERcasino.UI.Menu
         private Poker _poker;
         private Text _potText;
         private Text[][] _opponents;
+        private CardView _card1;
+        private CardView _card2;
 
         private Text btFold;
         private Text btRaise;
@@ -36,9 +38,12 @@ namespace UNSERcasino.UI.Menu
                 }
             };
 
+            _card1 = new CardView(_poker.Me.Hand[0]);
+            _card2 = new CardView(_poker.Me.Hand[1]);
 
-            scene.addView(new CardView(_poker.Me.Hand[0]), Flow.CENTER, Flow.END, -15/2-1, 0);
-            scene.addView(new CardView(_poker.Me.Hand[1]), Flow.CENTER, Flow.END, 15/2+1, 0);
+
+            scene.addView(_card1, Flow.CENTER, Flow.END, -15/2-1, 0);
+            scene.addView(_card2, Flow.CENTER, Flow.END, 15/2+1, 0);
 
             scene.addView(new CardView(_poker.DealerHand[0]), Flow.CENTER, Flow.START, -32, 0);
             scene.addView(new CardView(_poker.DealerHand[1]), Flow.CENTER, Flow.START, -16, 0);
@@ -112,6 +117,9 @@ namespace UNSERcasino.UI.Menu
             {
                 MenuManager.close();
             }
+
+            _card1.Card = _poker.Me.Hand[0];
+            _card2.Card = _poker.Me.Hand[1];
         }
 
         public override void onClick(IClickable button)

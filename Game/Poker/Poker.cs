@@ -15,7 +15,14 @@ namespace UNSERcasino.Game.Poker
         public List<PokerPlayer> Players { get; private set; }
         public List<PokerPlayer> AlivePlayers { get; private set; }
 
-        public PokerPlayer Me { get; private set; }
+        //public PokerPlayer Me { get; private set; }
+        public PokerPlayer Me
+        {
+            get
+            {
+                return Current;
+            }
+        }
 
         private int indexOfLastRaise;
 
@@ -51,10 +58,14 @@ namespace UNSERcasino.Game.Poker
             currentPlayer = 0;
             indexOfLastRaise = 0;
 
-            Me = createBalancedPlayer();
+            /*Me = createBalancedPlayer();
             createBotPlayer("Emilio");
             createBotPlayer("Jonas");
-            createBotPlayer("Tim");
+            createBotPlayer("Tim");*/
+            createBalancedPlayer();
+            createPlayer();
+            createPlayer();
+            createPlayer();
 
             DealerHand = new Card[] {
                 _cards.Pop(),
@@ -65,6 +76,19 @@ namespace UNSERcasino.Game.Poker
             };
 
             Pot = 100;
+        }
+
+        private PokerPlayer createPlayer()
+        {
+            Card[] hand = new Card[] {
+                _cards.Pop(),
+                _cards.Pop()
+            };
+
+            PokerPlayer player = new PokerPlayer(this, "Test", 0, hand);
+            Players.Add(player);
+            AlivePlayers.Add(player);
+            return player;
         }
 
         private PokerPlayer createBalancedPlayer()
@@ -120,6 +144,7 @@ namespace UNSERcasino.Game.Poker
 
             if(currentPlayer == indexOfLastRaise) // Round complete
             {
+                CurrentBet = 0;
                 foreach(PokerPlayer player in AlivePlayers)
                 {
                     Pot += player.Bet;
@@ -146,12 +171,15 @@ namespace UNSERcasino.Game.Poker
             next();
         }
 
-        public void raise(PokerPlayer player, int change)
+        public int raise(PokerPlayer player, int change)
         {
             if (player != Current) { throw new NotYouException(); }
             CurrentBet = CurrentBet + change;
-            player.Bet += change;
+            int v = CurrentBet - player.Bet;
+            player.Bet = CurrentBet;
             next();
+
+            return v;
         }
 
         public void check(PokerPlayer player)

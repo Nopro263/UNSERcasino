@@ -33,7 +33,7 @@
             if (Folded) { return; }
             try
             {
-                _game.raise(this, addedAmount);
+                addedAmount = _game.raise(this, addedAmount);
                 _raise(addedAmount);
             }
             catch (NotYouException) { }
