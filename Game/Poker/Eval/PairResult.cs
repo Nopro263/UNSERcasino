@@ -1,6 +1,6 @@
 ﻿namespace UNSERcasino.Game.Poker.Eval
 {
-    internal class PairResult : Result, IEquatable<PairResult>
+    internal class PairResult : Result
     {
         private Card[] _cards;
         private PairResult(Card c1, Card c2)
@@ -42,11 +42,6 @@
             }
 
             return pairs;
-        }
-
-        public bool Equals(PairResult? other)
-        {
-            throw new NotImplementedException();
         }
     }
 }
