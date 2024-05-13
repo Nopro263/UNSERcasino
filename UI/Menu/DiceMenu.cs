@@ -102,7 +102,7 @@ namespace UNSERcasino.UI.Menu
             {
                 if (i == _over)
                 {
-                    if (int.TryParse(_textInput.FullContent, out x) && x > 1)
+                    if (int.TryParse(_textInput.FullContent, out x) && x >= 1)
                     {
                         _dice.Bet = x;
                         _dice.Over = true;
