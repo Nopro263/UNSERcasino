@@ -1,4 +1,5 @@
 ﻿using UNSERcasino.Game.Poker;
+using UNSERcasino.Game.Poker.Eval;
 
 namespace UNSERcasino.UI.Menu
 {
@@ -120,6 +121,8 @@ namespace UNSERcasino.UI.Menu
 
             _card1.Card = _poker.Me.Hand[0];
             _card2.Card = _poker.Me.Hand[1];
+
+           
         }
 
         public override void onClick(IClickable button)
@@ -130,7 +133,8 @@ namespace UNSERcasino.UI.Menu
 
             if (bv != null)
             {
-                switch(bv.Text.getContent())
+                Evaluator.Eval(_poker.DealerHand, _poker.Me.Hand);
+                switch (bv.Text.getContent())
                 {
                     case "Fold":
                         {
