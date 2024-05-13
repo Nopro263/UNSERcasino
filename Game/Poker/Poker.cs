@@ -177,17 +177,23 @@ namespace UNSERcasino.Game.Poker
             CurrentBet = CurrentBet + change;
             int v = CurrentBet - player.Bet;
             player.Bet = CurrentBet;
+
+            indexOfLastRaise = currentPlayer;
+
             next();
 
             return v;
         }
 
-        public void check(PokerPlayer player)
+        public int check(PokerPlayer player)
         {
             if (player != Current) { throw new NotYouException(); }
+            int v = CurrentBet - player.Bet;
             player.Bet = CurrentBet;
 
             next();
+
+            return v;
         }
     }
 }
