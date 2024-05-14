@@ -1,4 +1,6 @@
-﻿namespace UNSERcasino.Game.Poker.Eval
+﻿using UNSERcasino.UI;
+
+namespace UNSERcasino.Game.Poker.Eval
 {
     internal class Evaluator
     {
@@ -26,8 +28,39 @@
 
             result.AddRange(PairResult.GetPairs(cards));
             result.AddRange(TripletResult.GetTriplets(cards));
+            result.AddRange(StraightResult.GetStraights(cards));
 
             return result;
+        }
+
+        public static bool containsType(Card[] cards, CardType type)
+        {
+            foreach(Card card in cards)
+            {
+                if(card.CardType == type) return true;
+            }
+
+            return false;
+        }
+
+        public static bool containsValue(Card[] cards, CardValue value)
+        {
+            foreach (Card card in cards)
+            {
+                if (card.CardValue == value) return true;
+            }
+
+            return false;
+        }
+
+        public static bool containsCard(Card[] cards, Card c)
+        {
+            foreach (Card card in cards)
+            {
+                if (card.CardType == c.CardType && card.CardValue == c.CardValue) return true;
+            }
+
+            return false;
         }
     }
 }
