@@ -31,8 +31,9 @@ namespace UNSERcasino.Game.Poker.Eval
             result.AddRange(pairs);
             result.AddRange(TripletResult.GetTriplets(cards));
             result.AddRange(TwoPairResult.GetTwoPairs(pairs));
+            result.AddRange(QuadrupletResult.GetQuadruplets(cards));
             result.AddRange(StraightResult.GetStraights(cards));
-            result.AddRange(FlushResult.GetFlushes(cards));
+            result.AddRange(FlushResult.GetFlushes(cards)); 
 
             return result;
         }
