@@ -20,7 +20,7 @@ namespace UNSERcasino.Game.Poker.Eval
 
             Card[] cards = Evaluator.allOfType(_cards, cardType);
 
-            for(int i = 0; i < cards.Length - 5; i++)
+            for(int i = 0; i <= cards.Length - 5; i++)
             {
                 pairs.Add(new FlushResult(new List<Card>(cards).GetRange(i, 5).ToArray()));
             }
