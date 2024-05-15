@@ -14,6 +14,11 @@ namespace UNSERcasino.Game.Poker.Eval
                 }
 
                 //Console.WriteLine();
+
+                if(res is TwoPairResult)
+                {
+                    Console.WriteLine(res);
+                }
             }
         }
 
@@ -26,8 +31,11 @@ namespace UNSERcasino.Game.Poker.Eval
 
             List<Result> result = new List<Result>();
 
-            result.AddRange(PairResult.GetPairs(cards));
+            List<PairResult> pairs = PairResult.GetPairs(cards);
+
+            result.AddRange(pairs);
             result.AddRange(TripletResult.GetTriplets(cards));
+            result.AddRange(TwoPairResult.GetTwoPairs(pairs));
             result.AddRange(StraightResult.GetStraights(cards));
 
             return result;
