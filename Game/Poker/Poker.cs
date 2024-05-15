@@ -135,6 +135,7 @@ namespace UNSERcasino.Game.Poker
             if (AlivePlayers.Count == 1)
             {
                 Ended = true;
+                currentPlayer = 0;
                 AlivePlayers[0].OnWin(Pot);
                 Pot = 0;
                 return;
@@ -167,6 +168,8 @@ namespace UNSERcasino.Game.Poker
             {
                 c.Hidden = true;
             }
+
+            currentPlayer--;
 
             next();
         }
