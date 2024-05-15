@@ -15,7 +15,7 @@ namespace UNSERcasino.Game.Poker.Eval
 
                 //Console.WriteLine();
 
-                if(res is TwoPairResult)
+                if(res is FlushResult)
                 {
                     Console.WriteLine(res);
                 }
@@ -37,6 +37,7 @@ namespace UNSERcasino.Game.Poker.Eval
             result.AddRange(TripletResult.GetTriplets(cards));
             result.AddRange(TwoPairResult.GetTwoPairs(pairs));
             result.AddRange(StraightResult.GetStraights(cards));
+            result.AddRange(FlushResult.GetFlushes(cards));
 
             return result;
         }
@@ -49,6 +50,21 @@ namespace UNSERcasino.Game.Poker.Eval
             }
 
             return false;
+        }
+
+        public static Card[] allOfType(Card[] cards, CardType type)
+        {
+
+            List<Card> cards1 = new List<Card>();
+            foreach(Card card in cards)
+            {
+                if(card.CardType == type)
+                {
+                    cards1.Add(card);
+                }
+            }
+
+            return cards1.ToArray();
         }
 
         public static bool containsValue(Card[] cards, CardValue value)
