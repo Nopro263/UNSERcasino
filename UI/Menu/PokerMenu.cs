@@ -14,7 +14,8 @@ namespace UNSERcasino.UI.Menu
         private Text btFold;
         private Text btRaise;
         private Text btCheck;
-        public PokerMenu() : base() {
+        public PokerMenu() : base()
+        {
             _poker = new Poker();
 
             _potText = new Text("Pot: ");
@@ -43,8 +44,8 @@ namespace UNSERcasino.UI.Menu
             _card2 = new CardView(_poker.Me.Hand[1]);
 
 
-            scene.addView(_card1, Flow.CENTER, Flow.END, -15/2-1, 0);
-            scene.addView(_card2, Flow.CENTER, Flow.END, 15/2+1, 0);
+            scene.addView(_card1, Flow.CENTER, Flow.END, -15 / 2 - 1, 0);
+            scene.addView(_card2, Flow.CENTER, Flow.END, 15 / 2 + 1, 0);
 
             scene.addView(new CardView(_poker.DealerHand[0]), Flow.CENTER, Flow.START, -32, 0);
             scene.addView(new CardView(_poker.DealerHand[1]), Flow.CENTER, Flow.START, -16, 0);
@@ -59,9 +60,9 @@ namespace UNSERcasino.UI.Menu
             btCheck = new Text("Check");
             btRaise = new Text("Raise");
 
-            scene.addView(new ButtonView(btFold, false), Flow.END, Flow.END, -12, 0);
-            scene.addView(new ButtonView(btRaise, false), Flow.END, Flow.END, -6, 0);
-            scene.addView(new ButtonView(btCheck, false), Flow.END, Flow.END, 0, 0);
+            scene.addView(new ButtonView(btCheck, false), Flow.END, Flow.END, 0, -2);
+            scene.addView(new ButtonView(btRaise, false), Flow.END, Flow.END, 0, -1);
+            scene.addView(new ButtonView(btFold, false), Flow.END, Flow.END, 0, 0);
 
             renderOpponents();
         }
@@ -72,7 +73,7 @@ namespace UNSERcasino.UI.Menu
             Text[] bets = _opponents[1];
 
             int i = 1;
-            foreach(PokerPlayer player in _poker.Players)
+            foreach (PokerPlayer player in _poker.Players)
             {
                 players[i].setContent(player.Name);
                 if (player.Folded)
@@ -84,11 +85,12 @@ namespace UNSERcasino.UI.Menu
                     bets[i].setContent(player.Bet.ToString());
                 }
 
-                if(!_poker.Ended && _poker.Current == player)
+                if (!_poker.Ended && _poker.Current == player)
                 {
                     bets[i].Bg = ConsoleColor.DarkYellow;
                     players[i].Bg = ConsoleColor.DarkYellow;
-                } else
+                }
+                else
                 {
                     bets[i].Bg = Canvas.BACKGROUND;
                     players[i].Bg = Canvas.BACKGROUND;
@@ -102,19 +104,20 @@ namespace UNSERcasino.UI.Menu
             renderOpponents();
             _potText.setContent($"Pot: {_poker.Pot}");
 
-            if(!_poker.isCurrentMe)
+            if (!_poker.isCurrentMe)
             {
                 btFold.Fg = ConsoleColor.DarkGray;
                 btCheck.Fg = ConsoleColor.DarkGray;
                 btRaise.Fg = ConsoleColor.DarkGray;
-            } else
+            }
+            else
             {
                 btFold.Fg = Canvas.FOREGROUND;
                 btCheck.Fg = Canvas.FOREGROUND;
                 btRaise.Fg = Canvas.FOREGROUND;
             }
 
-            if(_poker.Ended)
+            if (_poker.Ended)
             {
                 MenuManager.close();
             }
@@ -122,7 +125,7 @@ namespace UNSERcasino.UI.Menu
             _card1.Card = _poker.Me.Hand[0];
             _card2.Card = _poker.Me.Hand[1];
 
-           
+
         }
 
         public override void onClick(IClickable button)
@@ -151,7 +154,7 @@ namespace UNSERcasino.UI.Menu
                             _poker.Me.Check();
                             break;
                         }
-                    }
+                }
             }
         }
     }
