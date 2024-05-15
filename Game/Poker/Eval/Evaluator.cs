@@ -14,11 +14,6 @@ namespace UNSERcasino.Game.Poker.Eval
                 }
 
                 //Console.WriteLine();
-
-                if(res is FlushResult)
-                {
-                    Console.WriteLine(res);
-                }
             }
         }
 
