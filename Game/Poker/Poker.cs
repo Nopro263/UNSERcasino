@@ -16,6 +16,8 @@ namespace UNSERcasino.Game.Poker
         public List<PokerPlayer> Players { get; private set; }
         public List<PokerPlayer> AlivePlayers { get; private set; }
 
+        private int _state = 0;
+
         //public PokerPlayer Me { get; private set; }
         public PokerPlayer Me
         {
@@ -75,6 +77,11 @@ namespace UNSERcasino.Game.Poker
                 _cards.Pop(),
                 _cards.Pop()
             };
+
+            foreach(Card ca in DealerHand)
+            {
+                ca.Hidden = true;
+            }
 
             Pot = 100;
         }
@@ -143,11 +150,41 @@ namespace UNSERcasino.Game.Poker
             }
 
             currentPlayer = (currentPlayer + 1) % AlivePlayers.Count;
+            indexOfLastRaise++;
 
-            if(currentPlayer == indexOfLastRaise) // Round complete
+            if(indexOfLastRaise == AlivePlayers.Count) // Round complete
             {
                 CurrentBet = 0;
-                foreach(PokerPlayer player in AlivePlayers)
+                indexOfLastRaise = 0;
+                _state++;
+
+                switch(_state)
+                {
+                    case 1: 
+                        {
+                            DealerHand[0].Hidden = false;
+                            DealerHand[1].Hidden = false;
+                            DealerHand[2].Hidden = false;
+                            break;
+                        }
+                    case 2:
+                        {
+                            DealerHand[3].Hidden = false;
+                            break;
+                        }
+                    case 3:
+                        {
+                            DealerHand[4].Hidden = false;
+                            break;
+                        }
+                    case 4:
+                        {
+                            Ended = true;
+                            break;
+                        }
+                }
+
+                foreach (PokerPlayer player in AlivePlayers)
                 {
                     if(Ended)
                     {
@@ -176,6 +213,7 @@ namespace UNSERcasino.Game.Poker
             }
 
             currentPlayer--;
+            indexOfLastRaise--;
 
             next();
         }
@@ -187,7 +225,7 @@ namespace UNSERcasino.Game.Poker
             int v = CurrentBet - player.Bet;
             player.Bet = CurrentBet;
 
-            indexOfLastRaise = currentPlayer;
+            indexOfLastRaise = 0;
 
             next();
 
