@@ -22,7 +22,7 @@
             {
                 foreach (PairResult pair2 in pairs)
                 {
-                    if (!pair.Equals(pair2))
+                    if (!pair.Equals(pair2) && !tpr.Contains(new TwoPairResult(pair, pair2)))
                     {
                         tpr.Add(new TwoPairResult(pair, pair2));
                     }
@@ -30,6 +30,11 @@
             }
 
             return tpr;
+        }
+
+        protected override int GetRanking()
+        {
+            return 8;
         }
     }
 }

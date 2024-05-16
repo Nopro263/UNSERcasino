@@ -46,5 +46,10 @@
 
             return pairs;
         }
+
+        protected override int GetRanking()
+        {
+            return 7;
+        }
     }
 }

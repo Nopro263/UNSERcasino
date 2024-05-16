@@ -4,17 +4,44 @@ namespace UNSERcasino.Game.Poker.Eval
 {
     internal class Evaluator
     {
-        public static void Eval(Card[] dealer, Card[] hand)
+        public static List<Result> Eval(Card[] dealer, Card[] hand)
         {
-            foreach(Result res in InternalEval(dealer, hand))
-            {
-                foreach(Card card in res.GetCards()) 
-                {
-                    //Console.Write(card.CardValue);
-                }
+            List<Result> results = InternalEval(dealer, hand);
 
-                //Console.WriteLine();
+            return results;
+        }
+
+        private static List<Result> allWithCard(List<Result> results, Card card)
+        {
+            return results.FindAll((Result r) => {
+                return r.GetCards().Contains(card);
+            });
+        }
+
+        private static List<Result> removeAllDoubleUses(List<Result> results, Card[] cards)
+        {
+            results.Sort();
+
+            foreach (Card card in cards) {
+                List<Result> res = allWithCard(results, card);
+                res.Sort();
+
+                foreach(Result res2 in res)
+                {
+                    if(res2 == res.First())
+                    {
+                        continue;
+                    }
+                    results.Remove(res2);
+                }
             }
+
+            if(results.Count() > 1)
+            {
+                Console.Write("");
+            }
+
+            return results;
         }
 
         private static List<Result> InternalEval(Card[] dealer, Card[] hand)
@@ -33,7 +60,9 @@ namespace UNSERcasino.Game.Poker.Eval
             result.AddRange(TwoPairResult.GetTwoPairs(pairs));
             result.AddRange(QuadrupletResult.GetQuadruplets(cards));
             result.AddRange(StraightResult.GetStraights(cards));
-            result.AddRange(FlushResult.GetFlushes(cards)); 
+            result.AddRange(FlushResult.GetFlushes(cards));
+
+            result = removeAllDoubleUses(result, cards);
 
             return result;
         }

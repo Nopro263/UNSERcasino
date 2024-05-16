@@ -136,7 +136,6 @@ namespace UNSERcasino.UI.Menu
 
             if (bv != null)
             {
-                Evaluator.Eval(_poker.DealerHand, _poker.Me.Hand);
                 switch (bv.Text.getContent())
                 {
                     case "Fold":

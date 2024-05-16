@@ -82,13 +82,18 @@ namespace UNSERcasino.Game.Poker.Eval
                     k++;
                 }
 
-                if(k >= 5)
+                if(k > 5)
                 {
                     pairs.Add(new StraightResult(new List<Card>(values).GetRange(i, 5).ToArray()));
                 }
             }
 
             return pairs;
+        }
+
+        protected override int GetRanking()
+        {
+            return 6;
         }
     }
 }

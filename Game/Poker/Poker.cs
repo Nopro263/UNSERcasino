@@ -1,4 +1,5 @@
 ﻿using System.Security.Cryptography;
+using UNSERcasino.Game.Poker.Eval;
 using UNSERcasino.UI;
 
 namespace UNSERcasino.Game.Poker
@@ -148,6 +149,11 @@ namespace UNSERcasino.Game.Poker
                 CurrentBet = 0;
                 foreach(PokerPlayer player in AlivePlayers)
                 {
+                    if(Ended)
+                    {
+                        Evaluator.Eval(DealerHand, player.Hand);
+                    }
+
                     Pot += player.Bet;
                     player.Bet = 0;
                 }

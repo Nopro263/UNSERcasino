@@ -39,5 +39,10 @@ namespace UNSERcasino.Game.Poker.Eval
 
             return pairs;
         }
+
+        protected override int GetRanking()
+        {
+            return 5;
+        }
     }
 }
