@@ -36,7 +36,8 @@ namespace UNSERcasino.Game.Poker.Eval
                 }
             }
 
-            if(results.Count() > 1)
+
+            if(results.Count() >= 1)
             {
                 Console.Write("");
             }
@@ -56,11 +57,36 @@ namespace UNSERcasino.Game.Poker.Eval
             List<PairResult> pairs = PairResult.GetPairs(cards);
 
             result.AddRange(pairs);
+            result.AddRange(HighCardResult.GetHighCards(hand));
             result.AddRange(TripletResult.GetTriplets(cards));
             result.AddRange(TwoPairResult.GetTwoPairs(pairs));
             result.AddRange(QuadrupletResult.GetQuadruplets(cards));
             result.AddRange(StraightResult.GetStraights(cards));
             result.AddRange(FlushResult.GetFlushes(cards));
+
+            result = removeAllDoubleUses(result, cards); // TODO a triplet and a pair are a TwoPair?
+
+            TripletResult? hasTriplet = null;
+            PairResult? hasPair = null;
+
+            foreach(Result res in result)
+            {
+                if(res is TripletResult)
+                {
+                    hasTriplet = (TripletResult?)res;
+                }
+                if(res is PairResult)
+                {
+                    hasPair = (PairResult?)res;
+                }
+            }
+
+            if(hasTriplet != null && hasPair != null)
+            {
+                result.Add(new FullHouseResult(hasPair, hasTriplet));
+                result.Remove(hasPair);
+                result.Remove(hasTriplet);
+            }
 
             result = removeAllDoubleUses(result, cards);
 

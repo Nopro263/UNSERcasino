@@ -83,7 +83,7 @@ namespace UNSERcasino.Game.Poker
                 ca.Hidden = true;
             }
 
-            Pot = 100;
+            Pot = 0;
         }
 
         private PokerPlayer createPlayer()
