@@ -1,4 +1,6 @@
-﻿namespace UNSERcasino.Game
+﻿using System.Numerics;
+
+namespace UNSERcasino.Game
 {
     internal class Mines
     {
@@ -9,6 +11,12 @@
         public Mines()
         {
             for (int i = 0; i < 5; i++) { SafeOrNot[i] = new int[5]; }
+        }
+
+        public void StartGame(int mineAmount)
+        {
+            _mineAmount = mineAmount;
+            PlantMines();
         }
 
         public double Play(int x, int y)
@@ -26,11 +34,11 @@
         private void PlantMines()
         {
             Random random = new Random();
-            int minecount = _mineAmount;
+            int minecount = 0;
             while (minecount != _mineAmount)
             {
-                int x = random.Next(1, 5);
-                int y = random.Next(1, 5);
+                int x = random.Next(0, 5);
+                int y = random.Next(0, 5);
                 if (SafeOrNot[x][y] == 0)
                 {
                     SafeOrNot[x][y] = 2;
@@ -47,29 +55,40 @@
                 SafeOrNot[x][y] = 1;
                 return true;
             }
-            else
+            else if (SafeOrNot[x][y] == 2)
             {
                 _revealedDiamonds = 0;
                 return false;
             }
+            else if (SafeOrNot[x][y] == 1)
+            {
+                return true;
+            }
+            return false;
         }
 
         private double CalcMultiplier()
         {
             double house_edge = 0.02;
-            return (1 - house_edge) * NCr(25, _revealedDiamonds) / NCr(25 - _mineAmount, _revealedDiamonds);
-
+            return (1 - house_edge) * (double)NCr(25, _revealedDiamonds) / (double)NCr(25 - _mineAmount, _revealedDiamonds);
         }
 
-        private int NCr(int n, int r)
+        private BigInteger NCr(int n, int r)
         {
-            return Factorial(n) / Factorial(r) / Factorial(n - r);
+            return Factorial(n) / (Factorial(r) * Factorial(n - r));
         }
 
-        private int Factorial(int n) // Recursive Factorial Function
+        static BigInteger Factorial(int number)
         {
-            if (n == 0) return 1;
-            return n * Factorial(n - 1);
+            BigInteger result = 1;
+
+            for (int i = 1; i <= number; i++)
+            {
+                result *= i;
+            }
+
+            return result;
         }
+
     }
 }
