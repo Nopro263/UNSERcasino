@@ -12,8 +12,9 @@ namespace UNSERcasino.UI.Menu
         private CardView _card2;
 
         private Text btFold;
-        private Text btRaise;
         private Text btCheck;
+
+        private TextInputView tip;
         public PokerMenu() : base()
         {
             _poker = new Poker();
@@ -58,10 +59,11 @@ namespace UNSERcasino.UI.Menu
 
             btFold = new Text("Fold");
             btCheck = new Text("Check");
-            btRaise = new Text("Raise");
+
+            tip = new TextInputView(false, 5, "Raise");
 
             scene.addView(new ButtonView(btCheck, false), Flow.END, Flow.END, 0, -2);
-            scene.addView(new ButtonView(btRaise, false), Flow.END, Flow.END, 0, -1);
+            scene.addView(tip, Flow.END, Flow.END, 0, -1);
             scene.addView(new ButtonView(btFold, false), Flow.END, Flow.END, 0, 0);
 
             renderOpponents();
@@ -108,13 +110,13 @@ namespace UNSERcasino.UI.Menu
             {
                 btFold.Fg = ConsoleColor.DarkGray;
                 btCheck.Fg = ConsoleColor.DarkGray;
-                btRaise.Fg = ConsoleColor.DarkGray;
+                tip.Text.Fg = ConsoleColor.DarkGray;
             }
             else
             {
                 btFold.Fg = Canvas.FOREGROUND;
                 btCheck.Fg = Canvas.FOREGROUND;
-                btRaise.Fg = Canvas.FOREGROUND;
+                tip.Text.Fg = Canvas.FOREGROUND;
             }
 
             if (_poker.Ended)
@@ -143,17 +145,19 @@ namespace UNSERcasino.UI.Menu
                             _poker.Me.Fold();
                             break;
                         }
-                    case "Raise":
-                        {
-                            _poker.Me.Raise(5);
-                            break;
-                        }
                     case "Check":
                         {
                             _poker.Me.Check();
                             break;
                         }
                 }
+            }
+
+            TextInputView? tiv = button as TextInputView;
+
+            if(tiv != null)
+            {
+                _poker.Me.Raise(int.Parse(tiv.FullContent));
             }
         }
     }

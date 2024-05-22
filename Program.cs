@@ -39,9 +39,12 @@ namespace UNSERcasino
             Console.OutputEncoding = Encoding.UTF8;
             string[] colorgradient = new string[] { "" };
 
-            //string intro = "EA Sports\nIt's in the game";
-            //WriteCentered(intro);
-            //System.Threading.Thread.Sleep(1000);
+            AppDomain.CurrentDomain.ProcessExit += new EventHandler(OnProcessExit);
+
+            string intro = "EA Sports\nIt's in the game";
+            WriteCentered(intro);
+            System.Threading.Thread.Sleep(1000);
+
             UI.Menu.MenuManager.open(new UI.Menu.MainMenu());
 
             int fps = 0;
@@ -76,6 +79,11 @@ namespace UNSERcasino
                     scene1.onKey(Console.ReadKey(true));
                 }
             } while (true);
+        }
+
+        static void OnProcessExit(object sender, EventArgs e)
+        {
+            Console.WriteLine("I'm out of here");
         }
     }
 }
