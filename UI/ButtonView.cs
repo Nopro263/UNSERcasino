@@ -2,6 +2,7 @@
 {
     internal class ButtonView : TextView, IClickable
     {
+        private bool _disabled;
         public ButtonView(Text text, bool vertical) : base(text, vertical, false)
         {
 
@@ -12,6 +13,19 @@
             Selected = false;
         }
 
+        public void disable()
+        {
+            Text.Bg = ConsoleColor.DarkGray;
+            Selected = false;
+            _disabled = true;
+        }
+
+        public void enable()
+        {
+            Text.Bg = Canvas.BACKGROUND;
+            _disabled = false;
+        }
+
         public void onClick()
         {
 
@@ -19,7 +33,10 @@
 
         public void select()
         {
-            Selected = true;
+            if(!_disabled)
+            {
+                Selected = true;
+            }
         }
     }
 }

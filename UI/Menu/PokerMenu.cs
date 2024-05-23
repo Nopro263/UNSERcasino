@@ -11,8 +11,8 @@ namespace UNSERcasino.UI.Menu
         private CardView _card1;
         private CardView _card2;
 
-        private Text btFold;
-        private Text btCheck;
+        private ButtonView btFold;
+        private ButtonView btCheck;
 
         private TextInputView tip;
         public PokerMenu() : base()
@@ -57,14 +57,14 @@ namespace UNSERcasino.UI.Menu
             scene.addView(new TextView(_potText, false, true), Flow.CENTER, Flow.CENTER);
             scene.addView(new TableView(_opponents), Flow.START, Flow.END);
 
-            btFold = new Text("Fold");
-            btCheck = new Text("Check");
+            btFold = new ButtonView(new Text("Fold"), false);
+            btCheck = new ButtonView(new Text("Check"), false);
 
             tip = new TextInputView(false, 5, "Raise");
 
-            scene.addView(new ButtonView(btCheck, false), Flow.END, Flow.END, 0, -2);
+            scene.addView(btCheck, Flow.END, Flow.END, 0, -2);
             scene.addView(tip, Flow.END, Flow.END, 0, -1);
-            scene.addView(new ButtonView(btFold, false), Flow.END, Flow.END, 0, 0);
+            scene.addView(btFold, Flow.END, Flow.END, 0, 0);
 
             renderOpponents();
         }
@@ -108,18 +108,18 @@ namespace UNSERcasino.UI.Menu
 
             if (!_poker.CurrentVisualPlayer.CanFold())
             {
-                btFold.Fg = ConsoleColor.DarkGray;
+                btFold.disable();
             } else
             {
-                btFold.Fg = Canvas.FOREGROUND;
+                btFold.enable();
             }
 
             if (!_poker.CurrentVisualPlayer.CanCheck())
             {
-                btCheck.Fg = ConsoleColor.DarkGray;
+                btCheck.disable();
             } else
             {
-                btCheck.Fg = Canvas.FOREGROUND;
+                btCheck.enable();
             }
 
             if (!_poker.CurrentVisualPlayer.CanRaise())

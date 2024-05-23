@@ -19,6 +19,7 @@ namespace UNSERcasino.UI
         private int _maxLen; // the max len in X direction
         private string _placeholder;
         private bool _atStart;
+        private bool _disabled;
         public TextInputView(bool vertical, int maxLen, string placeholder) : base(new Text("###", ConsoleColor.White, ConsoleColor.DarkGray), vertical, false)
         {
             _fullContent = placeholder;
@@ -67,7 +68,10 @@ namespace UNSERcasino.UI
 
         public void select()
         {
-            Selected = true;
+            if(!_disabled)
+            {
+                Selected = true;
+            }
         }
 
         public override void printToCanvas(Canvas canvas, int x, int y)
@@ -90,6 +94,18 @@ namespace UNSERcasino.UI
             Text.setContent(content);
 
             base.printToCanvas(canvas, x, y);
+        }
+
+        public void disable()
+        {
+            Text.Bg = ConsoleColor.DarkGray; // Fix input when disabled
+            _disabled = true;
+        }
+
+        public void enable()
+        {
+            Text.Bg = Canvas.BACKGROUND;
+            _disabled = false;
         }
     }
 }

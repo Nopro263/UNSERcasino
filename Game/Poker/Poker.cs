@@ -13,6 +13,7 @@ namespace UNSERcasino.Game.Poker
         private List<PokerPlayer> _alivePlayers = new List<PokerPlayer>();
 
         private PokerPlayer _currentPlayer;
+        private PokerPlayer _lastRaisePlayer;
 
         public PokerPlayer CurrentVisualPlayer
         {
@@ -78,6 +79,7 @@ namespace UNSERcasino.Game.Poker
             }
 
             _currentPlayer = _alivePlayers.First();
+            _lastRaisePlayer = _currentPlayer;
             Ended = false;
         }
 
@@ -89,6 +91,7 @@ namespace UNSERcasino.Game.Poker
         public void Raise(PokerPlayer player)
         {
             CurrentBet = player.Bet;
+            _lastRaisePlayer = player;
             Next();
         }
 
@@ -101,6 +104,11 @@ namespace UNSERcasino.Game.Poker
         private void Next()
         {
             _currentPlayer = _alivePlayers[(_alivePlayers.IndexOf(_currentPlayer) + 1) % _alivePlayers.Count];
+
+            if(_currentPlayer == _lastRaisePlayer)
+            {
+
+            }
         }
     }
 }

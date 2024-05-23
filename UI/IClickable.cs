@@ -6,7 +6,7 @@
         public void deselect();
         public void onClick();
 
-        public void disable() { }
-        public void enable() { }
+        public void disable();
+        public void enable();
     }
 }

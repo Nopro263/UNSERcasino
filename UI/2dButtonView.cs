@@ -123,5 +123,15 @@ namespace UNSERcasino.UI
         {
             
         }
+
+        public void disable()
+        {
+            
+        }
+
+        public void enable()
+        {
+            
+        }
     }
 }
