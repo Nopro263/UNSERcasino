@@ -29,8 +29,8 @@ namespace UNSERcasino.Game.Poker
         {
             Pot = 0;
 
-            Players.Add(new PokerPlayer(this, "Player1", new Card[] {new Card(CardValue.KOENIG, CardType.Pik, false),
-                                                                     new Card(CardValue.DREI, CardType.Pik, false)}));
+            Players.Add(new PokerPlayerWithBalance(this, CasinoManager.Instance.Name, new Card[] {new Card(CardValue.KOENIG, CardType.Pik, false),
+                                                                     new Card(CardValue.DREI, CardType.Pik, false)}, CasinoManager.Instance));
             Players.Add(new PokerPlayer(this, "Player2", new Card[] {new Card(CardValue.ZWEI, CardType.Pik, false),
                                                                      new Card(CardValue.VIER, CardType.Pik, false)}));
             Players.Add(new PokerPlayer(this, "Player3", new Card[] {new Card(CardValue.FUENF, CardType.Pik, false),
