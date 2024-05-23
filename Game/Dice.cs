@@ -35,22 +35,22 @@
             return multiplier;
         }
 
-        public double Play(int randomValue)
+        public int Play(int randomValue)
         {
-            double result = 0;
+            int result = 0;
 
             if (Over)
             {
                 if (randomValue > Value) // Win
                 {
-                    result = Bet * CalculateMultiplier(Value);
+                    result =(int)(Bet * CalculateMultiplier(Value));
                 }
             }
             else
             {
                 if (randomValue < Value) // Win
                 {
-                    result = Bet * CalculateMultiplier(Value);
+                    result = (int)(Bet * CalculateMultiplier(Value));
                 }
             }
 

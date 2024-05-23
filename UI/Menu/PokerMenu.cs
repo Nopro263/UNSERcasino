@@ -41,8 +41,8 @@ namespace UNSERcasino.UI.Menu
                 }
             };
 
-            _card1 = new CardView(_poker.Me.Hand[0]);
-            _card2 = new CardView(_poker.Me.Hand[1]);
+            _card1 = new CardView(_poker.CurrentVisualPlayer.Hand[0]);
+            _card2 = new CardView(_poker.CurrentVisualPlayer.Hand[1]);
 
 
             scene.addView(_card1, Flow.CENTER, Flow.END, -15 / 2 - 1, 0);
@@ -78,7 +78,7 @@ namespace UNSERcasino.UI.Menu
             foreach (PokerPlayer player in _poker.Players)
             {
                 players[i].setContent(player.Name);
-                if (player.Folded)
+                if (player.HasFolded)
                 {
                     bets[i].setContent("-");
                 }
@@ -87,7 +87,7 @@ namespace UNSERcasino.UI.Menu
                     bets[i].setContent(player.Bet.ToString());
                 }
 
-                if (!_poker.Ended && _poker.Current == player)
+                if (!_poker.Ended && _poker.CurrentVisualPlayer == player)
                 {
                     bets[i].Bg = ConsoleColor.DarkYellow;
                     players[i].Bg = ConsoleColor.DarkYellow;
@@ -106,28 +106,38 @@ namespace UNSERcasino.UI.Menu
             renderOpponents();
             _potText.setContent($"Pot: {_poker.Pot}");
 
-            if (!_poker.isCurrentMe)
+            if (!_poker.CurrentVisualPlayer.CanFold())
             {
                 btFold.Fg = ConsoleColor.DarkGray;
-                btCheck.Fg = ConsoleColor.DarkGray;
-                tip.Text.Fg = ConsoleColor.DarkGray;
-            }
-            else
+            } else
             {
                 btFold.Fg = Canvas.FOREGROUND;
+            }
+
+            if (!_poker.CurrentVisualPlayer.CanCheck())
+            {
+                btCheck.Fg = ConsoleColor.DarkGray;
+            } else
+            {
                 btCheck.Fg = Canvas.FOREGROUND;
+            }
+
+            if (!_poker.CurrentVisualPlayer.CanRaise())
+            {
+                tip.Text.Fg = ConsoleColor.DarkGray;
+            } else
+            {
                 tip.Text.Fg = Canvas.FOREGROUND;
             }
 
-            if (_poker.Ended)
+            if(_poker.Ended)
             {
-                MenuManager.close();
+                _potText.setContent("Ended");
             }
 
-            _card1.Card = _poker.Me.Hand[0];
-            _card2.Card = _poker.Me.Hand[1];
 
-
+            _card1.Card = _poker.CurrentVisualPlayer.Hand[0];
+            _card2.Card = _poker.CurrentVisualPlayer.Hand[1];
         }
 
         public override void onClick(IClickable button)
@@ -142,12 +152,18 @@ namespace UNSERcasino.UI.Menu
                 {
                     case "Fold":
                         {
-                            _poker.Me.Fold();
+                            if(_poker.CurrentVisualPlayer.CanFold())
+                            {
+                                _poker.CurrentVisualPlayer.Fold();
+                            }
                             break;
                         }
                     case "Check":
                         {
-                            _poker.Me.Check();
+                            if (_poker.CurrentVisualPlayer.CanCheck())
+                            {
+                                _poker.CurrentVisualPlayer.Check();
+                            }
                             break;
                         }
                 }
@@ -157,7 +173,10 @@ namespace UNSERcasino.UI.Menu
 
             if(tiv != null)
             {
-                _poker.Me.Raise(int.Parse(tiv.FullContent));
+                if (_poker.CurrentVisualPlayer.CanRaiseAmount(int.Parse(tiv.FullContent)))
+                {
+                    _poker.CurrentVisualPlayer.Raise(int.Parse(tiv.FullContent));
+                }
             }
         }
     }
