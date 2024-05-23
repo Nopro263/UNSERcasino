@@ -25,24 +25,52 @@ namespace UNSERcasino.Game.Poker
 
         public bool Ended { get; private set; }
 
+        private Stack<Card> _cards;
+
+        private static void shuffle(Card[] cards)
+        {
+            for (int _ = 0; _ < 10000; _++)
+            {
+                int i = RandomNumberGenerator.GetInt32(0, cards.Length);
+                int j = RandomNumberGenerator.GetInt32(0, cards.Length);
+
+                Card temp = cards[i];
+                cards[i] = cards[j];
+                cards[j] = temp;
+            }
+        }
+
+        private Card[] _getCards()
+        {
+            return new Card[]
+            {
+                _cards.Pop(),
+                _cards.Pop()
+            };
+        }
+
         public Poker()
         {
             Pot = 0;
 
-            Players.Add(new PokerPlayerWithBalance(this, CasinoManager.Instance.Name, new Card[] {new Card(CardValue.KOENIG, CardType.Pik, false),
-                                                                     new Card(CardValue.DREI, CardType.Pik, false)}, CasinoManager.Instance));
-            Players.Add(new PokerPlayer(this, "Player2", new Card[] {new Card(CardValue.ZWEI, CardType.Pik, false),
-                                                                     new Card(CardValue.VIER, CardType.Pik, false)}));
-            Players.Add(new PokerPlayer(this, "Player3", new Card[] {new Card(CardValue.FUENF, CardType.Pik, false),
-                                                                     new Card(CardValue.SECHS, CardType.Pik, false)}));
-            Players.Add(new PokerPlayer(this, "Player4", new Card[] {new Card(CardValue.SIEBEN, CardType.Pik, false),
-                                                                     new Card(CardValue.ACHT, CardType.Pik, false)}));
+            Card[] c = Card.GetCards();
+            shuffle(c);
 
-            DealerHand = new Card[] {new Card(CardValue.ASS, CardType.Herz, false),
-                                     new Card(CardValue.DREI, CardType.Kreuz, false),
-                                     new Card(CardValue.DREI, CardType.Kreuz, false),
-                                     new Card(CardValue.DREI, CardType.Kreuz, false),
-                                     new Card(CardValue.DREI, CardType.Kreuz, false)};
+            _cards = new Stack<Card>(c);
+
+            Players.Add(new PokerPlayerWithBalance(this, CasinoManager.Instance.Name, _getCards(), CasinoManager.Instance));
+            Players.Add(new PokerPlayer(this, "Player2", _getCards()));
+            Players.Add(new PokerPlayer(this, "Player3", _getCards()));
+            Players.Add(new PokerPlayer(this, "Player4", _getCards()));
+
+            DealerHand = new Card[]
+            {
+                _cards.Pop(),
+                _cards.Pop(),
+                _cards.Pop(),
+                _cards.Pop(),
+                _cards.Pop()
+            };
 
             foreach (PokerPlayer player in Players)
             {
