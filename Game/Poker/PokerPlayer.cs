@@ -39,7 +39,7 @@
 
         public virtual bool CanCheckAmount(int amount)
         {
-            return true;
+            return _poker.CanCheck();
         }
 
 

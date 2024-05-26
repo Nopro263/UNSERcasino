@@ -13,7 +13,7 @@ namespace UNSERcasino.Game.Poker
         private List<PokerPlayer> _alivePlayers = new List<PokerPlayer>();
 
         private PokerPlayer _currentPlayer;
-        private PokerPlayer _lastRaisePlayer;
+        private PokerPlayer? _lastRaisePlayer;
 
         public PokerPlayer CurrentVisualPlayer
         {
@@ -79,8 +79,23 @@ namespace UNSERcasino.Game.Poker
             }
 
             _currentPlayer = _alivePlayers.First();
-            _lastRaisePlayer = _currentPlayer;
+            _lastRaisePlayer = null;
             Ended = false;
+        }
+
+        public bool CanRaise()
+        {
+            return true;
+        }
+
+        public bool CanCheck()
+        {
+            return CurrentBet > 0;
+        }
+
+        public bool CanFold()
+        {
+            return true;
         }
 
         public void Check(PokerPlayer player)
@@ -107,7 +122,12 @@ namespace UNSERcasino.Game.Poker
 
             if(_currentPlayer == _lastRaisePlayer)
             {
-
+                CurrentBet = 0;
+                foreach(PokerPlayer player in _alivePlayers)
+                {
+                    Pot += player.Bet;
+                    player.ResetBet();
+                }
             }
         }
     }
