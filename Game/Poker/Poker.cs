@@ -1,6 +1,7 @@
 ﻿using System.Security.Cryptography;
 using UNSERcasino.Game.Poker.Eval;
 using UNSERcasino.UI;
+using UNSERcasino.UI.Menu;
 
 namespace UNSERcasino.Game.Poker
 {
@@ -27,6 +28,8 @@ namespace UNSERcasino.Game.Poker
         public bool Ended { get; private set; }
 
         private Stack<Card> _cards;
+
+        private int _state = 0;
 
         private static void shuffle(Card[] cards)
         {
@@ -73,6 +76,11 @@ namespace UNSERcasino.Game.Poker
                 _cards.Pop()
             };
 
+            foreach(Card card in DealerHand)
+            {
+                card.Hidden = true;
+            }
+
             foreach (PokerPlayer player in Players)
             {
                 _alivePlayers.Add(player);
@@ -101,6 +109,7 @@ namespace UNSERcasino.Game.Poker
         public void Check(PokerPlayer player)
         {
             Next();
+            checkEnd();
         }
 
         public void Raise(PokerPlayer player)
@@ -108,12 +117,14 @@ namespace UNSERcasino.Game.Poker
             CurrentBet = player.Bet;
             _lastRaisePlayer = player;
             Next();
+            checkEnd();
         }
 
         public void Fold(PokerPlayer player)
         {
             Next();
             _alivePlayers.Remove(player);
+            checkEnd();
         }
 
         private void Next()
@@ -128,7 +139,47 @@ namespace UNSERcasino.Game.Poker
                     Pot += player.Bet;
                     player.ResetBet();
                 }
+
+                _state++;
+
+                switch(_state)
+                {
+                    case 1:
+                        {
+                            DealerHand[0].Hidden = false;
+                            DealerHand[1].Hidden = false;
+                            DealerHand[2].Hidden = false;
+                            break;
+                        }
+                    case 2:
+                        {
+                            DealerHand[3].Hidden = false;
+                            break;
+                        }
+                    case 3:
+                        {
+                            DealerHand[4].Hidden = false;
+                            break;
+                        }
+                }
             }
+        }
+
+        private void checkEnd()
+        {
+            if(_alivePlayers.Count == 1)
+            {
+                onEnd();
+            } else if(_state == 4)
+            {
+                onEnd();
+            }
+        }
+
+        private void onEnd()
+        {
+            MenuManager.close(); //TODO: change
+
         }
     }
 }
