@@ -15,14 +15,13 @@
 
         public void disable()
         {
-            Text.Bg = ConsoleColor.DarkGray;
-            Selected = false;
+            Text.Fg = ConsoleColor.DarkGray;
             _disabled = true;
         }
 
         public void enable()
         {
-            Text.Bg = Canvas.BACKGROUND;
+            Text.Fg = Canvas.FOREGROUND;
             _disabled = false;
         }
 
@@ -33,10 +32,7 @@
 
         public void select()
         {
-            if(!_disabled)
-            {
-                Selected = true;
-            }
+            Selected = true;
         }
     }
 }
