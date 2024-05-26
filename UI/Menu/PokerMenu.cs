@@ -114,7 +114,7 @@ namespace UNSERcasino.UI.Menu
                 btFold.enable();
             }
 
-            if (!_poker.CurrentVisualPlayer.CanCheck())
+            if (!_poker.CurrentVisualPlayer.CanCheck() || !_poker.CurrentVisualPlayer.CanCheckAmount(1))
             {
                 btCheck.disable();
             } else
@@ -122,7 +122,7 @@ namespace UNSERcasino.UI.Menu
                 btCheck.enable();
             }
 
-            if (!_poker.CurrentVisualPlayer.CanRaise())
+            if (!_poker.CurrentVisualPlayer.CanRaise() || !_poker.CurrentVisualPlayer.CanRaiseAmount(1))
             {
                 tip.Text.Fg = ConsoleColor.DarkGray;
             } else
@@ -160,7 +160,7 @@ namespace UNSERcasino.UI.Menu
                         }
                     case "Check":
                         {
-                            if (_poker.CurrentVisualPlayer.CanCheck())
+                            if (_poker.CurrentVisualPlayer.CanCheck() && _poker.CurrentVisualPlayer.CanCheckAmount(1))
                             {
                                 _poker.CurrentVisualPlayer.Check();
                             }
@@ -173,9 +173,13 @@ namespace UNSERcasino.UI.Menu
 
             if(tiv != null)
             {
-                if (_poker.CurrentVisualPlayer.CanRaiseAmount(int.Parse(tiv.FullContent)))
+                int amount = 0;
+                if(int.TryParse(tiv.FullContent, out amount))
                 {
-                    _poker.CurrentVisualPlayer.Raise(int.Parse(tiv.FullContent));
+                    if (amount > 0 && _poker.CurrentVisualPlayer.CanRaiseAmount(amount))
+                    {
+                        _poker.CurrentVisualPlayer.Raise(amount);
+                    }
                 }
             }
         }
