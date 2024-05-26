@@ -20,7 +20,7 @@ namespace UNSERcasino.UI
         private string _placeholder;
         private bool _atStart;
         private bool _disabled;
-        public TextInputView(bool vertical, int maxLen, string placeholder) : base(new Text("###", ConsoleColor.White, ConsoleColor.DarkGray), vertical, false)
+        public TextInputView(bool vertical, int maxLen, string placeholder) : base(new Text("###"), vertical, false)
         {
             _fullContent = placeholder;
             _maxLen = maxLen;
