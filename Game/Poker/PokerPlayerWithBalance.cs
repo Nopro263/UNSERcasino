@@ -21,5 +21,19 @@
 
             return _purse.CanRemove(amount);
         }
+
+        public override void afterCheck(int checkedAmount)
+        {
+            base.afterCheck(checkedAmount);
+
+            _purse.Remove(checkedAmount);
+        }
+
+        public override void afterRaise(int checkedAmount, int raisedAmount)
+        {
+            base.afterRaise(checkedAmount, raisedAmount);
+
+            _purse.Remove(checkedAmount + raisedAmount);
+        }
     }
 }

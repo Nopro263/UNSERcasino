@@ -14,7 +14,7 @@
         private CasinoManager()
         {
             Name = "TestUser";
-            Balance = 0;
+            Balance = 100;
         }
 
         private void change(int coins)

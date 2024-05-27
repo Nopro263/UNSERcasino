@@ -106,22 +106,25 @@ namespace UNSERcasino.Game.Poker
             return true;
         }
 
-        public void Check(PokerPlayer player)
+        public void Check(PokerPlayer player, int difference)
         {
+            player.afterCheck(difference);
             Next();
             checkEnd();
         }
 
-        public void Raise(PokerPlayer player)
+        public void Raise(PokerPlayer player, int difference, int amount)
         {
             CurrentBet = player.Bet;
             _lastRaisePlayer = player;
+            player.afterRaise(difference, amount);
             Next();
             checkEnd();
         }
 
         public void Fold(PokerPlayer player)
         {
+            player.afterFold();
             Next();
             _alivePlayers.Remove(player);
             checkEnd();

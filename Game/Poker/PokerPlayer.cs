@@ -45,7 +45,7 @@
 
 
 
-        public virtual void Fold()
+        public void Fold()
         {
             if(CanFold())
             {
@@ -54,27 +54,32 @@
             }
         }
 
-        public virtual void Raise(int amount)
+        public virtual void afterFold() { }
+
+        public void Raise(int amount)
         {
             if(CanRaiseAmount(amount))
             {
                 int difference = _poker.CurrentBet - Bet;
                 Bet += difference + amount;
 
-                _poker.Raise(this);
+                _poker.Raise(this, difference, amount);
             }
         }
+        public virtual void afterRaise(int checkedAmount, int raisedAmount) { }
 
-        public virtual void Check()
+        public void Check()
         {
             int difference = _poker.CurrentBet - Bet;
             if (CanCheckAmount(difference))
             {
                 Bet += difference;
 
-                _poker.Check(this);
+                _poker.Check(this, difference);
             }
         }
+
+        public virtual void afterCheck(int checkedAmount) { }
 
         public void ResetBet()
         {
