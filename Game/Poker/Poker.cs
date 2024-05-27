@@ -98,7 +98,7 @@ namespace UNSERcasino.Game.Poker
 
         public bool CanCheck()
         {
-            return CurrentBet > 0;
+            return true;
         }
 
         public bool CanFold()
