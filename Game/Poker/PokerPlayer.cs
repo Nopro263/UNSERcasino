@@ -33,7 +33,7 @@
             if (Folded) { return; }
             try
             {
-                _game.raise(this, addedAmount);
+                addedAmount = _game.raise(this, addedAmount);
                 _raise(addedAmount);
             }
             catch (NotYouException) { }
@@ -44,17 +44,22 @@
             if (Folded) { return; }
             try
             {
-                _game.check(this);
-                _check();
+                int addedAmount = _game.check(this);
+                _check(addedAmount);
             }
             catch (NotYouException) { }
         }
 
         protected virtual void _fold() { }
         protected virtual void _raise(int amount) { }
-        protected virtual void _check() { }
+        protected virtual void _check(int addedAmount) { }
 
         public virtual void OnAction()
+        {
+
+        }
+
+        public virtual void OnWin(int win)
         {
 
         }

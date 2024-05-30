@@ -13,7 +13,7 @@
                     case 'B': return 11;
                     case 'D': return 12;
                     case 'K': return 13;
-                    case 'A': return 1;
+                    case 'A': return 14;
                 }
                 return 0;
             } }
@@ -41,6 +41,8 @@
 
             return string.Empty;
         }
+
+        public static readonly CardValue _SINGLE_ASS_DO_NOT_USE_OUTSIDE_OF_EVALUATION = new CardValue(1);
 
         public static readonly CardValue ZWEI = new CardValue(2);
         public static readonly CardValue DREI = new CardValue(3);

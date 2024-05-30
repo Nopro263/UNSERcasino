@@ -11,9 +11,16 @@
             CasinoManager.Instance.bet(addedAmount);
         }
 
-        protected override void _check()
+        protected override void _check(int addedAmount)
         {
-            CasinoManager.Instance.bet(_game.CurrentBet - Bet);
+            CasinoManager.Instance.bet(addedAmount);
+        }
+
+        public override void OnWin(int win)
+        {
+            base.OnWin(win);
+
+            CasinoManager.Instance.add(win);
         }
     }
 }

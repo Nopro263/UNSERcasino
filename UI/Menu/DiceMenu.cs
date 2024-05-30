@@ -29,7 +29,7 @@ namespace UNSERcasino.UI.Menu
             _dices = new DiceView[row * col];
             _diceSum = new TextView(new Text("??"), false, false);
             _betSlider = new SliderView(14, 70, (col * 10) - 3);
-            _textInput = new TextInputView(false, 5);
+            _textInput = new TextInputView(false, 5, "");
 
             _over = new ButtonView(new Text("Over"), false);
             _under = new ButtonView(new Text("Under"), false);
@@ -102,7 +102,7 @@ namespace UNSERcasino.UI.Menu
             {
                 if (i == _over)
                 {
-                    if (int.TryParse(_textInput.FullContent, out x) && x > 1)
+                    if (int.TryParse(_textInput.FullContent, out x) && x >= 1)
                     {
                         _dice.Bet = x;
                         _dice.Over = true;

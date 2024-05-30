@@ -17,10 +17,14 @@ namespace UNSERcasino.UI
 
         private string _fullContent;
         private int _maxLen; // the max len in X direction
-        public TextInputView(bool vertical, int maxLen) : base(new Text("###", ConsoleColor.White, ConsoleColor.DarkGray), vertical, false)
+        private string _placeholder;
+        private bool _atStart;
+        public TextInputView(bool vertical, int maxLen, string placeholder) : base(new Text("###", ConsoleColor.White, ConsoleColor.DarkGray), vertical, false)
         {
-            _fullContent = "";
+            _fullContent = placeholder;
             _maxLen = maxLen;
+            _placeholder = placeholder;
+            _atStart = true;
 
             Text.setContent(new string(' ', maxLen));
         }
@@ -39,17 +43,24 @@ namespace UNSERcasino.UI
         {
             if (key.Key == ConsoleKey.Backspace)
             {
-                if (_fullContent.Length > 0)
+                if (_fullContent.Length > 0 && !_atStart)
                 {
                     _fullContent = _fullContent.Substring(0, _fullContent.Length - 1); // remove the last Element
                 }
-                else
+                
+                if(_fullContent.Length == 0)
                 {
-                    _fullContent = "";
+                    _fullContent = _placeholder;
+                    _atStart = true;
                 }
             }
             else
             {
+                if (_atStart)
+                {
+                    _atStart = false;
+                    _fullContent = "";
+                }
                 _fullContent += key.KeyChar.ToString(); // add it
             }
         }

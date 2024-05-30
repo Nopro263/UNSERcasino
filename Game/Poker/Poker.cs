@@ -1,4 +1,5 @@
 ﻿using System.Security.Cryptography;
+using UNSERcasino.Game.Poker.Eval;
 using UNSERcasino.UI;
 
 namespace UNSERcasino.Game.Poker
@@ -15,7 +16,16 @@ namespace UNSERcasino.Game.Poker
         public List<PokerPlayer> Players { get; private set; }
         public List<PokerPlayer> AlivePlayers { get; private set; }
 
-        public PokerPlayer Me { get; private set; }
+        private int _state = 0;
+
+        //public PokerPlayer Me { get; private set; }
+        public PokerPlayer Me
+        {
+            get
+            {
+                return Current;
+            }
+        }
 
         private int indexOfLastRaise;
 
@@ -23,7 +33,7 @@ namespace UNSERcasino.Game.Poker
         {
             get
             {
-                return Me == Current;
+                return !Ended && Me == Current;
             }
         }
 
@@ -31,7 +41,7 @@ namespace UNSERcasino.Game.Poker
         {
             get
             {
-                return Players[currentPlayer];
+                return AlivePlayers[currentPlayer];
             }
         }
 
@@ -51,8 +61,14 @@ namespace UNSERcasino.Game.Poker
             currentPlayer = 0;
             indexOfLastRaise = 0;
 
-            Me = createBalancedPlayer();
+            /*Me = createBalancedPlayer();
             createBotPlayer("Emilio");
+            createBotPlayer("Jonas");
+            createBotPlayer("Tim");*/
+            createBalancedPlayer();
+            createPlayer();
+            createPlayer();
+            createPlayer();
 
             DealerHand = new Card[] {
                 _cards.Pop(),
@@ -62,7 +78,25 @@ namespace UNSERcasino.Game.Poker
                 _cards.Pop()
             };
 
-            Pot = 100;
+            foreach(Card ca in DealerHand)
+            {
+                ca.Hidden = true;
+            }
+
+            Pot = 0;
+        }
+
+        private PokerPlayer createPlayer()
+        {
+            Card[] hand = new Card[] {
+                _cards.Pop(),
+                _cards.Pop()
+            };
+
+            PokerPlayer player = new PokerPlayer(this, "Test", 0, hand);
+            Players.Add(player);
+            AlivePlayers.Add(player);
+            return player;
         }
 
         private PokerPlayer createBalancedPlayer()
@@ -109,15 +143,54 @@ namespace UNSERcasino.Game.Poker
             if (AlivePlayers.Count == 1)
             {
                 Ended = true;
+                currentPlayer = 0;
+                AlivePlayers[0].OnWin(Pot);
+                Pot = 0;
                 return;
             }
 
             currentPlayer = (currentPlayer + 1) % AlivePlayers.Count;
+            indexOfLastRaise++;
 
-            if(currentPlayer == indexOfLastRaise) // Round complete
+            if(indexOfLastRaise == AlivePlayers.Count) // Round complete
             {
-                foreach(PokerPlayer player in AlivePlayers)
+                CurrentBet = 0;
+                indexOfLastRaise = 0;
+                _state++;
+
+                switch(_state)
                 {
+                    case 1: 
+                        {
+                            DealerHand[0].Hidden = false;
+                            DealerHand[1].Hidden = false;
+                            DealerHand[2].Hidden = false;
+                            break;
+                        }
+                    case 2:
+                        {
+                            DealerHand[3].Hidden = false;
+                            break;
+                        }
+                    case 3:
+                        {
+                            DealerHand[4].Hidden = false;
+                            break;
+                        }
+                    case 4:
+                        {
+                            Ended = true;
+                            break;
+                        }
+                }
+
+                foreach (PokerPlayer player in AlivePlayers)
+                {
+                    if(Ended)
+                    {
+                        Evaluator.Eval(DealerHand, player.Hand);
+                    }
+
                     Pot += player.Bet;
                     player.Bet = 0;
                 }
@@ -139,24 +212,35 @@ namespace UNSERcasino.Game.Poker
                 c.Hidden = true;
             }
 
+            currentPlayer--;
+            indexOfLastRaise--;
+
             next();
         }
 
-        public void raise(PokerPlayer player, int change)
+        public int raise(PokerPlayer player, int change)
         {
             if (player != Current) { throw new NotYouException(); }
             CurrentBet = CurrentBet + change;
-            player.Bet += change;
+            int v = CurrentBet - player.Bet;
+            player.Bet = CurrentBet;
+
+            indexOfLastRaise = 0;
 
             next();
+
+            return v;
         }
 
-        public void check(PokerPlayer player)
+        public int check(PokerPlayer player)
         {
             if (player != Current) { throw new NotYouException(); }
+            int v = CurrentBet - player.Bet;
             player.Bet = CurrentBet;
 
             next();
+
+            return v;
         }
     }
 }
