@@ -58,6 +58,7 @@ namespace UNSERcasino.Game.Poker.Eval
             result.AddRange(StraightResult.GetStraights(cards));
             result.AddRange(FlushResult.GetFlushes(cards));
             result.AddRange(StraightFlushResult.GetStraightFlush(result));
+            result.AddRange(RoyalFlushResult.GetRoyalFlush(result));
 
             result = removeAllDoubleUses(result, cards);
 
@@ -78,7 +79,7 @@ namespace UNSERcasino.Game.Poker.Eval
 
             if(hasTriplet != null && hasPair != null)
             {
-                result.Add(new FullHouseResult(hasPair, hasTriplet));
+                result.Add(new FullHouseResult(hasPair, hasTriplet)); //FIXME: if cards build sth. better than a pair and a triplet on their own, it doesnt work
                 result.Remove(hasPair);
                 result.Remove(hasTriplet);
             }
