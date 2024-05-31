@@ -36,12 +36,6 @@ namespace UNSERcasino.Game.Poker.Eval
                 }
             }
 
-
-            if(results.Count() >= 1)
-            {
-                Console.Write("");
-            }
-
             return results;
         }
 

@@ -1,4 +1,6 @@
-﻿namespace UNSERcasino.UI.Menu
+﻿using UNSERcasino.Game.Poker.Eval;
+
+namespace UNSERcasino.UI.Menu
 {
     internal class CrashMenu : Menu, IUpdateable
     {
@@ -24,7 +26,21 @@
 
             scene.addView(new TextView(_text, false, false), Flow.START, Flow.START);
 
-            
+            Evaluator.Eval(
+                new Card[]
+                {
+                    new Card(CardValue.KOENIG, CardType.Kreuz, false),
+                    new Card(CardValue.KOENIG, CardType.Pik, false),
+                    new Card(CardValue.KOENIG, CardType.Herz, false),
+                    new Card(CardValue.ASS, CardType.Kreuz, false),
+                    new Card(CardValue.ZWEI, CardType.Kreuz, false),
+                },
+                new Card[]
+                {
+                    new Card(CardValue.BUB, CardType.Herz, false),
+                    new Card(CardValue.BUB, CardType.Karo, false),
+                }
+                );
         }
 
         public void Update()
