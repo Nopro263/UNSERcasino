@@ -190,6 +190,29 @@ namespace UNSERcasino.Game.Poker
             if(_alivePlayers.Count == 1) // this player wins everything
             {
                 _alivePlayers[0].Win(Pot);
+            } else
+            {
+                List<PokerPlayer>? bestPlayer = null;
+                int bestScore = 0;
+                foreach(PokerPlayer player in _alivePlayers)
+                {
+                    int score = Evaluator.Eval(DealerHand, player.Hand);
+                    if(score > bestScore)
+                    {
+                        bestScore = score;
+                        bestPlayer = new List<PokerPlayer> { player };
+                    } else if(score == bestScore && bestPlayer != null)
+                    {
+                        bestPlayer.Add(player);
+                    }
+                }
+
+                int payputPerPlayer = Pot / bestPlayer.Count;
+
+                foreach(PokerPlayer pokerPlayer in bestPlayer)
+                {
+                    pokerPlayer.Win(payputPerPlayer);
+                }
             }
         }
     }
