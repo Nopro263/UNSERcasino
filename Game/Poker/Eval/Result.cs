@@ -20,7 +20,7 @@
 
         public bool Equals(Result? other)
         {
-            if(other == null) return false;
+            if(other == null || this.GetType() != other.GetType()) return false;
 
             Card[] cards = other.GetCards();
 
