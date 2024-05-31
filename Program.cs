@@ -1,5 +1,4 @@
 ﻿using System.Text;
-using UNSERcasino.Game.Poker;
 using UNSERcasino.UI;
 
 namespace UNSERcasino
@@ -38,6 +37,7 @@ namespace UNSERcasino
         static void Main(string[] args)
         {
             Console.OutputEncoding = Encoding.UTF8;
+            string[] colorgradient = new string[] { "" };
 
             AppDomain.CurrentDomain.ProcessExit += new EventHandler(OnProcessExit);
 
@@ -47,7 +47,6 @@ namespace UNSERcasino
 
             UI.Menu.MenuManager.open(new UI.Menu.MainMenu());
 
-
             int fps = 0;
             int sec = DateTime.Now.Second;
             int updateFps = 0;
@@ -55,13 +54,15 @@ namespace UNSERcasino
             bool showFps = false;
             do
             {
-                if(sec != DateTime.Now.Second)
+                if (sec != DateTime.Now.Second)
                 {
                     sec = DateTime.Now.Second;
                     updateFps = fps;
                     fps = 0;
                 }
+
                 Scene scene1 = UI.Menu.MenuManager.getTopMenu().GetScene();
+
                 if (UI.Menu.MenuManager.getTopMenu() is IUpdateable)
                 {
                     try
