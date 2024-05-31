@@ -114,7 +114,7 @@ namespace UNSERcasino.UI.Menu
                 btFold.enable();
             }
 
-            if (!_poker.CurrentVisualPlayer.CanCheck() || !_poker.CurrentVisualPlayer.CanCheckAmount(1))
+            if (!_poker.CurrentVisualPlayer.CanCheck())
             {
                 btCheck.disable();
             } else
@@ -160,7 +160,7 @@ namespace UNSERcasino.UI.Menu
                         }
                     case "Check":
                         {
-                            if (_poker.CurrentVisualPlayer.CanCheck() && _poker.CurrentVisualPlayer.CanCheckAmount(1))
+                            if (_poker.CurrentVisualPlayer.CanCheck())
                             {
                                 _poker.CurrentVisualPlayer.Check();
                             }

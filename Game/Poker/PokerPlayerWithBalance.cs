@@ -35,5 +35,12 @@
 
             _purse.Remove(checkedAmount + raisedAmount);
         }
+
+        public override void Win(int amount)
+        {
+            base.Win(amount);
+
+            _purse.Add(amount);
+        }
     }
 }

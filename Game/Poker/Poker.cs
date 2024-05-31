@@ -93,17 +93,17 @@ namespace UNSERcasino.Game.Poker
 
         public bool CanRaise()
         {
-            return true;
+            return !Ended;
         }
 
         public bool CanCheck()
         {
-            return true;
+            return !Ended;
         }
 
         public bool CanFold()
         {
-            return true;
+            return !Ended;
         }
 
         public void Check(PokerPlayer player, int difference)
@@ -170,6 +170,10 @@ namespace UNSERcasino.Game.Poker
 
         private void checkEnd()
         {
+            if(Ended)
+            {
+                return;
+            }
             if(_alivePlayers.Count == 1)
             {
                 onEnd();
@@ -181,8 +185,12 @@ namespace UNSERcasino.Game.Poker
 
         private void onEnd()
         {
-            MenuManager.close(); //TODO: change
-
+            Ended = true;
+            //MenuManager.close(); //TODO: change
+            if(_alivePlayers.Count == 1) // this player wins everything
+            {
+                _alivePlayers[0].Win(Pot);
+            }
         }
     }
 }

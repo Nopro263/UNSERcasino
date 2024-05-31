@@ -19,7 +19,7 @@
         public virtual bool CanRaise()
         {
             int difference = _poker.CurrentBet - Bet;
-            return !HasFolded && CanRaiseAmount(difference);
+            return _poker.CanRaise() && !HasFolded && CanRaiseAmount(difference);
         }
         public virtual bool CanRaiseAmount(int amount)
         {
@@ -28,18 +28,18 @@
 
         public virtual bool CanFold()
         {
-            return !HasFolded;
+            return _poker.CanFold() && !HasFolded;
         }
 
         public virtual bool CanCheck()
         {
             int difference = _poker.CurrentBet - Bet;
-            return !HasFolded && CanCheckAmount(difference);
+            return _poker.CanCheck() && !HasFolded && CanCheckAmount(difference);
         }
 
         public virtual bool CanCheckAmount(int amount)
         {
-            return _poker.CanCheck();
+            return true;
         }
 
 
@@ -84,6 +84,11 @@
         public void ResetBet()
         {
             Bet = 0;
+        }
+
+        public virtual void Win(int amount)
+        {
+
         }
     }
 }
