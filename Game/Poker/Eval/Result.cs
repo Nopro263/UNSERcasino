@@ -49,6 +49,15 @@
         public abstract Card[] GetCards();
         protected abstract int GetRanking();
 
+        public int GetFinalRanking()
+        {
+            int rank = (24-GetRanking()) * 100;
+            foreach(Card c in GetCards())
+            {
+                rank += c.CardValue.Rating;
+            }
 
+            return rank;
+        }
     }
 }

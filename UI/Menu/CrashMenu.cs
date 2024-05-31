@@ -26,7 +26,7 @@ namespace UNSERcasino.UI.Menu
 
             scene.addView(new TextView(_text, false, false), Flow.START, Flow.START);
 
-            Evaluator.Eval(
+            int d = Evaluator.Eval(
                 new Card[]
                 {
                     new Card(CardValue.ASS, CardType.Kreuz, false),

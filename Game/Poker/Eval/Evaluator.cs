@@ -4,11 +4,17 @@ namespace UNSERcasino.Game.Poker.Eval
 {
     internal class Evaluator
     {
-        public static List<Result> Eval(Card[] dealer, Card[] hand)
+        public static int Eval(Card[] dealer, Card[] hand)
         {
             List<Result> results = InternalEval(dealer, hand);
 
-            return results;
+            int sum = 0;
+            foreach(Result r in results)
+            {
+                sum += r.GetFinalRanking();
+            }
+
+            return sum;
         }
 
         private static List<Result> allWithCard(List<Result> results, Card card)
