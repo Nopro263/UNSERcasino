@@ -57,8 +57,9 @@ namespace UNSERcasino.Game.Poker.Eval
             result.AddRange(QuadrupletResult.GetQuadruplets(cards));
             result.AddRange(StraightResult.GetStraights(cards));
             result.AddRange(FlushResult.GetFlushes(cards));
+            result.AddRange(StraightFlushResult.GetStraightFlush(result));
 
-            result = removeAllDoubleUses(result, cards); // TODO a triplet and a pair are a TwoPair?
+            result = removeAllDoubleUses(result, cards);
 
             TripletResult? hasTriplet = null;
             PairResult? hasPair = null;

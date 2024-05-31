@@ -29,11 +29,11 @@ namespace UNSERcasino.UI.Menu
             Evaluator.Eval(
                 new Card[]
                 {
-                    new Card(CardValue.KOENIG, CardType.Kreuz, false),
-                    new Card(CardValue.KOENIG, CardType.Pik, false),
-                    new Card(CardValue.KOENIG, CardType.Herz, false),
-                    new Card(CardValue.ASS, CardType.Kreuz, false),
                     new Card(CardValue.ZWEI, CardType.Kreuz, false),
+                    new Card(CardValue.DREI, CardType.Kreuz, false),
+                    new Card(CardValue.VIER, CardType.Kreuz, false),
+                    new Card(CardValue.FUENF, CardType.Kreuz, false),
+                    new Card(CardValue.SECHS, CardType.Kreuz, false),
                 },
                 new Card[]
                 {

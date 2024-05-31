@@ -32,6 +32,20 @@
             return true;
         }
 
+        public bool EqualsIgnoreType(Result? other)
+        {
+            if (other == null) return false;
+
+            Card[] cards = other.GetCards();
+
+            foreach (Card c in GetCards())
+            {
+                if (!cards.Contains(c)) return false;
+            }
+
+            return true;
+        }
+
         public abstract Card[] GetCards();
         protected abstract int GetRanking();
 
