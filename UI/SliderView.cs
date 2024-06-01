@@ -68,5 +68,15 @@ namespace UNSERcasino.UI
         {
             Selected = true;
         }
+
+        public void disable()
+        {
+            
+        }
+
+        public void enable()
+        {
+            
+        }
     }
 }

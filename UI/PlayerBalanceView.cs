@@ -17,7 +17,7 @@
         {
             CasinoManager casino = CasinoManager.Instance;
 
-            _balance.setContent(casino.PlayerBalance.ToString("F2"));
+            _balance.setContent(casino.Balance.ToString("F2"));
             _previous.setContent(casino.Previous.ToString("F2"));
             _2before.setContent(casino.TwoBefore.ToString("F2"));
         }

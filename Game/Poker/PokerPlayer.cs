@@ -2,67 +2,93 @@
 {
     internal class PokerPlayer
     {
+        public bool HasFolded { get; private set; }
+        public int Bet { get; private set; }
         public string Name { get; private set; }
-        public int Bet { get; set; }
-        public bool Folded { get; private set; }
+
         public Card[] Hand { get; private set; }
 
-        protected Poker _game;
+        private Poker _poker;
 
-        public PokerPlayer(Poker game, string name, int bet, Card[] hand)
+        public PokerPlayer(Poker poker, string name, Card[] hand)
         {
+            _poker = poker;
             Name = name;
-            Bet = bet;
             Hand = hand;
-            _game = game;
+        }
+        public virtual bool CanRaise()
+        {
+            int difference = _poker.CurrentBet - Bet;
+            return _poker.CanRaise() && !HasFolded && CanRaiseAmount(difference);
+        }
+        public virtual bool CanRaiseAmount(int amount)
+        {
+            return true;
         }
 
-        public void Fold() 
+        public virtual bool CanFold()
         {
-            if(Folded) { return; }
-            try
-            {
-                _game.fold(this);
-                _fold();
-                Folded = true;
-            } catch (NotYouException){}
+            return _poker.CanFold() && !HasFolded;
         }
 
-        public void Raise(int addedAmount)
+        public virtual bool CanCheck()
         {
-            if (Folded) { return; }
-            try
+            int difference = _poker.CurrentBet - Bet;
+            return _poker.CanCheck() && !HasFolded && CanCheckAmount(difference);
+        }
+
+        public virtual bool CanCheckAmount(int amount)
+        {
+            return true;
+        }
+
+
+
+
+        public void Fold()
+        {
+            if(CanFold())
             {
-                addedAmount = _game.raise(this, addedAmount);
-                _raise(addedAmount);
+                HasFolded = true;
+                _poker.Fold(this);
             }
-            catch (NotYouException) { }
         }
+
+        public virtual void afterFold() { }
+
+        public void Raise(int amount)
+        {
+            if(CanRaiseAmount(amount))
+            {
+                int difference = _poker.CurrentBet - Bet;
+                Bet += difference + amount;
+
+                _poker.Raise(this, difference, amount);
+            }
+        }
+        public virtual void afterRaise(int checkedAmount, int raisedAmount) { }
 
         public void Check()
         {
-            if (Folded) { return; }
-            try
+            int difference = _poker.CurrentBet - Bet;
+            if (CanCheckAmount(difference))
             {
-                int addedAmount = _game.check(this);
-                _check(addedAmount);
+                Bet += difference;
+
+                _poker.Check(this, difference);
             }
-            catch (NotYouException) { }
         }
 
-        protected virtual void _fold() { }
-        protected virtual void _raise(int amount) { }
-        protected virtual void _check(int addedAmount) { }
+        public virtual void afterCheck(int checkedAmount) { }
 
-        public virtual void OnAction()
+        public void ResetBet()
+        {
+            Bet = 0;
+        }
+
+        public virtual void Win(int amount)
         {
 
         }
-
-        public virtual void OnWin(int win)
-        {
-
-        }
-
     }
 }

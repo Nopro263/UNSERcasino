@@ -1,133 +1,39 @@
 ﻿using System.Security.Cryptography;
 using UNSERcasino.Game.Poker.Eval;
 using UNSERcasino.UI;
+using UNSERcasino.UI.Menu;
 
 namespace UNSERcasino.Game.Poker
 {
     internal class Poker
     {
-        public Card[] DealerHand { get; private set; }
-
         public int Pot { get; private set; }
         public int CurrentBet { get; private set; }
+
+        public List<PokerPlayer> Players = new List<PokerPlayer>();
+        private List<PokerPlayer> _alivePlayers = new List<PokerPlayer>();
+
+        private PokerPlayer _currentPlayer;
+        private PokerPlayer? _lastRaisePlayer;
+
+        public PokerPlayer CurrentVisualPlayer
+        {
+            get {
+                return _currentPlayer;
+            }
+        }
+
+        public Card[] DealerHand { get; private set; }
+
         public bool Ended { get; private set; }
 
         private Stack<Card> _cards;
-        public List<PokerPlayer> Players { get; private set; }
-        public List<PokerPlayer> AlivePlayers { get; private set; }
 
         private int _state = 0;
 
-        //public PokerPlayer Me { get; private set; }
-        public PokerPlayer Me
-        {
-            get
-            {
-                return Current;
-            }
-        }
-
-        private int indexOfLastRaise;
-
-        public bool isCurrentMe
-        {
-            get
-            {
-                return !Ended && Me == Current;
-            }
-        }
-
-        public PokerPlayer Current
-        {
-            get
-            {
-                return AlivePlayers[currentPlayer];
-            }
-        }
-
-        private int currentPlayer;
-
-        public Poker()
-        {
-            Players = new List<PokerPlayer>();
-            AlivePlayers = new List<PokerPlayer>();
-            Ended = false;
-
-            Card[] c = Card.GetCards();
-            shuffle(c);
-
-            _cards = new Stack<Card>(c);
-
-            currentPlayer = 0;
-            indexOfLastRaise = 0;
-
-            /*Me = createBalancedPlayer();
-            createBotPlayer("Emilio");
-            createBotPlayer("Jonas");
-            createBotPlayer("Tim");*/
-            createBalancedPlayer();
-            createPlayer();
-            createPlayer();
-            createPlayer();
-
-            DealerHand = new Card[] {
-                _cards.Pop(),
-                _cards.Pop(),
-                _cards.Pop(),
-                _cards.Pop(),
-                _cards.Pop()
-            };
-
-            foreach(Card ca in DealerHand)
-            {
-                ca.Hidden = true;
-            }
-
-            Pot = 0;
-        }
-
-        private PokerPlayer createPlayer()
-        {
-            Card[] hand = new Card[] {
-                _cards.Pop(),
-                _cards.Pop()
-            };
-
-            PokerPlayer player = new PokerPlayer(this, "Test", 0, hand);
-            Players.Add(player);
-            AlivePlayers.Add(player);
-            return player;
-        }
-
-        private PokerPlayer createBalancedPlayer()
-        {
-            Card[] hand = new Card[] {
-                _cards.Pop(),
-                _cards.Pop()
-            };
-
-            PokerPlayer player = new BalancedPokerPlayer(this, CasinoManager.Instance.Name, 0, hand);
-            Players.Add(player);
-            AlivePlayers.Add(player);
-            return player;
-        }
-
-        private PokerPlayer createBotPlayer(string name)
-        {
-            Card[] hand = new Card[] {
-                _cards.Pop(),
-                _cards.Pop()
-            };
-
-            PokerPlayer player = new RandomBotPokerPlayer(this, name, 0, hand);
-            Players.Add(player);
-            AlivePlayers.Add(player);
-            return player;
-        }
-
         private static void shuffle(Card[] cards)
         {
-            for(int _ = 0; _ < 10000; _++)
+            for (int _ = 0; _ < 10000; _++)
             {
                 int i = RandomNumberGenerator.GetInt32(0, cards.Length);
                 int j = RandomNumberGenerator.GetInt32(0, cards.Length);
@@ -138,29 +44,110 @@ namespace UNSERcasino.Game.Poker
             }
         }
 
-        private void next()
+        private Card[] _getCards()
         {
-            if (AlivePlayers.Count == 1)
+            return new Card[]
             {
-                Ended = true;
-                currentPlayer = 0;
-                AlivePlayers[0].OnWin(Pot);
-                Pot = 0;
-                return;
+                _cards.Pop(),
+                _cards.Pop()
+            };
+        }
+
+        public Poker()
+        {
+            Pot = 0;
+
+            Card[] c = Card.GetCards();
+            shuffle(c);
+
+            _cards = new Stack<Card>(c);
+
+            Players.Add(new PokerPlayerWithBalance(this, CasinoManager.Instance.Name, _getCards(), CasinoManager.Instance));
+            Players.Add(new PokerPlayer(this, "Player2", _getCards()));
+            Players.Add(new PokerPlayer(this, "Player3", _getCards()));
+            Players.Add(new PokerPlayer(this, "Player4", _getCards()));
+
+            DealerHand = new Card[]
+            {
+                _cards.Pop(),
+                _cards.Pop(),
+                _cards.Pop(),
+                _cards.Pop(),
+                _cards.Pop()
+            };
+
+            foreach(Card card in DealerHand)
+            {
+                card.Hidden = true;
             }
 
-            currentPlayer = (currentPlayer + 1) % AlivePlayers.Count;
-            indexOfLastRaise++;
+            foreach (PokerPlayer player in Players)
+            {
+                _alivePlayers.Add(player);
+            }
 
-            if(indexOfLastRaise == AlivePlayers.Count) // Round complete
+            _currentPlayer = _alivePlayers.First();
+            _lastRaisePlayer = null;
+            Ended = false;
+        }
+
+        public bool CanRaise()
+        {
+            return !Ended;
+        }
+
+        public bool CanCheck()
+        {
+            return !Ended;
+        }
+
+        public bool CanFold()
+        {
+            return !Ended;
+        }
+
+        public void Check(PokerPlayer player, int difference)
+        {
+            player.afterCheck(difference);
+            Next();
+            checkEnd();
+        }
+
+        public void Raise(PokerPlayer player, int difference, int amount)
+        {
+            CurrentBet = player.Bet;
+            _lastRaisePlayer = player;
+            player.afterRaise(difference, amount);
+            Next();
+            checkEnd();
+        }
+
+        public void Fold(PokerPlayer player)
+        {
+            player.afterFold();
+            Next();
+            _alivePlayers.Remove(player);
+            checkEnd();
+        }
+
+        private void Next()
+        {
+            _currentPlayer = _alivePlayers[(_alivePlayers.IndexOf(_currentPlayer) + 1) % _alivePlayers.Count];
+
+            if(_currentPlayer == _lastRaisePlayer)
             {
                 CurrentBet = 0;
-                indexOfLastRaise = 0;
+                foreach(PokerPlayer player in _alivePlayers)
+                {
+                    Pot += player.Bet;
+                    player.ResetBet();
+                }
+
                 _state++;
 
                 switch(_state)
                 {
-                    case 1: 
+                    case 1:
                         {
                             DealerHand[0].Hidden = false;
                             DealerHand[1].Hidden = false;
@@ -177,70 +164,56 @@ namespace UNSERcasino.Game.Poker
                             DealerHand[4].Hidden = false;
                             break;
                         }
-                    case 4:
-                        {
-                            Ended = true;
-                            break;
-                        }
-                }
-
-                foreach (PokerPlayer player in AlivePlayers)
-                {
-                    if(Ended)
-                    {
-                        Evaluator.Eval(DealerHand, player.Hand);
-                    }
-
-                    Pot += player.Bet;
-                    player.Bet = 0;
                 }
             }
-
-            Current.OnAction();
         }
 
-        public void fold(PokerPlayer player)
+        private void checkEnd()
         {
-            if(player != Current) { throw new NotYouException(); }
-            Pot += player.Bet;
-            player.Bet = 0;
-
-            AlivePlayers.Remove(player);
-
-            foreach(Card c in player.Hand)
+            if(Ended)
             {
-                c.Hidden = true;
+                return;
             }
-
-            currentPlayer--;
-            indexOfLastRaise--;
-
-            next();
+            if(_alivePlayers.Count == 1)
+            {
+                onEnd();
+            } else if(_state == 4)
+            {
+                onEnd();
+            }
         }
 
-        public int raise(PokerPlayer player, int change)
+        private void onEnd()
         {
-            if (player != Current) { throw new NotYouException(); }
-            CurrentBet = CurrentBet + change;
-            int v = CurrentBet - player.Bet;
-            player.Bet = CurrentBet;
+            Ended = true;
+            //MenuManager.close(); //TODO: change
+            if(_alivePlayers.Count == 1) // this player wins everything
+            {
+                _alivePlayers[0].Win(Pot);
+            } else
+            {
+                List<PokerPlayer>? bestPlayer = null;
+                int bestScore = 0;
+                foreach(PokerPlayer player in _alivePlayers)
+                {
+                    int score = Evaluator.Eval(DealerHand, player.Hand);
+                    if(score > bestScore)
+                    {
+                        bestScore = score;
+                        bestPlayer = new List<PokerPlayer> { player };
+                    } else if(score == bestScore && bestPlayer != null)
+                    {
+                        bestPlayer.Add(player);
+                    }
+                }
 
-            indexOfLastRaise = 0;
+                int payputPerPlayer = Pot / bestPlayer.Count;
 
-            next();
-
-            return v;
-        }
-
-        public int check(PokerPlayer player)
-        {
-            if (player != Current) { throw new NotYouException(); }
-            int v = CurrentBet - player.Bet;
-            player.Bet = CurrentBet;
-
-            next();
-
-            return v;
+                foreach(PokerPlayer pokerPlayer in bestPlayer)
+                {
+                    pokerPlayer.Win(payputPerPlayer);
+                }
+            }
         }
     }
 }

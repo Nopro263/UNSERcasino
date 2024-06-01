@@ -20,7 +20,7 @@
 
         public bool Equals(Result? other)
         {
-            if(other == null) return false;
+            if(other == null || this.GetType() != other.GetType()) return false;
 
             Card[] cards = other.GetCards();
 
@@ -32,9 +32,32 @@
             return true;
         }
 
+        public bool EqualsIgnoreType(Result? other)
+        {
+            if (other == null) return false;
+
+            Card[] cards = other.GetCards();
+
+            foreach (Card c in GetCards())
+            {
+                if (!cards.Contains(c)) return false;
+            }
+
+            return true;
+        }
+
         public abstract Card[] GetCards();
         protected abstract int GetRanking();
 
+        public int GetFinalRanking()
+        {
+            int rank = (24-GetRanking()) * 100;
+            foreach(Card c in GetCards())
+            {
+                rank += c.CardValue.Rating;
+            }
 
+            return rank;
+        }
     }
 }

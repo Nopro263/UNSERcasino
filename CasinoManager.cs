@@ -1,10 +1,10 @@
 ﻿namespace UNSERcasino
 {
-    internal class CasinoManager
+    internal class CasinoManager : IPurse
     {
-        public double PlayerBalance { get; private set; } // Self-explanatory
-        public double TwoBefore { get; private set; } // The last two transactions (for PlayerBalanceView)
-        public double Previous { get; private set; } // ^
+        public int Balance { get; private set; } // Self-explanatory
+        public int TwoBefore { get; private set; } // The last two transactions (for PlayerBalanceView)
+        public int Previous { get; private set; } // ^
 
         public string Name { get; private set; }
 
@@ -14,33 +14,35 @@
         private CasinoManager()
         {
             Name = "TestUser";
-            PlayerBalance = 0;
+            Balance = 100;
         }
 
-        /// <summary>
-        /// Called when a player bets some coins.
-        /// </summary>
-        /// <param name="coins">the coins to bet</param>
-        public void bet(double coins)
-        {
-            PlayerBalance -= coins;
-        }
-
-        /// <summary>
-        /// Called when the player wins or looses some coins.
-        /// </summary>
-        /// <param name="coins">the coins to change</param>
-        public void add(double coins)
-        {
-            change(coins);
-        }
-
-        private void change(double coins)
+        private void change(int coins)
         {
             TwoBefore = Previous; // Update
             Previous = coins;
 
-            PlayerBalance += coins;
+            Balance += coins;
+        }
+
+        public void Add(int amount)
+        {
+            change(amount);
+        }
+
+        public void Remove(int amount)
+        {
+            change(-amount);
+        }
+
+        public bool CanRemove(int amount)
+        {
+            return Balance >= amount;
+        }
+
+        public bool CanAdd(int amount)
+        {
+            return true;
         }
     }
 }

@@ -15,7 +15,7 @@ namespace UNSERcasino.UI
 
         public Scene(Menu.Menu menu)
         {
-            _canvas = new Canvas(Console.BufferWidth, Console.BufferHeight); // Create Canvas
+            _canvas = new Canvas(); // Create Canvas
             _menu = menu;
         }
 
@@ -120,6 +120,11 @@ namespace UNSERcasino.UI
             }
 
             if(MenuManager.getTopMenu() != _menu)
+            {
+                return;
+            }
+
+            if(_canvas.check())
             {
                 return;
             }

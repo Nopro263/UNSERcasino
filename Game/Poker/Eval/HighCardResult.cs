@@ -16,7 +16,7 @@ namespace UNSERcasino.Game.Poker.Eval
 
         protected override int GetRanking()
         {
-            return 10 + _card.CardValue.Rating;
+            return 10 + (14 - _card.CardValue.Rating);
         }
 
         public static List<HighCardResult> GetHighCards(Card[] cards)

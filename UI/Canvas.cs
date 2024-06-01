@@ -26,18 +26,8 @@
             return _height;
         }
 
-        public Canvas(int width, int height)
+        public Canvas()
         {
-            _width = width;
-            _height = height;
-
-            _data1 = new char?[width][];
-            _currentView = new char?[width][];
-            _fg1 = new ConsoleColor?[width][];
-            _currentFg = new ConsoleColor?[width][];
-            _bg1 = new ConsoleColor?[width][];
-            _currentBg = new ConsoleColor?[width][];
-
             resetAll();
         }
 
@@ -164,13 +154,35 @@
             }
         }
 
+        public bool check()
+        {
+            if(Console.BufferHeight != _height || Console.BufferWidth != _width)
+            {
+                resetAll();
+                return true;
+            }
+            return false;
+        }
+
         public void resetAll()
         {
+            _width = Console.BufferWidth;
+            _height = Console.BufferHeight;
+
+            _data1 = new char?[_width][];
+            _currentView = new char?[_width][];
+            _fg1 = new ConsoleColor?[_width][];
+            _currentFg = new ConsoleColor?[_width][];
+            _bg1 = new ConsoleColor?[_width][];
+            _currentBg = new ConsoleColor?[_width][];
+
             resetWorking();
             resetCurrent();
 
             Console.BackgroundColor = BACKGROUND;
             Console.ForegroundColor = FOREGROUND;
+
+            Console.Clear();
         }
 
         /// <summary>
@@ -178,63 +190,69 @@
         /// </summary>
         public void show()
         {
-            int imax = _data1.Length;
-            int jmax = _data1[0].Length;
-            for (int i = 0; i < imax; i++)
+            try
             {
-                for (int j = 0; j < jmax; j++)
+                int imax = _data1.Length;
+                int jmax = _data1[0].Length;
+                for (int i = 0; i < imax; i++)
                 {
-                    char? d;
-                    ConsoleColor? fg;
-                    ConsoleColor? bg;
-
-                    d = _data1[i][j];
-                    fg = _fg1[i][j];
-                    bg = _bg1[i][j];
-
-                    if (_data1[i][j] != _currentView[i][j] ||
-                        _fg1[i][j] != _currentFg[i][j] ||
-                        _bg1[i][j] != _currentBg[i][j]) // sth. has changed
+                    for (int j = 0; j < jmax; j++)
                     {
-                        Console.CursorLeft = i;
-                        Console.CursorTop = j;
+                        char? d;
+                        ConsoleColor? fg;
+                        ConsoleColor? bg;
 
-                        if (bg != null)
-                        {
-                            Console.BackgroundColor = (ConsoleColor)bg;
-                            _currentBg[i][j] = bg;
-                        }
-                        else
-                        {
-                            Console.BackgroundColor = BACKGROUND;
-                            _currentBg[i][j] = null;
-                        }
-                        if (fg != null)
-                        {
-                            Console.ForegroundColor = (ConsoleColor)fg;
-                            _currentFg[i][j] = fg;
-                        }
-                        else
-                        {
-                            Console.ForegroundColor = FOREGROUND;
-                            _currentFg[i][j] = null;
-                        }
+                        d = _data1[i][j];
+                        fg = _fg1[i][j];
+                        bg = _bg1[i][j];
 
-                        if (d != null)
+                        if (_data1[i][j] != _currentView[i][j] ||
+                            _fg1[i][j] != _currentFg[i][j] ||
+                            _bg1[i][j] != _currentBg[i][j]) // sth. has changed
                         {
-                            Console.Write(d);
-                            _currentView[i][j] = d;
-                        }
-                        else
-                        {
-                            Console.Write(' ');
-                            _currentView[i][j] = null;
+                            Console.CursorLeft = i;
+                            Console.CursorTop = j;
+
+                            if (bg != null)
+                            {
+                                Console.BackgroundColor = (ConsoleColor)bg;
+                                _currentBg[i][j] = bg;
+                            }
+                            else
+                            {
+                                Console.BackgroundColor = BACKGROUND;
+                                _currentBg[i][j] = null;
+                            }
+                            if (fg != null)
+                            {
+                                Console.ForegroundColor = (ConsoleColor)fg;
+                                _currentFg[i][j] = fg;
+                            }
+                            else
+                            {
+                                Console.ForegroundColor = FOREGROUND;
+                                _currentFg[i][j] = null;
+                            }
+
+                            if (d != null)
+                            {
+                                Console.Write(d);
+                                _currentView[i][j] = d;
+                            }
+                            else
+                            {
+                                Console.Write(' ');
+                                _currentView[i][j] = null;
+                            }
                         }
                     }
                 }
+                resetWorking();
+            } catch (Exception e)
+            {
+                resetAll();
             }
-
-            resetWorking();
         }
+
     }
 }

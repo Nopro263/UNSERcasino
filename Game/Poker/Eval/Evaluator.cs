@@ -4,11 +4,17 @@ namespace UNSERcasino.Game.Poker.Eval
 {
     internal class Evaluator
     {
-        public static List<Result> Eval(Card[] dealer, Card[] hand)
+        public static int Eval(Card[] dealer, Card[] hand)
         {
             List<Result> results = InternalEval(dealer, hand);
 
-            return results;
+            int sum = 0;
+            foreach(Result r in results)
+            {
+                sum += r.GetFinalRanking();
+            }
+
+            return sum;
         }
 
         private static List<Result> allWithCard(List<Result> results, Card card)
@@ -36,12 +42,6 @@ namespace UNSERcasino.Game.Poker.Eval
                 }
             }
 
-
-            if(results.Count() >= 1)
-            {
-                Console.Write("");
-            }
-
             return results;
         }
 
@@ -63,8 +63,10 @@ namespace UNSERcasino.Game.Poker.Eval
             result.AddRange(QuadrupletResult.GetQuadruplets(cards));
             result.AddRange(StraightResult.GetStraights(cards));
             result.AddRange(FlushResult.GetFlushes(cards));
+            result.AddRange(StraightFlushResult.GetStraightFlush(result));
+            result.AddRange(RoyalFlushResult.GetRoyalFlush(result));
 
-            result = removeAllDoubleUses(result, cards); // TODO a triplet and a pair are a TwoPair?
+            result = removeAllDoubleUses(result, cards);
 
             TripletResult? hasTriplet = null;
             PairResult? hasPair = null;
@@ -83,7 +85,7 @@ namespace UNSERcasino.Game.Poker.Eval
 
             if(hasTriplet != null && hasPair != null)
             {
-                result.Add(new FullHouseResult(hasPair, hasTriplet));
+                result.Add(new FullHouseResult(hasPair, hasTriplet)); //FIXME: if cards build sth. better than a pair and a triplet on their own, it doesnt work
                 result.Remove(hasPair);
                 result.Remove(hasTriplet);
             }
