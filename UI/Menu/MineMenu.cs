@@ -40,7 +40,7 @@ namespace UNSERcasino.UI.Menu
             {
                 if (int.TryParse(_bet.FullContent, out int bet) && bet != 0)
                 {
-                    CasinoManager.Instance.bet(bet);
+                    CasinoManager.Instance.Remove(bet);
                     _mines.firstBet = false;
                 }
                 else { _textview.Text.setContent("Please enter a valid bet"); }
@@ -82,13 +82,13 @@ namespace UNSERcasino.UI.Menu
                         {
 
                             _textview.Text.setContent("You won: " + _mines.CalcMultiplier() * int.Parse(_bet.FullContent));
-                            CasinoManager.Instance.add(_mines.CalcMultiplier() * int.Parse(_bet.FullContent));
+                            CasinoManager.Instance.Add((int)_mines.CalcMultiplier() * int.Parse(_bet.FullContent));
                             _mines.HasCashedout = true;
                         }
                         else
                         {
                             _textview.Text.setContent("You lost: " + (-int.Parse(_bet.FullContent)));
-                            CasinoManager.Instance.add(-int.Parse(_bet.FullContent));
+                            CasinoManager.Instance.Remove(int.Parse(_bet.FullContent));
                             _mines.HasCashedout = true;
                         }
                     }
