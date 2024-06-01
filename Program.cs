@@ -83,7 +83,8 @@ namespace UNSERcasino
 
         static void OnProcessExit(object sender, EventArgs e)
         {
-            Console.WriteLine("I'm out of here");
+            //Console.WriteLine("I'm out of here");
+            CasinoManager.Instance.Save();
         }
     }
 }
