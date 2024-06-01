@@ -7,6 +7,9 @@ namespace UNSERcasino.Game
         private int[][] SafeOrNot = new int[5][]; // True -> No Mine | False -> Mine ----------> NOW: 0 -> No Mine | 1 -> Revealed | 2 -> Mine
         private int _revealedDiamonds;
         private int _mineAmount;
+        public bool MineRevealed { get; private set; } = false;
+        public bool HasCashedout { get; set; } = false;
+        public bool firstBet { get; set; } = true;
 
         public Mines()
         {
@@ -58,6 +61,7 @@ namespace UNSERcasino.Game
             else if (SafeOrNot[x][y] == 2)
             {
                 _revealedDiamonds = 0;
+                MineRevealed = true;
                 return false;
             }
             else if (SafeOrNot[x][y] == 1)
@@ -67,7 +71,7 @@ namespace UNSERcasino.Game
             return false;
         }
 
-        private double CalcMultiplier()
+        public double CalcMultiplier()
         {
             double house_edge = 0.02;
             return (1 - house_edge) * (double)NCr(25, _revealedDiamonds) / (double)NCr(25 - _mineAmount, _revealedDiamonds);
