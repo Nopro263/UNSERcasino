@@ -34,15 +34,15 @@ namespace UNSERcasino.UI.Menu
             _over = new ButtonView(new Text("Over"), false);
             _under = new ButtonView(new Text("Under"), false);
 
-            scene.addView(_diceSum, (Console.BufferWidth / 2) - 1, y - 1);
-            scene.addView(_over, 0, 0);
-            scene.addView(_under, 0, 1);
-            scene.addView(_textInput, 0, 2);
+            _scene.addView(_diceSum, (Console.BufferWidth / 2) - 1, y - 1);
+            _scene.addView(_over, 0, 0);
+            _scene.addView(_under, 0, 1);
+            _scene.addView(_textInput, 0, 2);
 
             for (int i = 0; i < _dices.Length; i++)
             {
                 _dices[i] = new DiceView(1);
-                scene.addView(_dices[i], x, y);
+                _scene.addView(_dices[i], x, y);
                 x += 10;
                 if ((i + 1) % 4 == 0)
                 {
@@ -52,7 +52,7 @@ namespace UNSERcasino.UI.Menu
             }
 
 
-            scene.addView(_betSlider, x, y);
+            _scene.addView(_betSlider, x, y);
 
             //roll();
         }

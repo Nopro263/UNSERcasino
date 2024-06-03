@@ -20,11 +20,11 @@ namespace UNSERcasino.UI.Menu
 
             scene.addView(new CardView(_card), Flow.CENTER, Flow.CENTER);*/
 
-            scene.addView(new _2dButtonView(3, 3), Flow.CENTER, Flow.CENTER);
+            _scene.addView(new _2dButtonView(3, 3), Flow.CENTER, Flow.CENTER);
 
             _text = new Text("abc");
 
-            scene.addView(new TextView(_text, false, false), Flow.START, Flow.START);
+            _scene.addView(new TextView(_text, false, false), Flow.START, Flow.START);
 
             int a = Evaluator.Eval(
                 new Card[]

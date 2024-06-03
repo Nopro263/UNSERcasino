@@ -22,12 +22,12 @@ namespace UNSERcasino.UI.Menu
             _mines = new Mines();
             _buttonview = new _2dButtonView(5, 5, '?');
 
-            scene.addView(_buttonview, Flow.CENTER, Flow.CENTER);
+            _scene.addView(_buttonview, Flow.CENTER, Flow.CENTER);
 
             _textview = new TextView(new Text("Total Amount: "), false, false);
-            scene.addView(_bet, Flow.CENTER, Flow.CENTER, 0, 6);
-            scene.addView(_textview, Flow.CENTER, Flow.CENTER, 0, 8);
-            scene.addView(new ButtonView(new Text("Cashout"), false), Flow.CENTER, Flow.CENTER, 0, 10);
+            _scene.addView(_bet, Flow.CENTER, Flow.CENTER, 0, 6);
+            _scene.addView(_textview, Flow.CENTER, Flow.CENTER, 0, 8);
+            _scene.addView(new ButtonView(new Text("Cashout"), false), Flow.CENTER, Flow.CENTER, 0, 10);
 
             _mines.StartGame(1);
 
