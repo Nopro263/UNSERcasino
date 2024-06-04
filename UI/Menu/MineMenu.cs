@@ -67,6 +67,7 @@ namespace UNSERcasino.UI.Menu
                         else if (_mines.Play(view.X, view.Y) == 3)
                         {
                             _textview.Text.setContent("Game Over");
+                            _mines.HasCashedout = true;
                         }
                     }
                 }

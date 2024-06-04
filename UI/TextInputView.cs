@@ -15,10 +15,10 @@ namespace UNSERcasino.UI
             }
         }
 
-        private string _fullContent;
+        protected string _fullContent;
         private int _maxLen; // the max len in X direction
-        private string _placeholder;
-        private bool _atStart;
+        protected string _placeholder;
+        protected bool _atStart;
         private bool _disabled;
         public TextInputView(bool vertical, int maxLen, string placeholder) : base(new Text("###"), vertical, false)
         {
@@ -40,7 +40,7 @@ namespace UNSERcasino.UI
 
         }
 
-        public void onKey(ConsoleKeyInfo key)
+        public virtual void onKey(ConsoleKeyInfo key)
         {
             if (key.Key == ConsoleKey.Backspace)
             {
@@ -48,8 +48,8 @@ namespace UNSERcasino.UI
                 {
                     _fullContent = _fullContent.Substring(0, _fullContent.Length - 1); // remove the last Element
                 }
-                
-                if(_fullContent.Length == 0)
+
+                if (_fullContent.Length == 0)
                 {
                     _fullContent = _placeholder;
                     _atStart = true;
@@ -68,7 +68,7 @@ namespace UNSERcasino.UI
 
         public void select()
         {
-            if(!_disabled)
+            if (!_disabled)
             {
                 Selected = true;
             }
