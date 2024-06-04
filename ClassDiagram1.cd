@@ -1,0 +1,406 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="UNSERcasino.Game.Poker.Eval.Evaluator">
+    <Position X="55" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAIAAAIAAAAIAAAAAgAAAAAAAAAAAAEAAAEAA=</HashCode>
+      <FileName>Game\Poker\Eval\Evaluator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UNSERcasino.Game.Poker.Eval.FlushResult">
+    <Position X="18.25" Y="3.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAEAAAAABAAAAAAAAABAAAAQAAAAA=</HashCode>
+      <FileName>Game\Poker\Eval\FlushResult.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UNSERcasino.Game.Poker.Eval.FullHouseResult">
+    <Position X="23.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAEAAAAABAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Game\Poker\Eval\FullHouseResult.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UNSERcasino.Game.Poker.Eval.HighCardResult">
+    <Position X="27.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAEAAAAABAAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>Game\Poker\Eval\HighCardResult.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UNSERcasino.Game.Poker.Eval.PairResult">
+    <Position X="32.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAEAAAAABAAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>Game\Poker\Eval\PairResult.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UNSERcasino.Game.Poker.Eval.QuadrupletResult">
+    <Position X="34.5" Y="3.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAEAAAAABAAAAAACAAAAAAAAAAAAA=</HashCode>
+      <FileName>Game\Poker\Eval\QuadrupletResult.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UNSERcasino.Game.Poker.Eval.Result">
+    <Position X="26.25" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAQEkAAAAAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>Game\Poker\Eval\Result.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="UNSERcasino.Game.Poker.Eval.RoyalFlushResult">
+    <Position X="37" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAEAAAAABAAAAAAAAAAAAAAAgAAAA=</HashCode>
+      <FileName>Game\Poker\Eval\RoyalFlushResult.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UNSERcasino.Game.Poker.Eval.StraightFlushResult">
+    <Position X="15.75" Y="3.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAEAAAAABAAAAAAAAAAAAAAAABAAA=</HashCode>
+      <FileName>Game\Poker\Eval\StraightFlushResult.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UNSERcasino.Game.Poker.Eval.StraightResult">
+    <Position X="20.75" Y="3.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAEAAEAAAAABAAAAgAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Game\Poker\Eval\StraightResult.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UNSERcasino.Game.Poker.Eval.TripletResult">
+    <Position X="25.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAACAAAAAAAEAAAAABAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Game\Poker\Eval\TripletResult.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UNSERcasino.Game.Poker.Eval.TwoPairResult">
+    <Position X="30" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAECAA=</HashCode>
+      <FileName>Game\Poker\Eval\TwoPairResult.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UNSERcasino.Game.Poker.NotYouException">
+    <Position X="51.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Game\Poker\NotYouException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UNSERcasino.Game.Poker.Poker">
+    <Position X="46.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAQAAgAAQAAAIEAgAImCABAAACgACAAgAAgAgCAAAA=</HashCode>
+      <FileName>Game\Poker\Poker.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UNSERcasino.Game.Poker.PokerEvaluator">
+    <Position X="55" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAAAAAAAAAEAAAAAAAAAAAACAEAAAAAA=</HashCode>
+      <FileName>Game\Poker\PokerEvaluator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UNSERcasino.Game.Poker.PokerPlayer">
+    <Position X="17.75" Y="14.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAgCICAAAIACAkICCAQAAAACAAAgAAAAAgAAAAQ=</HashCode>
+      <FileName>Game\Poker\PokerPlayer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UNSERcasino.Game.Poker.PokerPlayerWithBalance">
+    <Position X="17.75" Y="20.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAAAAAAAEACAAAAAABAAAAgAAAAAAAAAAQ=</HashCode>
+      <FileName>Game\Poker\PokerPlayerWithBalance.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UNSERcasino.game.Crash">
+    <Position X="49.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAIAA=</HashCode>
+      <FileName>Game\Crash.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UNSERcasino.Game.Dice">
+    <Position X="51.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAAAKAgIAAAAAAAAAAAAIgCAoAAAAIAA=</HashCode>
+      <FileName>Game\Dice.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UNSERcasino.Game.Mines">
+    <Position X="43.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAQABAAwAAAIAAIAAIAAAgAAAAAAAAgQCAAACAAAA=</HashCode>
+      <FileName>Game\Mines.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UNSERcasino.UI.Menu.CrashMenu">
+    <Position X="19.75" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAABAAAAAAgAIACAAAAAAAAA=</HashCode>
+      <FileName>UI\Menu\CrashMenu.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="UNSERcasino.UI.Menu.DiceMenu">
+    <Position X="22" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAIAAgCAECAACIAgAAAAAgAAAAAAAAAAAAE=</HashCode>
+      <FileName>UI\Menu\DiceMenu.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="UNSERcasino.UI.Menu.MainMenu">
+    <Position X="24.25" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>UI\Menu\MainMenu.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="UNSERcasino.UI.Menu.Menu">
+    <Position X="19.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAAAAAAAAAEAIAAAAAAAgAACAAAAAAAAAA=</HashCode>
+      <FileName>UI\Menu\Menu.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UNSERcasino.UI.Menu.MenuManager">
+    <Position X="48" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAACAAAAAAAAAAAIAAAIAAAAEAAAA=</HashCode>
+      <FileName>UI\Menu\MenuManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UNSERcasino.UI.Menu.MineMenu">
+    <Position X="15" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAAAAAggAAAAAAAAAAgAAAAACAAAAAAA=</HashCode>
+      <FileName>UI\Menu\MineMenu.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UNSERcasino.UI.Menu.PokerMenu">
+    <Position X="17.25" Y="9.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAIACAAAAAAABAAAECAgACAAAAAQAACAA=</HashCode>
+      <FileName>UI\Menu\PokerMenu.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="UNSERcasino.UI._2dButtonView" BaseTypeListCollapsed="true">
+    <Position X="48" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEIAgAAAgAAAgAAIAAAABAAAAIAAAgBAAAAIAACAYAA=</HashCode>
+      <FileName>UI\2dButtonView.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="UNSERcasino.UI.ButtonView">
+    <Position X="27.25" Y="15.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAABIAAAAAAAAAAAAAgBAAAAAAAAAIAA=</HashCode>
+      <FileName>UI\ButtonView.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="UNSERcasino.UI.Canvas">
+    <Position X="49.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAQAAAAERACIACAAAAEAkABAABAgQAAABAAAAAAIAAA=</HashCode>
+      <FileName>UI\Canvas.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UNSERcasino.UI.CardValue">
+    <Position X="53.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAEACIAIAAgAAAFqAAAAAAAgIAAAAEAAAEAAAiABwA=</HashCode>
+      <FileName>UI\CardValue.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UNSERcasino.UI.CardView" BaseTypeListCollapsed="true">
+    <Position X="55" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEJAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAACAABA=</HashCode>
+      <FileName>UI\CardView.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="UNSERcasino.UI.DiceView" BaseTypeListCollapsed="true">
+    <Position X="53.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AFIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAACAAAA=</HashCode>
+      <FileName>UI\DiceView.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="UNSERcasino.UI.PlayerBalanceView">
+    <Position X="14.75" Y="15.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>FAQAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UI\PlayerBalanceView.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="UNSERcasino.UI.Scene">
+    <Position X="41.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAEiAAAAIBAAAAQAAAAAAAAAAAAACEAACAAAAA=</HashCode>
+      <FileName>UI\Scene.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UNSERcasino.UI.ViewData">
+    <Position X="39.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAIAAQAAAAAAAAAAAAAAAAAAAAAAAAAAGEAAAA=</HashCode>
+      <FileName>UI\Scene.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UNSERcasino.UI.SceneView" BaseTypeListCollapsed="true">
+    <Position X="51.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEIAAAAACAAAAAAAAAAAAIAAAAAAAAAAAAAAAACAAAA=</HashCode>
+      <FileName>UI\SceneView.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="UNSERcasino.UI.SkipThisUpdateException">
+    <Position X="53.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UI\SkipThisUpdateException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UNSERcasino.UI.SliderView">
+    <Position X="29.5" Y="15.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAgAAAAAAIAAAAABAAABAAAgBAEABgAAAAIAA=</HashCode>
+      <FileName>UI\SliderView.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="UNSERcasino.UI.TableView">
+    <Position X="14.75" Y="12.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>BEIAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAA=</HashCode>
+      <FileName>UI\TableView.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="UNSERcasino.UI.Text">
+    <Position X="55" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAADACACAAAAAAAAAAAAAAAAAAAgAAA=</HashCode>
+      <FileName>UI\Text.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UNSERcasino.UI.TextInputView">
+    <Position X="25" Y="15.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQIAggAAggAAAABIAEAAAAgAAAAAAgBAAAAAAAAAIAA=</HashCode>
+      <FileName>UI\TextInputView.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="UNSERcasino.UI.TextView">
+    <Position X="27.25" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEIAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAACACAAAI=</HashCode>
+      <FileName>UI\TextView.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="UNSERcasino.UI.TimeUtil">
+    <Position X="44" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAAAAQAAAAAAAAAAAAAAAAAQAAEAAQ=</HashCode>
+      <FileName>UI\TimeUtil.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UNSERcasino.Card" BaseTypeListCollapsed="true">
+    <Position X="51.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgACAAAAAAAQAIAAAAAAAAAgAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>Card.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="UNSERcasino.Program">
+    <Position X="48" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAAAAAAAAAACAAAAAAAAAAAAAAAABAAAAAE=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UNSERcasino.CasinoManager" BaseTypeListCollapsed="true">
+    <Position X="48" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIEAEAAAAAAAgAAAAggBIQAAAAAAAAAQEAAAAAAAAA=</HashCode>
+      <FileName>CasinoManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Interface Name="UNSERcasino.UI.IClickable">
+    <Position X="27.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAIAAAAAAAAAAAAAgBAAAAAAAAAIAA=</HashCode>
+      <FileName>UI\IClickable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="UNSERcasino.UI.IKeyListener">
+    <Position X="27.75" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UI\IKeyListener.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="UNSERcasino.UI.IUpdateable">
+    <Position X="33.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UI\IUpdateable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="UNSERcasino.UI.IView">
+    <Position X="35" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEIAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAIAACAAAA=</HashCode>
+      <FileName>UI\IView.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="UNSERcasino.IPurse">
+    <Position X="31.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAgABIAAAAAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>IPurse.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="UNSERcasino.Game.Poker.PokerEvaluationResult">
+    <Position X="35" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAgSgAIACAAAAAAAAACAAAAAEAAAIAAAAA=</HashCode>
+      <FileName>Game\Poker\PokerEvaluationResult.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="UNSERcasino.UI.CardType">
+    <Position X="31.5" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAQAgAAAAACAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UI\CardType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="UNSERcasino.UI.Flow">
+    <Position X="33.25" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAgAIAA=</HashCode>
+      <FileName>UI\Scene.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI Variable Small" Size="9" />
+</ClassDiagram>
