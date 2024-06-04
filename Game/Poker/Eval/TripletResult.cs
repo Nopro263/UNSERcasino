@@ -51,5 +51,10 @@
         {
             return 7;
         }
+
+        public override string ToString()
+        {
+            return "three of a kind";
+        }
     }
 }

@@ -30,5 +30,10 @@ namespace UNSERcasino.Game.Poker.Eval
 
             return res;
         }
+
+        public override string ToString()
+        {
+            return "high card";
+        }
     }
 }

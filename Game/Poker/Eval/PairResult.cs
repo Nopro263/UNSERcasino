@@ -48,5 +48,10 @@
         {
             return 9;
         }
+
+        public override string ToString()
+        {
+            return "pair";
+        }
     }
 }

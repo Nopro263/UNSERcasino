@@ -18,5 +18,10 @@
         {
             return 4;
         }
+
+        public override string ToString()
+        {
+            return "full house";
+        }
     }
 }

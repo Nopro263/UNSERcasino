@@ -36,5 +36,10 @@
         {
             return 8;
         }
+
+        public override string ToString()
+        {
+            return "two pair";
+        }
     }
 }

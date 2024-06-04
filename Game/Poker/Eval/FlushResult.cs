@@ -44,5 +44,10 @@ namespace UNSERcasino.Game.Poker.Eval
         {
             return 5;
         }
+
+        public override string ToString()
+        {
+            return "flush";
+        }
     }
 }

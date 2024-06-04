@@ -95,5 +95,10 @@ namespace UNSERcasino.Game.Poker.Eval
         {
             return 6;
         }
+
+        public override string ToString()
+        {
+            return "straight";
+        }
     }
 }

@@ -25,37 +25,6 @@ namespace UNSERcasino.UI.Menu
             _text = new Text("abc");
 
             _scene.addView(new TextView(_text, false, false), Flow.START, Flow.START);
-
-            int a = Evaluator.Eval(
-                new Card[]
-                {
-                    new Card(CardValue.ASS, CardType.Kreuz, false),
-                    new Card(CardValue.BUB, CardType.Kreuz, false),
-                    new Card(CardValue.DAME, CardType.Kreuz, false),
-                    new Card(CardValue.DREI, CardType.Herz, false),
-                    new Card(CardValue.ZWEI, CardType.Kreuz, false),
-                },
-                new Card[]
-                {
-                    new Card(CardValue.ASS, CardType.Herz, false),
-                    new Card(CardValue.ZEHN, CardType.Karo, false),
-                }
-                );
-            int b = Evaluator.Eval(
-                new Card[]
-                {
-                    new Card(CardValue.ASS, CardType.Kreuz, false),
-                    new Card(CardValue.BUB, CardType.Kreuz, false),
-                    new Card(CardValue.DAME, CardType.Kreuz, false),
-                    new Card(CardValue.DREI, CardType.Herz, false),
-                    new Card(CardValue.ZWEI, CardType.Kreuz, false),
-                },
-                new Card[]
-                {
-                    new Card(CardValue.BUB, CardType.Herz, false),
-                    new Card(CardValue.FUENF, CardType.Karo, false),
-                }
-                );
         }
 
         public void Update()

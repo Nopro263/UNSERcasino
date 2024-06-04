@@ -4,10 +4,8 @@ namespace UNSERcasino.Game.Poker.Eval
 {
     internal class Evaluator
     {
-        public static int Eval(Card[] dealer, Card[] hand)
+        public static int GetScore(List<Result> results)
         {
-            List<Result> results = InternalEval(dealer, hand);
-
             int sum = 0;
             foreach(Result r in results)
             {
@@ -45,7 +43,7 @@ namespace UNSERcasino.Game.Poker.Eval
             return results;
         }
 
-        private static List<Result> InternalEval(Card[] dealer, Card[] hand)
+        public static List<Result> Eval(Card[] dealer, Card[] hand)
         {
             Card[] cards = new Card[dealer.Length + hand.Length];
             dealer.CopyTo(cards, 0);

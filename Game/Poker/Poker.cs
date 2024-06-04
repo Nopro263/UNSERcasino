@@ -132,6 +132,11 @@ namespace UNSERcasino.Game.Poker
 
         private void Next()
         {
+            if(_lastRaisePlayer == null && _alivePlayers.IndexOf(_currentPlayer) == _alivePlayers.Count - 1)
+            {
+                _lastRaisePlayer = _alivePlayers[0];
+            }
+
             _currentPlayer = _alivePlayers[(_alivePlayers.IndexOf(_currentPlayer) + 1) % _alivePlayers.Count];
 
             if(_currentPlayer == _lastRaisePlayer)
@@ -166,6 +171,8 @@ namespace UNSERcasino.Game.Poker
                         }
                 }
             }
+
+            Console.ReadLine();
         }
 
         private void checkEnd()
@@ -192,11 +199,15 @@ namespace UNSERcasino.Game.Poker
                 _alivePlayers[0].Win(Pot);
             } else
             {
+                PokerWinMenu menu = new PokerWinMenu();
+
                 List<PokerPlayer>? bestPlayer = null;
                 int bestScore = 0;
                 foreach(PokerPlayer player in _alivePlayers)
                 {
-                    int score = Evaluator.Eval(DealerHand, player.Hand);
+                    List<Result> result = Evaluator.Eval(DealerHand, player.Hand);
+                    menu.addPlayer(player, result);
+                    int score = Evaluator.GetScore(result);
                     if(score > bestScore)
                     {
                         bestScore = score;
@@ -213,6 +224,8 @@ namespace UNSERcasino.Game.Poker
                 {
                     pokerPlayer.Win(payputPerPlayer);
                 }
+
+                MenuManager.open(menu);
             }
         }
     }
