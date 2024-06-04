@@ -15,7 +15,7 @@ namespace UNSERcasino.UI.Menu
             int x = (Console.BufferWidth / 2) - (col * 10 / 2);
             int y = (Console.BufferHeight / 2) - (row * 6 / 2);
 
-            _bet = new TextInputView(false, 5, "Bet");
+            _bet = new TextInputViewRegex(false, 5, "Bet");
 
 
 

@@ -60,7 +60,7 @@ namespace UNSERcasino.UI.Menu
             btFold = new ButtonView(new Text("Fold"), false);
             btCheck = new ButtonView(new Text("Check"), false);
 
-            tip = new TextInputView(false, 5, "Raise");
+            tip = new TextInputViewRegex(false, 5, "Raise");
 
             _scene.addView(btCheck, Flow.END, Flow.END, 0, -2);
             _scene.addView(tip, Flow.END, Flow.END, 0, -1);
