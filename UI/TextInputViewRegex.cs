@@ -28,15 +28,16 @@ namespace UNSERcasino.UI
             }
             else
             {
+                if (!rx.IsMatch(key.KeyChar.ToString()))
+                { // check if the key is a number
+                    return;
+                }
                 if (_atStart)
                 {
                     _atStart = false;
                     _fullContent = "";
                 }
-                if (rx.IsMatch(key.KeyChar.ToString())) // check if the key is a number
-                {
-                    _fullContent += key.KeyChar.ToString(); // add it
-                }
+                _fullContent += key.KeyChar.ToString(); // add it
             }
         }
     }
