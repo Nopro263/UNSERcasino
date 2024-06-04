@@ -4,7 +4,7 @@
     {
         public int CompareTo(Result? other)
         {
-            int r1 = this.GetRanking();
+            int r1 = this.GetFinalRanking();
             int r2;
             if(other == null)
             {
@@ -12,10 +12,10 @@
             }
             else
             {
-                 r2 = other.GetRanking();
+                 r2 = other.GetFinalRanking();
             }
 
-            return r1 - r2;
+            return r2 - r1;
         }
 
         public bool Equals(Result? other)
@@ -51,7 +51,7 @@
 
         public int GetFinalRanking()
         {
-            int rank = (24-GetRanking()) * 100;
+            int rank = (10-GetRanking())*100;
             foreach(Card c in GetCards())
             {
                 rank += c.CardValue.Rating;

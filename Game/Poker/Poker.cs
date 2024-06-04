@@ -199,7 +199,7 @@ namespace UNSERcasino.Game.Poker
                 _alivePlayers[0].Win(Pot);
             } else
             {
-                PokerWinMenu menu = new PokerWinMenu();
+                PokerWinMenu menu = new PokerWinMenu(DealerHand);
 
                 List<PokerPlayer>? bestPlayer = null;
                 int bestScore = 0;
