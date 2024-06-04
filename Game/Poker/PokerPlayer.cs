@@ -16,10 +16,10 @@
             Name = name;
             Hand = hand;
         }
-        public virtual bool CanRaise()
+        public virtual bool CanRaise(int amount)
         {
             int difference = _poker.CurrentBet - Bet;
-            return _poker.CanRaise() && !HasFolded && CanRaiseAmount(difference);
+            return _poker.CanRaise() && !HasFolded && CanRaiseAmount(difference + amount);
         }
         public virtual bool CanRaiseAmount(int amount)
         {

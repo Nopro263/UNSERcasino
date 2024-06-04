@@ -172,7 +172,7 @@ namespace UNSERcasino.Game.Poker
                 }
             }
 
-            Console.ReadLine();
+            //Console.ReadLine();
         }
 
         private void checkEnd()

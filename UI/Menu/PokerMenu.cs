@@ -122,7 +122,7 @@ namespace UNSERcasino.UI.Menu
                 btCheck.enable();
             }
 
-            if (!_poker.CurrentVisualPlayer.CanRaise() || !_poker.CurrentVisualPlayer.CanRaiseAmount(1))
+            if (!_poker.CurrentVisualPlayer.CanRaise(1))
             {
                 tip.Text.Fg = ConsoleColor.DarkGray;
             } else
@@ -176,7 +176,7 @@ namespace UNSERcasino.UI.Menu
                 int amount = 0;
                 if(int.TryParse(tiv.FullContent, out amount))
                 {
-                    if (amount > 0 && _poker.CurrentVisualPlayer.CanRaiseAmount(amount))
+                    if (amount > 0 && _poker.CurrentVisualPlayer.CanRaise(amount))
                     {
                         _poker.CurrentVisualPlayer.Raise(amount);
                     }
