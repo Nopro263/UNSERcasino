@@ -87,11 +87,12 @@ namespace UNSERcasino.UI
 
                         IView view = _views[_currentButtons[_currentButtonsIndex]].BaseView;
                         IClickable? clickable = view as IClickable;
-                        if (clickable != null && view.canSelectNext())
+                        IClickable? next = _views[_currentButtons[_currentButtonsIndex-1]].BaseView as IClickable;
+                        if (clickable != null && next != null&& view.canSelectNext())
                         {
                             clickable.deselect(); // Deselect the curret
                             _currentButtonsIndex--;
-                            clickable.select(); // Select the previous
+                            next.select(); // Select the previous
                             return;
                         }
                         break;
@@ -103,11 +104,12 @@ namespace UNSERcasino.UI
                         {
                             IView view = _views[_currentButtons[_currentButtonsIndex]].BaseView;
                             IClickable? clickable = view as IClickable;
-                            if (clickable != null && view.canSelectPrev())
+                            IClickable? prev = _views[_currentButtons[_currentButtonsIndex + 1]].BaseView as IClickable;
+                            if (clickable != null && prev != null && view.canSelectPrev())
                             {
                                 clickable.deselect(); // Deselect the curret
                                 _currentButtonsIndex++;
-                                clickable.select(); // Select the previous
+                                prev.select(); // Select the previous
                                 return;
                             }
                         }
