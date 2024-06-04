@@ -45,26 +45,26 @@ namespace UNSERcasino.UI.Menu
             _card2 = new CardView(_poker.CurrentVisualPlayer.Hand[1]);
 
 
-            scene.addView(_card1, Flow.CENTER, Flow.END, -15 / 2 - 1, 0);
-            scene.addView(_card2, Flow.CENTER, Flow.END, 15 / 2 + 1, 0);
+            _scene.addView(_card1, Flow.CENTER, Flow.END, -15 / 2 - 1, 0);
+            _scene.addView(_card2, Flow.CENTER, Flow.END, 15 / 2 + 1, 0);
 
-            scene.addView(new CardView(_poker.DealerHand[0]), Flow.CENTER, Flow.START, -32, 0);
-            scene.addView(new CardView(_poker.DealerHand[1]), Flow.CENTER, Flow.START, -16, 0);
-            scene.addView(new CardView(_poker.DealerHand[2]), Flow.CENTER, Flow.START, 0, 0);
-            scene.addView(new CardView(_poker.DealerHand[3]), Flow.CENTER, Flow.START, 16, 0);
-            scene.addView(new CardView(_poker.DealerHand[4]), Flow.CENTER, Flow.START, 32, 0);
+            _scene.addView(new CardView(_poker.DealerHand[0]), Flow.CENTER, Flow.START, -32, 0);
+            _scene.addView(new CardView(_poker.DealerHand[1]), Flow.CENTER, Flow.START, -16, 0);
+            _scene.addView(new CardView(_poker.DealerHand[2]), Flow.CENTER, Flow.START, 0, 0);
+            _scene.addView(new CardView(_poker.DealerHand[3]), Flow.CENTER, Flow.START, 16, 0);
+            _scene.addView(new CardView(_poker.DealerHand[4]), Flow.CENTER, Flow.START, 32, 0);
 
-            scene.addView(new TextView(_potText, false, true), Flow.CENTER, Flow.CENTER);
-            scene.addView(new TableView(_opponents), Flow.START, Flow.END);
+            _scene.addView(new TextView(_potText, false, true), Flow.CENTER, Flow.CENTER);
+            _scene.addView(new TableView(_opponents), Flow.START, Flow.END);
 
             btFold = new ButtonView(new Text("Fold"), false);
             btCheck = new ButtonView(new Text("Check"), false);
 
             tip = new TextInputView(false, 5, "Raise");
 
-            scene.addView(btCheck, Flow.END, Flow.END, 0, -2);
-            scene.addView(tip, Flow.END, Flow.END, 0, -1);
-            scene.addView(btFold, Flow.END, Flow.END, 0, 0);
+            _scene.addView(btCheck, Flow.END, Flow.END, 0, -2);
+            _scene.addView(tip, Flow.END, Flow.END, 0, -1);
+            _scene.addView(btFold, Flow.END, Flow.END, 0, 0);
 
             renderOpponents();
         }

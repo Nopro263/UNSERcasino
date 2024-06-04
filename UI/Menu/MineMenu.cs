@@ -22,12 +22,12 @@ namespace UNSERcasino.UI.Menu
             _mines = new Mines();
             _buttonview = new _2dButtonView(5, 5, '?');
 
-            scene.addView(_buttonview, Flow.CENTER, Flow.CENTER);
+            _scene.addView(_buttonview, Flow.CENTER, Flow.CENTER);
 
             _textview = new TextView(new Text("Total Amount: "), false, false);
-            scene.addView(_bet, Flow.CENTER, Flow.CENTER, 0, 6);
-            scene.addView(_textview, Flow.CENTER, Flow.CENTER, 0, 8);
-            scene.addView(new ButtonView(new Text("Cashout"), false), Flow.CENTER, Flow.CENTER, 0, 10);
+            _scene.addView(_bet, Flow.CENTER, Flow.CENTER, 0, 6);
+            _scene.addView(_textview, Flow.CENTER, Flow.CENTER, 0, 8);
+            _scene.addView(new ButtonView(new Text("Cashout"), false), Flow.CENTER, Flow.CENTER, 0, 10);
 
             _mines.StartGame(1);
 
@@ -40,7 +40,7 @@ namespace UNSERcasino.UI.Menu
             {
                 if (int.TryParse(_bet.FullContent, out int bet) && bet != 0)
                 {
-                    CasinoManager.Instance.bet(bet);
+                    CasinoManager.Instance.Remove(bet);
                     _mines.firstBet = false;
                 }
                 else { _textview.Text.setContent("Please enter a valid bet"); }
@@ -67,6 +67,7 @@ namespace UNSERcasino.UI.Menu
                         else if (_mines.Play(view.X, view.Y) == 3)
                         {
                             _textview.Text.setContent("Game Over");
+                            _mines.HasCashedout = true;
                         }
                     }
                 }
@@ -82,13 +83,13 @@ namespace UNSERcasino.UI.Menu
                         {
 
                             _textview.Text.setContent("You won: " + _mines.CalcMultiplier() * int.Parse(_bet.FullContent));
-                            CasinoManager.Instance.add(_mines.CalcMultiplier() * int.Parse(_bet.FullContent));
+                            CasinoManager.Instance.Add((int)_mines.CalcMultiplier() * int.Parse(_bet.FullContent));
                             _mines.HasCashedout = true;
                         }
                         else
                         {
                             _textview.Text.setContent("You lost: " + (-int.Parse(_bet.FullContent)));
-                            CasinoManager.Instance.add(-int.Parse(_bet.FullContent));
+                            CasinoManager.Instance.Remove(int.Parse(_bet.FullContent));
                             _mines.HasCashedout = true;
                         }
                     }

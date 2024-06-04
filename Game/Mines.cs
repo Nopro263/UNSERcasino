@@ -26,7 +26,14 @@ namespace UNSERcasino.Game
         {
             if (CheckTile(x, y))
             {
-                return CalcMultiplier();
+                if (!MineRevealed)
+                {
+                    return CalcMultiplier();
+                }
+                else
+                {
+                    return 3;
+                }
             }
             else
             {
