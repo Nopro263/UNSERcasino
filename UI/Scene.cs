@@ -3,7 +3,7 @@
 namespace UNSERcasino.UI
 {
     internal class Scene
-    {
+    {       
         private List<ViewData> _views = new List<ViewData>();
         private List<int> _currentButtons = new List<int>(); // List of indexes into _views, that are IClickable
         private int _currentButtonsIndex = -1;
@@ -19,15 +19,36 @@ namespace UNSERcasino.UI
             _menu = menu;
         }
 
+        /// <summary>
+        /// adds a view with static coordinates
+        /// </summary>
+        /// <param name="view">the view</param>
+        /// <param name="x">X-Pos</param>
+        /// <param name="y">Y-Pos</param>
         public void addView(IView view, int x, int y)
         {
             addView(view, Flow.START, Flow.START, x, y);
         }
+
+        /// <summary>
+        /// adds a view with only a Flow
+        /// </summary>
+        /// <param name="view">the view</param>
+        /// <param name="x">Horizontal Flow</param>
+        /// <param name="y">Vertical Flow</param>
         public void addView(IView view, Flow x, Flow y)
         {
             addView(view, x, y, 0, 0);
         }
 
+        /// <summary>
+        /// adds a view with flow and an offset from these
+        /// </summary>
+        /// <param name="view">the view</param>
+        /// <param name="xo">Horizontal Flow</param>
+        /// <param name="yo">Vertical Flow</param>
+        /// <param name="x">X-Offset</param>
+        /// <param name="y">Y-Offset</param>
         public void addView(IView view, Flow xo, Flow yo, int x, int y)
         {
             if (view is IClickable)
@@ -39,28 +60,38 @@ namespace UNSERcasino.UI
             _views.Add(new ViewData(view, xo, yo, x, y));
         }
 
+        /// <summary>
+        /// reset all
+        /// </summary>
         public void reset()
         {
             _canvas.resetAll();
         }
 
+        /// <summary>
+        /// called when a key is pressed
+        /// </summary>
+        /// <param name="key">the key pressed</param>
         public void onKey(ConsoleKeyInfo key)
         {
             switch (key.Key)
             {
                 case ConsoleKey.Escape:
                     {
-                        UI.Menu.MenuManager.close();
+                        MenuManager.close();
                         return;
                     }
                 case ConsoleKey.UpArrow:
                     {
                         if (_currentButtonsIndex - 1 < 0) { break; }
-                        if (_views[_currentButtons[_currentButtonsIndex]].BaseView.canSelectNext())
+
+                        IView view = _views[_currentButtons[_currentButtonsIndex]].BaseView;
+                        IClickable? clickable = view as IClickable;
+                        if (clickable != null && view.canSelectNext())
                         {
-                            ((IClickable)_views[_currentButtons[_currentButtonsIndex]].BaseView).deselect(); // Deselect the curret
+                            clickable.deselect(); // Deselect the curret
                             _currentButtonsIndex--;
-                            ((IClickable)_views[_currentButtons[_currentButtonsIndex]].BaseView).select(); // Select the previous
+                            clickable.select(); // Select the previous
                             return;
                         }
                         break;
@@ -70,11 +101,13 @@ namespace UNSERcasino.UI
                         if (_currentButtonsIndex + 1 >= _currentButtons.Count) { break; }
                         if (_currentButtonsIndex >= 0)
                         {
-                            if (_views[_currentButtons[_currentButtonsIndex]].BaseView.canSelectPrev())
+                            IView view = _views[_currentButtons[_currentButtonsIndex]].BaseView;
+                            IClickable? clickable = view as IClickable;
+                            if (clickable != null && view.canSelectPrev())
                             {
-                                ((IClickable)_views[_currentButtons[_currentButtonsIndex]].BaseView).deselect(); // Deselect the curret
+                                clickable.deselect(); // Deselect the curret
                                 _currentButtonsIndex++;
-                                ((IClickable)_views[_currentButtons[_currentButtonsIndex]].BaseView).select(); // Select the next
+                                clickable.select(); // Select the previous
                                 return;
                             }
                         }
@@ -84,8 +117,13 @@ namespace UNSERcasino.UI
                     {
                         if (_currentButtonsIndex >= 0)
                         {
-                            ((IClickable)_views[_currentButtons[_currentButtonsIndex]].BaseView).onClick();
-                            UI.Menu.MenuManager.getTopMenu().onClick((IClickable)_views[_currentButtons[_currentButtonsIndex]].BaseView); // Let the top menu handle this
+                            IView view = _views[_currentButtons[_currentButtonsIndex]].BaseView;
+                            IClickable? clickable = view as IClickable;
+                            if (clickable != null)
+                            {
+                                clickable.onClick();
+                                MenuManager.getTopMenu().onClick(clickable); // Let the top menu handle this
+                            } 
                             return;
                         }
                         break;
@@ -94,14 +132,18 @@ namespace UNSERcasino.UI
 
             if (_currentButtonsIndex >= 0)
             {
-                if (_views[_currentButtons[_currentButtonsIndex]].BaseView is IKeyListener)
+                if (_views[_currentButtons[_currentButtonsIndex]].BaseView is IKeyListener keyListener)
                 {
-                    IKeyListener keyListener = (IKeyListener)_views[_currentButtons[_currentButtonsIndex]].BaseView; // else call onKey
                     keyListener.onKey(key);
                 }
             }
         }
 
+        /// <summary>
+        /// prints the scene to the scene
+        /// </summary>
+        /// <param name="fps">the current fps</param>
+        /// <param name="showFps">should show the fps</param>
         public void print(int? fps, bool showFps)
         {
             Console.CursorVisible = false;
@@ -119,11 +161,13 @@ namespace UNSERcasino.UI
                 }
             }
 
+            // has the update changed the top menu
             if(MenuManager.getTopMenu() != _menu)
             {
                 return;
             }
 
+            // has the aspectratio changed
             if(_canvas.check())
             {
                 return;
@@ -134,7 +178,7 @@ namespace UNSERcasino.UI
 
                 if (_currentButtonsIndex >= 0)
                 {
-                    ((IClickable)_views[_currentButtons[_currentButtonsIndex]].BaseView).select(); // Re-Selecr the current button to highlight the selected button before any keypresses.
+                    ((IClickable)_views[_currentButtons[_currentButtonsIndex]].BaseView).select(); // Re-Select the current button to highlight the selected button before any keypresses.
                 }
 
                 vd.BaseView.printToCanvas(_canvas, vd.getX(_canvas.getWidth()), vd.getY(_canvas.getHeight()));
@@ -147,6 +191,7 @@ namespace UNSERcasino.UI
 
             if (showFps)
             {
+                // put a new TextView in the upper left corner
                 _canvas.print(0, 0, new TextView(new Text(_fps.ToString()), false, true));
             }
 
@@ -154,6 +199,9 @@ namespace UNSERcasino.UI
         }
     }
 
+    /// <summary>
+    /// an IView with position-information
+    /// </summary>
     internal class ViewData
     {
 
@@ -164,7 +212,7 @@ namespace UNSERcasino.UI
             if (_fx == Flow.CENTER) { return (maxX - BaseView.getXSize()) / 2 + _x; }
             if (_fx == Flow.END) { return maxX - BaseView.getXSize() + _x; }
 
-            throw new NotImplementedException();
+            throw new NotImplementedException(); // never the case
         }
 
         public int getY(int maxY)
