@@ -86,6 +86,11 @@
             Bet = 0;
         }
 
+        public void SetBet(int amount)
+        {
+            Bet = amount;
+        }
+
         public virtual void Win(int amount)
         {
 

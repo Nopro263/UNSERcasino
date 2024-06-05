@@ -31,7 +31,7 @@ namespace UNSERcasino.Game.Poker
 
         private int _state = 0;
 
-        private static void shuffle(Card[] cards)
+        private static void _shuffle(Card[] cards)
         {
             for (int _ = 0; _ < 10000; _++)
             {
@@ -58,7 +58,7 @@ namespace UNSERcasino.Game.Poker
             Pot = 0;
 
             Card[] c = Card.GetCards();
-            shuffle(c);
+            _shuffle(c);
 
             _cards = new Stack<Card>(c);
 
@@ -103,7 +103,11 @@ namespace UNSERcasino.Game.Poker
             _lastRaisePlayer = null;
             Ended = false;
 
-            Players[0].Raise(10);
+            Players[1].SetBet(5);
+            Players[0].SetBet(10);
+            CurrentBet = 10;
+            _lastRaisePlayer = Players[0];
+            _currentPlayer = Players[1];
         }
 
         public bool CanRaise()
