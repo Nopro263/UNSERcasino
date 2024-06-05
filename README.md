@@ -19,7 +19,7 @@ UNSERcasino is an engaging and interactive program, meticulously crafted as a sc
    - Use the intuitive main menu to navigate through the various games. It's as simple as a click!
 
 3. **There are no losers, only quitters!**
-   - Navigate through the menu using the arrow keys and use the Backspace key to return to the previous menu.
+   - Navigate through the menu using the arrow keys and use the Escape key to return to the previous menu.
    - Enjoy the games and remember, the fun is in playing!
 
 > **_NOTE:_**  The name "UNSER*" is an unregistered trademark of Tim & Jonas, used exclusively for this project.
