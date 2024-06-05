@@ -65,7 +65,7 @@ namespace UNSERcasino.Game.Poker
             Players.Add(new PokerPlayerWithBalance(this, CasinoManager.Instance.Name, _getCards(), CasinoManager.Instance));
             Players.Add(new PokerPlayer(this, "Player2", _getCards()));
             Players.Add(new PokerPlayer(this, "Player3", _getCards()));
-            Players.Add(new PokerPlayer(this, "Player4", _getCards()));
+            //Players.Add(new PokerPlayer(this, "Player4", _getCards()));
 
             DealerHand = new Card[]
             {
@@ -76,7 +76,20 @@ namespace UNSERcasino.Game.Poker
                 _cards.Pop()
             };
 
-            foreach(Card card in DealerHand)
+            PokerPlayer[] p = Players.ToArray();
+            for (int _ = 0; _ < 10; _++)
+            {
+                int i = RandomNumberGenerator.GetInt32(0, p.Length);
+                int j = RandomNumberGenerator.GetInt32(0, p.Length);
+
+                PokerPlayer temp = p[i];
+                p[i] = p[j];
+                p[j] = temp;
+            }
+
+            Players = new List<PokerPlayer>(p);
+
+            foreach (Card card in DealerHand)
             {
                 card.Hidden = true;
             }
@@ -86,9 +99,11 @@ namespace UNSERcasino.Game.Poker
                 _alivePlayers.Add(player);
             }
 
-            _currentPlayer = _alivePlayers.First();
+            _currentPlayer = _alivePlayers[0];
             _lastRaisePlayer = null;
             Ended = false;
+
+            Players[0].Raise(10);
         }
 
         public bool CanRaise()
