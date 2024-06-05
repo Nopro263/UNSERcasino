@@ -1,6 +1,5 @@
 ﻿using System.Security.Cryptography;
 using UNSERcasino.Game.Poker.Eval;
-using UNSERcasino.UI;
 using UNSERcasino.UI.Menu;
 
 namespace UNSERcasino.Game.Poker
@@ -18,7 +17,8 @@ namespace UNSERcasino.Game.Poker
 
         public PokerPlayer CurrentVisualPlayer
         {
-            get {
+            get
+            {
                 return _currentPlayer;
             }
         }
@@ -129,7 +129,7 @@ namespace UNSERcasino.Game.Poker
         {
             player.afterCheck(difference);
             Next();
-            checkEnd();
+            _checkEnd();
         }
 
         public void Raise(PokerPlayer player, int difference, int amount)
@@ -138,7 +138,7 @@ namespace UNSERcasino.Game.Poker
             _lastRaisePlayer = player;
             player.afterRaise(difference, amount);
             Next();
-            checkEnd();
+            _checkEnd();
         }
 
         public void Fold(PokerPlayer player)
@@ -146,22 +146,22 @@ namespace UNSERcasino.Game.Poker
             player.afterFold();
             Next();
             _alivePlayers.Remove(player);
-            checkEnd();
+            _checkEnd();
         }
 
         private void Next()
         {
-            if(_lastRaisePlayer == null && _alivePlayers.IndexOf(_currentPlayer) == _alivePlayers.Count - 1)
+            if (_lastRaisePlayer == null && _alivePlayers.IndexOf(_currentPlayer) == _alivePlayers.Count - 1)
             {
                 _lastRaisePlayer = _alivePlayers[0];
             }
 
             _currentPlayer = _alivePlayers[(_alivePlayers.IndexOf(_currentPlayer) + 1) % _alivePlayers.Count];
 
-            if(_currentPlayer == _lastRaisePlayer)
+            if (_currentPlayer == _lastRaisePlayer)
             {
                 CurrentBet = 0;
-                foreach(PokerPlayer player in _alivePlayers)
+                foreach (PokerPlayer player in _alivePlayers)
                 {
                     Pot += player.Bet;
                     player.ResetBet();
@@ -169,7 +169,7 @@ namespace UNSERcasino.Game.Poker
 
                 _state++;
 
-                switch(_state)
+                switch (_state)
                 {
                     case 1:
                         {
@@ -194,44 +194,47 @@ namespace UNSERcasino.Game.Poker
             //Console.ReadLine();
         }
 
-        private void checkEnd()
+        private void _checkEnd()
         {
-            if(Ended)
+            if (Ended)
             {
                 return;
             }
-            if(_alivePlayers.Count == 1)
+            if (_alivePlayers.Count == 1)
             {
-                onEnd();
-            } else if(_state == 4)
+                _onEnd();
+            }
+            else if (_state == 4)
             {
-                onEnd();
+                _onEnd();
             }
         }
 
-        private void onEnd()
+        private void _onEnd()
         {
             Ended = true;
             //MenuManager.close(); //TODO: change
-            if(_alivePlayers.Count == 1) // this player wins everything
+            if (_alivePlayers.Count == 1) // this player wins everything
             {
                 _alivePlayers[0].Win(Pot);
-            } else
+            }
+            else
             {
                 PokerWinMenu menu = new PokerWinMenu(DealerHand);
 
                 List<PokerPlayer>? bestPlayer = null;
                 int bestScore = 0;
-                foreach(PokerPlayer player in _alivePlayers)
+                foreach (PokerPlayer player in _alivePlayers)
                 {
                     List<Result> result = Evaluator.Eval(DealerHand, player.Hand);
                     menu.addPlayer(player, result);
                     int score = Evaluator.GetScore(result);
-                    if(score > bestScore)
+                    if (score > bestScore)
                     {
                         bestScore = score;
                         bestPlayer = new List<PokerPlayer> { player };
-                    } else if(score == bestScore && bestPlayer != null)
+                    }
+                    else if (score == bestScore && bestPlayer != null)
                     {
                         bestPlayer.Add(player);
                     }
@@ -239,7 +242,7 @@ namespace UNSERcasino.Game.Poker
 
                 int payputPerPlayer = Pot / bestPlayer.Count;
 
-                foreach(PokerPlayer pokerPlayer in bestPlayer)
+                foreach (PokerPlayer pokerPlayer in bestPlayer)
                 {
                     pokerPlayer.Win(payputPerPlayer);
                 }
