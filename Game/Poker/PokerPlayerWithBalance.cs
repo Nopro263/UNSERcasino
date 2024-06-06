@@ -2,7 +2,7 @@
 {
     internal class PokerPlayerWithBalance : PokerPlayer
     {
-        private IPurse _purse;
+        private IPurse _purse; // Apple???
         public PokerPlayerWithBalance(Poker poker, string name, Card[] hand, IPurse purse) : base(poker, name, hand)
         {
             _purse = purse;
@@ -10,7 +10,7 @@
 
         public override bool CanCheckAmount(int amount)
         {
-            if(!base.CanCheckAmount(amount)) return false;
+            if (!base.CanCheckAmount(amount)) return false;
 
             return _purse.CanRemove(amount);
         }

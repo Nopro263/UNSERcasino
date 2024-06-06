@@ -49,9 +49,9 @@ namespace UNSERcasino
             Console.OutputEncoding = Encoding.UTF8;
 
             // it's funny
-            string intro = "EA Sports\nIt's in the game";
-            WriteCentered(intro);
-            Thread.Sleep(1000);
+            //string intro = "EA Sports\nIt's in the game";
+            //WriteCentered(intro);
+            //Thread.Sleep(1000);
 
 
             // open the main menu
@@ -88,7 +88,8 @@ namespace UNSERcasino
                 try
                 {
                     scene.print(updateFps, showFps);
-                } catch(IndexOutOfRangeException ex)
+                }
+                catch (IndexOutOfRangeException ex)
                 {
                     Console.Clear();
                     WriteCentered("The window is too small! ....... Exiting!");
