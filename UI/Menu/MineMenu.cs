@@ -36,12 +36,12 @@ namespace UNSERcasino.UI.Menu
 
         public override void onClick(IClickable button)
         {
-            if (_mines.firstBet)
+            if (_mines.FirstBet)
             {
                 if (int.TryParse(_bet.FullContent, out int bet) && bet != 0)
                 {
                     CasinoManager.Instance.Remove(bet);
-                    _mines.firstBet = false;
+                    _mines.FirstBet = false;
                 }
                 else { _textview.Text.setContent("Please enter a valid bet"); }
             }

@@ -9,7 +9,7 @@ namespace UNSERcasino.Game
         private int _mineAmount;
         public bool MineRevealed { get; private set; } = false;
         public bool HasCashedout { get; set; } = false;
-        public bool firstBet { get; set; } = true;
+        public bool FirstBet { get; set; } = true;
 
         public Mines()
         {
