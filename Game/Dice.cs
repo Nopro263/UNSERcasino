@@ -12,12 +12,12 @@
         public int Value { get; set; }
         public bool Over { get; set; }
 
-        public static double ScaleInput(double input)
+        public static double ScaleInput(double input) // Scale the input to a value between 12 and 72
         {
             return ((input - InputMin) / (InputMax - InputMin)) * (OutputMax - OutputMin) + OutputMin;
         }
 
-        private double CalculateMultiplier(int x)
+        private double CalculateMultiplier(int x) // Calculate the multiplier for the bet
         {
             double xnew = ScaleInput(x);
             double winchance;
@@ -35,7 +35,7 @@
             return multiplier;
         }
 
-        public int Play(int randomValue)
+        public int Play(int randomValue) // Game logic
         {
             int result = 0;
 

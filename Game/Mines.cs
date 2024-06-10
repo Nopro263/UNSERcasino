@@ -4,25 +4,25 @@ namespace UNSERcasino.Game
 {
     internal class Mines
     {
-        private int[][] SafeOrNot = new int[5][]; // True -> No Mine | False -> Mine ----------> NOW: 0 -> No Mine | 1 -> Revealed | 2 -> Mine
+        private int[][] SafeOrNot = new int[5][]; // 0 -> No Mine | 1 -> Revealed | 2 -> Mine
         private int _revealedDiamonds;
         private int _mineAmount;
         public bool MineRevealed { get; private set; } = false;
         public bool HasCashedout { get; set; } = false;
         public bool FirstBet { get; set; } = true;
 
-        public Mines()
+        public Mines() // Initialize the 5x5 grid
         {
             for (int i = 0; i < 5; i++) { SafeOrNot[i] = new int[5]; }
         }
 
-        public void StartGame(int mineAmount)
+        public void StartGame(int mineAmount) // Start the game with a certain amount of mines
         {
             _mineAmount = mineAmount;
             PlantMines();
         }
 
-        public double Play(int x, int y)
+        public double Play(int x, int y) // Play the game
         {
             if (CheckTile(x, y))
             {
@@ -41,7 +41,7 @@ namespace UNSERcasino.Game
             }
         }
 
-        private void PlantMines()
+        private void PlantMines() // Plant the mines in the 5x5 grid
         {
             Random random = new Random();
             int minecount = 0;
@@ -57,7 +57,7 @@ namespace UNSERcasino.Game
             }
         }
 
-        private bool CheckTile(int x, int y)
+        private bool CheckTile(int x, int y) // Check if the tile is a mine or not
         {
             if (SafeOrNot[x][y] == 0)
             {
@@ -78,18 +78,18 @@ namespace UNSERcasino.Game
             return false;
         }
 
-        public double CalcMultiplier()
+        public double CalcMultiplier() // Calculate the multiplier
         {
             double house_edge = 0.02;
             return (1 - house_edge) * (double)NCr(25, _revealedDiamonds) / (double)NCr(25 - _mineAmount, _revealedDiamonds);
         }
 
-        private BigInteger NCr(int n, int r)
+        private BigInteger NCr(int n, int r) //N over R
         {
             return Factorial(n) / (Factorial(r) * Factorial(n - r));
         }
 
-        static BigInteger Factorial(int number)
+        static BigInteger Factorial(int number) // Factorial
         {
             BigInteger result = 1;
 

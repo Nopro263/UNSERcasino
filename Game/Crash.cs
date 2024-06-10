@@ -7,13 +7,13 @@ namespace UNSERcasino.game
     {
         public double Play()
         {
-            double expectedMultiplier = 1;
+            double expectedMultiplier = 2; // 2x multiplier
 
             double houseAdvantage = 0.02;
 
-            double adjustedMultiplier = expectedMultiplier * (1 - houseAdvantage);
+            double adjustedMultiplier = expectedMultiplier * (1 - houseAdvantage); // 2% house advantage
             var rate = 1.0 / adjustedMultiplier;
-            var exponentialDistribution = new Exponential(rate);
+            var exponentialDistribution = new Exponential(rate); // Exponential distribution with rate 1/adjustedMultiplier
             Random random = new Random();
 
             double crashchance = random.NextDouble();
@@ -27,21 +27,21 @@ namespace UNSERcasino.game
             return randomNumber;
         }
 
-        public void TestAverage()
+        public void TestAverage() // Test the average of the game
         {
             int runs = 500000;
             double total = 0;
             int counter = 0;
             object lockObject = new object();
 
-            var rangePartitioner = Partitioner.Create(0, runs);
+            var rangePartitioner = Partitioner.Create(0, runs); // Partition the range of runs
 
-            Parallel.ForEach(rangePartitioner, (range, loopState) =>
+            Parallel.ForEach(rangePartitioner, (range, loopState) =>  
             {
                 for (int i = range.Item1; i < range.Item2; i++)
                 {
                     var result = Play();
-                    lock (lockObject)
+                    lock (lockObject) // Lock the total variable, so that no other thread can access it
                     {
                         total += result;
                         counter++;
@@ -50,7 +50,7 @@ namespace UNSERcasino.game
                 }
             });
 
-            Console.WriteLine($"Final Average after {runs} runs: {total / runs}");
+            Console.WriteLine($"Final Average after {runs} runs: {total / runs}"); // Output the final average
             Console.ReadKey();
         }
 
