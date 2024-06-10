@@ -82,13 +82,13 @@ namespace UNSERcasino.UI.Menu
                         if (!_mines.MineRevealed)
                         {
 
-                            _textview.Text.setContent("You won: " + _mines.CalcMultiplier() * int.Parse(_bet.FullContent));
-                            CasinoManager.Instance.Add((int)_mines.CalcMultiplier() * int.Parse(_bet.FullContent));
+                            _textview.Text.setContent("You won: " + _mines.CalcMultiplier() * Convert.ToDouble(_bet.FullContent));
+                            CasinoManager.Instance.Add((int)(_mines.CalcMultiplier() * Convert.ToDouble(_bet.FullContent)));
                             _mines.HasCashedout = true;
                         }
                         else
                         {
-                            _textview.Text.setContent("You lost: " + (-int.Parse(_bet.FullContent)));
+                            _textview.Text.setContent("You lost: " + (-Convert.ToDouble(_bet.FullContent)));
                             CasinoManager.Instance.Remove(int.Parse(_bet.FullContent));
                             _mines.HasCashedout = true;
                         }
