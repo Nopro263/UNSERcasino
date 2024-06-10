@@ -7,6 +7,8 @@ namespace UNSERcasino.UI
         private int _dy;
         private char[][] _chars;
 
+        private bool _selected;
+
         public int X { get; private set; }
         public int Y { get; private set; }
         public _2dButtonView(int dx, int dy, char def) {
@@ -14,6 +16,7 @@ namespace UNSERcasino.UI
             _dy = dy;
             X = 0;
             Y = 0;
+            _selected = false;
 
             _chars = new char[_dx][];
             for(int i = 0; i<  _dx; i++)
@@ -46,7 +49,7 @@ namespace UNSERcasino.UI
 
         public void deselect()
         {
-            
+            _selected = false;
         }
 
         public int getXSize()
@@ -109,7 +112,11 @@ namespace UNSERcasino.UI
 
         public void printToCanvas(Canvas canvas, int x, int y)
         {
-            canvas.setColor(x+X, y+Y, Canvas.BACKGROUND, Canvas.FOREGROUND);
+            if(_selected)
+            {
+                canvas.setColor(x + X, y + Y, Canvas.BACKGROUND, Canvas.FOREGROUND);
+            }
+            
             for(int i = 0; i < _dx; i++)
             {
                 for (int j = 0; j < _dy; j++)
@@ -121,7 +128,7 @@ namespace UNSERcasino.UI
 
         public void select()
         {
-            
+            _selected = true;
         }
 
         public void disable()
