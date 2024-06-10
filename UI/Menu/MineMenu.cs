@@ -47,7 +47,7 @@ namespace UNSERcasino.UI.Menu
             }
 
             ButtonView cashout = button as ButtonView;
-            _2dButtonView? view = _buttonview as _2dButtonView;
+            _2dButtonView? view = button as _2dButtonView;
             if (view != null)
             {
                 if (!_mines.HasCashedout)
