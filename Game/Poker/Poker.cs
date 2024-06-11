@@ -102,17 +102,18 @@ namespace UNSERcasino.Game.Poker
             _currentPlayer = _alivePlayers[0];
             _lastRaisePlayer = null;
             Ended = false;
+            _state = -1;
 
             Players[1].SetBet(5);
             Players[0].SetBet(10);
             CurrentBet = 10;
             _lastRaisePlayer = Players[0];
-            _currentPlayer = Players[1];
+            _currentPlayer = Players[0];
         }
 
         public bool CanRaise()
         {
-            return !Ended;
+            return !Ended && _state != -1;
         }
 
         public bool CanCheck()
@@ -122,11 +123,15 @@ namespace UNSERcasino.Game.Poker
 
         public bool CanFold()
         {
-            return !Ended;
+            return !Ended && _state != -1;
         }
 
         public void Check(PokerPlayer player, int difference)
         {
+            if(_state == -1)
+            {
+                _state = 0;
+            }
             player.afterCheck(difference);
             Next();
             _checkEnd();
