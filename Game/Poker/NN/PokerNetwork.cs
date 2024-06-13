@@ -12,7 +12,7 @@ namespace UNSERcasino.Game.Poker.NN
 
         public PokerNetwork()
         {
-            neuralNetwork = new NeuralNetwork(16, 50, 5);
+            neuralNetwork = new NeuralNetwork(16, 50, 50, 5);
         }
 
         public PokerNetwork(PokerNetwork clone)

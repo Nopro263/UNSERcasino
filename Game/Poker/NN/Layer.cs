@@ -61,7 +61,7 @@ namespace UNSERcasino.Game.Poker.NN
 
         private double rand()
         {
-            return Random.Shared.NextDouble() - 0.5;
+            return (Random.Shared.NextDouble() - 0.5) * 100;
         }
 
         public double[] CalculateOutputs(double[] inputs)

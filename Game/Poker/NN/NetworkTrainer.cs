@@ -115,14 +115,24 @@ namespace UNSERcasino.Game.Poker.NN
             Console.WriteLine();
             Console.WriteLine();
 
+            int[] stats = new int[5] { 0, 0, 0, 0, 0 };
+
             foreach (PokerNetwork network in neuralNetworks)
             {
                 results.Add(network.Run(hand, dealer, cb, cp));
-                Console.WriteLine(results.Last());
+                stats[(int)results.Last()]++;
             }
 
-            Console.WriteLine("?");
-            NetworkResult desiredResult = (NetworkResult)int.Parse(Console.ReadLine());
+            foreach(int x in stats)
+            {
+                Console.Write(x + " ");
+            }
+
+            Console.WriteLine();
+
+            //Console.WriteLine("?");
+            //NetworkResult desiredResult = (NetworkResult)int.Parse(Console.ReadLine());
+            NetworkResult desiredResult = (NetworkResult)Array.FindLastIndex(stats, (x) => x > 0);
 
             PokerNetwork? networkToClone = null;
 
