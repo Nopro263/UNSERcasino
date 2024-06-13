@@ -10,6 +10,7 @@ namespace UNSERcasino.UI.Menu
         private Text[][] _opponents;
         private CardView _card1;
         private CardView _card2;
+        private PokerPlayer? _visualPlayer;
 
         private ButtonView btFold;
         private ButtonView btCheck;
@@ -103,6 +104,15 @@ namespace UNSERcasino.UI.Menu
 
         public void Update()
         {
+            if(_visualPlayer == null)
+            {
+                _visualPlayer = _poker.CurrentVisualPlayer;
+            }
+            if(_visualPlayer != _poker.CurrentVisualPlayer)
+            {
+                _visualPlayer = _poker.CurrentVisualPlayer;
+                MenuManager.open(new PokerWaitMenu());
+            }
             renderOpponents();
             _potText.setContent($"Pot: {_poker.Pot}");
 

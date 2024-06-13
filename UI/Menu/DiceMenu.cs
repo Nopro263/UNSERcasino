@@ -34,7 +34,7 @@ namespace UNSERcasino.UI.Menu
             _over = new ButtonView(new Text("Over"), false);
             _under = new ButtonView(new Text("Under"), false);
 
-            _scene.addView(_diceSum, (Console.BufferWidth / 2) - 1, y - 1);
+            _scene.addView(_diceSum, Flow.CENTER, Flow.START, 0, y - 1);
             _scene.addView(_over, 0, 0);
             _scene.addView(_under, 0, 1);
             _scene.addView(_textInput, 0, 2);
