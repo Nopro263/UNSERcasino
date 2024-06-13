@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using UNSERcasino.Game.Poker.NN;
 using UNSERcasino.UI;
 using UNSERcasino.UI.Menu;
 
@@ -52,6 +53,10 @@ namespace UNSERcasino
             //string intro = "EA Sports\nIt's in the game";
             //WriteCentered(intro);
             //Thread.Sleep(1000);
+
+            NetworkTrainer.NMain();
+
+            return;
 
 
             // open the main menu

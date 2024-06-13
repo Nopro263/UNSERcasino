@@ -42,5 +42,10 @@ namespace UNSERcasino
         {
             return CardValue.Rating - other.CardValue.Rating;
         }
+
+        public override string ToString()
+        {
+            return $"{CardType}{CardValue.Rating}";
+        }
     }
 }
