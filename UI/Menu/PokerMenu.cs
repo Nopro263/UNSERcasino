@@ -108,7 +108,7 @@ namespace UNSERcasino.UI.Menu
             {
                 _visualPlayer = _poker.CurrentVisualPlayer;
             }
-            if(_visualPlayer != _poker.CurrentVisualPlayer)
+            if(_visualPlayer != _poker.CurrentVisualPlayer && !_poker.Ended)
             {
                 _visualPlayer = _poker.CurrentVisualPlayer;
                 MenuManager.open(new PokerWaitMenu());
