@@ -45,7 +45,10 @@ namespace UNSERcasino
 
         public override string ToString()
         {
-            return $"{CardType}{CardValue.Rating}";
+            if (!Hidden)
+                return $"{CardType}{CardValue.Rating}";
+            else
+                return "---";
         }
     }
 }

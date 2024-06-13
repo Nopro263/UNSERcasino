@@ -72,11 +72,18 @@ namespace UNSERcasino.Game.Poker.NN
                     }
                 case 2:
                     {
+                        dealer[0].Hidden = false;
+                        dealer[1].Hidden = false;
+                        dealer[2].Hidden = false;
                         dealer[3].Hidden = false;
                         break;
                     }
                 case 3:
                     {
+                        dealer[0].Hidden = false;
+                        dealer[1].Hidden = false;
+                        dealer[2].Hidden = false;
+                        dealer[3].Hidden = false;
                         dealer[4].Hidden = false;
                         break;
                     }
