@@ -20,7 +20,7 @@ namespace UNSERcasino.Game.Poker.NN
             neuralNetwork = new NeuralNetwork(clone.neuralNetwork);
         }
 
-        public NetworkResult Run(Card[] hand, Card[] dealer, int currentBet, int currentPot)
+        public double[] Run(Card[] hand, Card[] dealer, int currentBet, int currentPot)
         {
             double[] input = new double[16];
             int offset = 2;
@@ -35,8 +35,8 @@ namespace UNSERcasino.Game.Poker.NN
             CardToDouble(dealer[3], input, ref offset);
             CardToDouble(dealer[4], input, ref offset);
 
-            int i = neuralNetwork.IndexOfHighestNode(input);
-            return (NetworkResult)i;
+            double[] i = neuralNetwork.CalculateOutputs(input);
+            return i;
         }
 
         private void CardToDouble(Card card, double[] input, ref int offset)

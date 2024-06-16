@@ -10,7 +10,7 @@ namespace UNSERcasino.Game.Poker.NN
     internal class NetworkTrainer
     {
         private List<PokerNetwork> neuralNetworks = new List<PokerNetwork>();
-        private List<NetworkResult> results = new List<NetworkResult>();
+        private List<double[]> results = new List<double[]>();
         private int _count;
 
         public NetworkTrainer(int networks)
@@ -95,11 +95,11 @@ namespace UNSERcasino.Game.Poker.NN
 
         public static void NMain()
         {
-            NetworkTrainer nt = new NetworkTrainer(100);
+            NetworkTrainer nt = new NetworkTrainer(1000);
 
             while(true)
             {
-                Console.Clear();
+                //Console.Clear();
                 nt.Step();
             }
         }
@@ -111,46 +111,90 @@ namespace UNSERcasino.Game.Poker.NN
             Console.WriteLine(hand[0] + " : " + hand[1]);
             Console.WriteLine(dealer[0] + " : " + dealer[1] + " : " + dealer[2] + " : " + dealer[3] + " : " + dealer[4]);
             Console.WriteLine();
-            Console.WriteLine();
-            Console.WriteLine();
-            Console.WriteLine();
 
-            int[] stats = new int[5] { 0, 0, 0, 0, 0 };
+            
 
-            foreach (PokerNetwork network in neuralNetworks)
+            Console.Write("? ");
+            NetworkResult desiredResult = (NetworkResult)int.Parse(Console.ReadLine());
+            //NetworkResult desiredResult = (NetworkResult)Array.FindLastIndex(stats, (x) => x > 0);
+
+            bool[] dr = new bool[5];
+            dr[(int)desiredResult] = true;
+
+            int[] stats = null;
+            for(int i = 0; i < 1; i++)
             {
-                results.Add(network.Run(hand, dealer, cb, cp));
-                stats[(int)results.Last()]++;
+                Console.Write(i);
+                Console.CursorLeft = 0;
+                stats = Train(hand, dealer, cb, cp, dr);
             }
 
-            foreach(int x in stats)
+            Console.Clear();
+
+            foreach (int x in stats)
             {
                 Console.Write(x + " ");
             }
-
             Console.WriteLine();
+        }
 
-            //Console.WriteLine("?");
-            //NetworkResult desiredResult = (NetworkResult)int.Parse(Console.ReadLine());
-            NetworkResult desiredResult = (NetworkResult)Array.FindLastIndex(stats, (x) => x > 0);
+        private int[] Train(Card[] hand, Card[] dealer, int cb, int cp, bool[] desiredResult)
+        {
+            int[] stats = new int[5] { 0, 0, 0, 0, 0 };
 
-            PokerNetwork? networkToClone = null;
+            NetworkWithOutput[] finalNetworks = new NetworkWithOutput[5];
 
-            for (int i = 0; i < neuralNetworks.Count; i++)
+            foreach (PokerNetwork network in neuralNetworks)
             {
-                if (results[i] == desiredResult)
+                double[] r = network.Run(hand, dealer, cb, cp);
+                int i = NeuralNetwork.IndexOfHighestNode(r);
+                results.Add(r);
+                stats[i]++;
+                if (finalNetworks[i] == null)
                 {
-                    networkToClone = neuralNetworks[i];
-                    break;
+                    finalNetworks[i] = new NetworkWithOutput(network, r);
+                } else
+                {
+                    if (r[i] > finalNetworks[i].Result[i])
+                    {
+                        finalNetworks[i] = new NetworkWithOutput(network, r);
+                    }
                 }
             }
 
             results.Clear();
             neuralNetworks.Clear();
 
-            for (int i = 0; i < _count; i++)
+            PokerNetwork networkToClone = null;
+
+            for (int i = 0; i < 5; i++)
+            {
+                if (desiredResult[i])
+                {
+                    networkToClone = finalNetworks[i].Network;
+                } else
+                {
+                    neuralNetworks.Add(finalNetworks[i].Network);
+                }
+            }
+
+            for(int i = 0; i < _count - 4; i++)
             {
                 neuralNetworks.Add(new PokerNetwork(networkToClone));
+            }
+
+            return stats;
+        }
+
+        class NetworkWithOutput
+        {
+            public PokerNetwork Network { get; set; }
+            public double[] Result { get; set; }
+
+            public NetworkWithOutput(PokerNetwork network, double[] result)
+            {
+                Network = network;
+                Result = result;
             }
         }
     }

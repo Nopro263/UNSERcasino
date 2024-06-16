@@ -47,14 +47,14 @@ namespace UNSERcasino.Game.Poker.NN
 
             for (int o = 0; o < numNodesOut; o++)
             {
-                biases[o] = this.biases[o] + rand();
+                biases[o] = layer.biases[o] + rand();
             }
 
             for (int i = 0; i < numNodesIn; i++)
             {
                 for (int o = 0; o < numNodesOut; o++)
                 {
-                    weights[i, o] = this.weights[i, o] + rand();
+                    weights[i, o] = layer.weights[i, o] + rand();
                 }
             }
         }

@@ -28,7 +28,7 @@ namespace UNSERcasino.Game.Poker.NN
             }
         }
 
-        private double[] CalculateOutputs(double[] inputs)
+        public double[] CalculateOutputs(double[] inputs)
         {
             foreach(Layer layer in layers)
             {
@@ -38,10 +38,8 @@ namespace UNSERcasino.Game.Poker.NN
             return inputs;
         }
 
-        public int IndexOfHighestNode(double[] inputs)
+        public static int IndexOfHighestNode(double[] outputs)
         {
-            double[] outputs = CalculateOutputs(inputs);
-
             double maxv = 0;
             int maxi = -1;
 
