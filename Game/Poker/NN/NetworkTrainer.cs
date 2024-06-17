@@ -122,7 +122,7 @@ namespace UNSERcasino.Game.Poker.NN
             dr[(int)desiredResult] = true;
 
             int[] stats = null;
-            for(int i = 0; i < 1; i++)
+            for(int i = 0; i < 5; i++)
             {
                 Console.Write(i);
                 Console.CursorLeft = 0;
@@ -130,6 +130,21 @@ namespace UNSERcasino.Game.Poker.NN
             }
 
             Console.Clear();
+
+            foreach (int x in stats)
+            {
+                Console.Write(x + " ");
+            }
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+
+            stats = new int[5];
+
+            foreach(PokerNetwork network in neuralNetworks)
+            {
+                stats[NeuralNetwork.IndexOfHighestNode(network.Run(hand, dealer, cb, cp))]++;
+            }
 
             foreach (int x in stats)
             {
@@ -169,6 +184,10 @@ namespace UNSERcasino.Game.Poker.NN
 
             for (int i = 0; i < 5; i++)
             {
+                if (finalNetworks[i] == null)
+                {
+                    finalNetworks[i] = new NetworkWithOutput(new PokerNetwork(), new double[5] {0,0,0,0,0});
+                }
                 if (desiredResult[i])
                 {
                     networkToClone = finalNetworks[i].Network;
