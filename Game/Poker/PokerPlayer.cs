@@ -8,7 +8,7 @@
 
         public Card[] Hand { get; private set; }
 
-        private Poker _poker;
+        protected Poker _poker;
 
         public PokerPlayer(Poker poker, string name, Card[] hand)
         {
@@ -92,6 +92,11 @@
         }
 
         public virtual void Win(int amount)
+        {
+
+        }
+
+        public virtual void Next()
         {
 
         }

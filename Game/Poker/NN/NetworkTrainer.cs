@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
@@ -93,18 +94,17 @@ namespace UNSERcasino.Game.Poker.NN
             cp = RandomNumberGenerator.GetInt32(0, 2000);
         }
 
-        public static void NMain()
+        public static NetworkTrainer NMain()
         {
             NetworkTrainer nt = new NetworkTrainer(1000);
 
-            while(true)
-            {
-                //Console.Clear();
-                nt.Step();
-            }
+            while(nt.Step())
+            {}
+
+            return nt;
         }
 
-        private void Step()
+        private bool Step()
         {
             generateState(out Card[] hand, out Card[] dealer, out int cb, out int cp);
             Console.WriteLine($"cb: {cb}, cp: {cp}");
@@ -115,7 +115,12 @@ namespace UNSERcasino.Game.Poker.NN
             
 
             Console.Write("? ");
-            NetworkResult desiredResult = (NetworkResult)int.Parse(Console.ReadLine());
+            string s = Console.ReadLine();
+            if(s == "")
+            {
+                return false;
+            }
+            NetworkResult desiredResult = (NetworkResult)int.Parse(s);
             //NetworkResult desiredResult = (NetworkResult)Array.FindLastIndex(stats, (x) => x > 0);
 
             bool[] dr = new bool[5];
@@ -151,6 +156,21 @@ namespace UNSERcasino.Game.Poker.NN
                 Console.Write(x + " ");
             }
             Console.WriteLine();
+
+            Console.Clear();
+            return true;
+        }
+
+        public int Predict(Card[] hand, Card[] dealer, int cb, int cp)
+        {
+            int[] stats = new int[5];
+
+            foreach (PokerNetwork network in neuralNetworks)
+            {
+                stats[NeuralNetwork.IndexOfHighestNode(network.Run(hand, dealer, cb, cp))]++;
+            }
+
+            return Array.IndexOf(stats, stats.Max());
         }
 
         private int[] Train(Card[] hand, Card[] dealer, int cb, int cp, bool[] desiredResult)

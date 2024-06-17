@@ -54,9 +54,9 @@ namespace UNSERcasino
             //WriteCentered(intro);
             //Thread.Sleep(1000);
 
-            NetworkTrainer.NMain();
+            //NetworkTrainer.NMain();
 
-            return;
+            //return;
 
 
             // open the main menu

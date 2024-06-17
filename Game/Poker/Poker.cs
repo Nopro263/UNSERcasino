@@ -1,5 +1,6 @@
 ﻿using System.Security.Cryptography;
 using UNSERcasino.Game.Poker.Eval;
+using UNSERcasino.Game.Poker.NN;
 using UNSERcasino.UI.Menu;
 
 namespace UNSERcasino.Game.Poker
@@ -62,10 +63,12 @@ namespace UNSERcasino.Game.Poker
 
             _cards = new Stack<Card>(c);
 
+            NetworkTrainer networkTrainer = NetworkTrainer.NMain();
+
             Players.Add(new PokerPlayerWithBalance(this, CasinoManager.Instance.Name, _getCards(), CasinoManager.Instance));
             Players.Add(new PokerPlayer(this, "Player2", _getCards()));
             Players.Add(new PokerPlayer(this, "Player3", _getCards()));
-            //Players.Add(new PokerPlayer(this, "Player4", _getCards()));
+            Players.Add(new NeuralPlayer(networkTrainer, this, "Bot4", _getCards()));
 
             DealerHand = new Card[]
             {
@@ -195,6 +198,8 @@ namespace UNSERcasino.Game.Poker
                         }
                 }
             }
+
+            _currentPlayer.Next();
 
             //Console.ReadLine();
         }
