@@ -20,6 +20,20 @@ namespace UNSERcasino.Game.Poker.NN
             neuralNetwork = new NeuralNetwork(clone.neuralNetwork);
         }
 
+        public void save(string prefix)
+        {
+            neuralNetwork.save($"poker_{prefix}_");
+        }
+
+        public static PokerNetwork load(string prefix)
+        {
+            PokerNetwork p = new PokerNetwork();
+
+            p.neuralNetwork = NeuralNetwork.load($"poker_{prefix}_");
+
+            return p;
+        }
+
         public double[] Run(Card[] hand, Card[] dealer, int currentBet, int currentPot)
         {
             double[] input = new double[16];

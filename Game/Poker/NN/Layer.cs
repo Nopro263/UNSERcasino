@@ -15,6 +15,11 @@ namespace UNSERcasino.Game.Poker.NN
         private double[,] weights;
         private double[] biases;
 
+        private Layer()
+        {
+
+        }
+
         public Layer(int numNodesIn, int numNodesOut)
         {
             this.numNodesIn = numNodesIn;
@@ -57,6 +62,57 @@ namespace UNSERcasino.Game.Poker.NN
                     weights[i, o] = layer.weights[i, o] + rand();
                 }
             }
+        }
+
+        public void saveToFile(string filename)
+        {
+            string l = $"{numNodesIn} {numNodesOut}";
+            string b = String.Join(" ", biases) + "\n";
+            string w = "";
+            for(int i = 0; i < weights.GetLength(0); i++)
+            {
+                for (int j = 0; j < weights.GetLength(1); j++)
+                {
+                    w += weights[i, j] + " ";
+                }
+
+                w = w.TrimEnd() + "\n";
+            }
+            w = w.TrimEnd();
+
+            File.WriteAllText(filename, l);
+            File.AppendAllText(filename, b);
+            File.AppendAllText(filename, w);
+        }
+
+        public static Layer loadFromFile(string filename)
+        {
+            string[] s = File.ReadAllText(filename).Split("\n");
+
+            Layer l = new Layer();
+
+            l.numNodesIn = int.Parse(s[0].Split(" ")[0]);
+            l.numNodesOut = int.Parse(s[0].Split(" ")[1]);
+
+            l.weights = new double[l.numNodesIn, l.numNodesOut];
+            l.biases = new double[l.numNodesOut];
+
+            int i = 0;
+            foreach(string _ in s[1].Split(" "))
+            {
+                l.biases[i++] = double.Parse(_);
+            }
+
+            for(i = 0; i < l.numNodesIn; i++)
+            {
+                for(int j = 0; j < l.numNodesOut; j++)
+                {
+                    l.weights[i, j] = double.Parse(s[i + 2].Split(" ")[j]);
+                }
+            }
+
+
+            return l;
         }
 
         private double rand()

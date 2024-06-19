@@ -28,6 +28,40 @@ namespace UNSERcasino.Game.Poker.NN
             }
         }
 
+        private NeuralNetwork() { }
+
+        public void save(string prefix)
+        {
+            for(int i = 0; i < layers.Length; i++)
+            {
+                layers[i].saveToFile($"{prefix}{i}.layer");
+            }
+        }
+
+        public static NeuralNetwork load(string prefix)
+        {
+            NeuralNetwork n = new NeuralNetwork();
+            int layers = 0;
+            foreach(string f in Directory.GetFiles("."))
+            {
+                if (!f.StartsWith(prefix)) continue;
+
+                layers++;
+            }
+
+            n.layers = new Layer[layers];
+            
+            foreach (string f in Directory.GetFiles("."))
+            {
+                if (!f.StartsWith(prefix)) continue;
+
+                string s = f.Substring(prefix.Length, f.LastIndexOf('.'));
+                n.layers[int.Parse(s)] = Layer.loadFromFile(f);
+            }
+
+            return n;
+        }
+
         public double[] CalculateOutputs(double[] inputs)
         {
             foreach(Layer layer in layers)

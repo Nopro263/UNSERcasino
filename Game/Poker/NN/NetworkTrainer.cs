@@ -14,6 +14,8 @@ namespace UNSERcasino.Game.Poker.NN
         private List<double[]> results = new List<double[]>();
         private int _count;
 
+
+        public NetworkTrainer() { }
         public NetworkTrainer(int networks)
         {
             _count = networks;
@@ -94,12 +96,36 @@ namespace UNSERcasino.Game.Poker.NN
             cp = RandomNumberGenerator.GetInt32(0, 2000);
         }
 
+        public void save()
+        {
+            int i = 0;
+            foreach(PokerNetwork nn in neuralNetworks)
+            {
+                nn.save(i.ToString());
+                i++;
+            }
+        }
+
+        public static NetworkTrainer load(int size)
+        {
+            NetworkTrainer nt = new NetworkTrainer();
+
+            for(int i = 0; i < size; i++)
+            {
+                nt.neuralNetworks.Add(PokerNetwork.load(i.ToString()));
+            }
+
+            return nt;
+        }
+
         public static NetworkTrainer NMain()
         {
             NetworkTrainer nt = new NetworkTrainer(1000);
 
             while(nt.Step())
             {}
+
+            nt.save();
 
             return nt;
         }
