@@ -64,7 +64,7 @@ namespace UNSERcasino.Game.Poker.NN
             }
         }
 
-        public void saveToFile(string filename)
+        public string saveToFile()
         {
             string l = $"{numNodesIn} {numNodesOut}";
             string b = String.Join(" ", biases) + "\n";
@@ -80,14 +80,12 @@ namespace UNSERcasino.Game.Poker.NN
             }
             w = w.TrimEnd();
 
-            File.WriteAllText(filename, l);
-            File.AppendAllText(filename, b);
-            File.AppendAllText(filename, w);
+            return l + b + w;
         }
 
-        public static Layer loadFromFile(string filename)
+        public static Layer loadFromFile(string content)
         {
-            string[] s = File.ReadAllText(filename).Split("\n");
+            string[] s = content.Split("\n");
 
             Layer l = new Layer();
 

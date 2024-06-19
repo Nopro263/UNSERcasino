@@ -30,33 +30,37 @@ namespace UNSERcasino.Game.Poker.NN
 
         private NeuralNetwork() { }
 
-        public void save(string prefix)
+        public string save()
         {
+            StringBuilder stringBuilder = new StringBuilder();
             for(int i = 0; i < layers.Length; i++)
             {
-                layers[i].saveToFile($"{prefix}{i}.layer");
+                stringBuilder.Append(layers[i].saveToFile());
+                if(i < layers.Length - 1)
+                {
+                    stringBuilder.Append(":");
+                }
             }
+
+            return stringBuilder.ToString();
         }
 
-        public static NeuralNetwork load(string prefix)
+        public static NeuralNetwork load(string data)
         {
             NeuralNetwork n = new NeuralNetwork();
-            int layers = 0;
-            foreach(string f in Directory.GetFiles("."))
-            {
-                if (!f.StartsWith(prefix)) continue;
+            string[] layers = data.Split(":");
 
-                layers++;
+            if(layers.Length < 3)
+            {
+                string[] x = Directory.GetFiles(".");
+                Console.WriteLine();
             }
 
-            n.layers = new Layer[layers];
+            n.layers = new Layer[layers.Length];
             
-            foreach (string f in Directory.GetFiles("."))
+            for(int i = 0; i < layers.Length; i++)
             {
-                if (!f.StartsWith(prefix)) continue;
-
-                string s = f.Substring(prefix.Length, f.LastIndexOf('.'));
-                n.layers[int.Parse(s)] = Layer.loadFromFile(f);
+                n.layers[i] = Layer.loadFromFile(layers[i]);
             }
 
             return n;

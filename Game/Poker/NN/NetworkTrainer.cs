@@ -100,24 +100,40 @@ namespace UNSERcasino.Game.Poker.NN
         public void save()
         {
             int i = 0;
+            StringBuilder sb = new StringBuilder();
             foreach(PokerNetwork nn in neuralNetworks)
             {
-                nn.save(i.ToString());
+                sb.Append(nn.save());
+                if(i < _count - 1)
+                {
+                    sb.Append("|");
+                }
                 i++;
             }
+
+            File.WriteAllText("network.bin", sb.ToString());
         }
 
-        public static NetworkTrainer load(int size)
+        public static NetworkTrainer load()
         {
             if(NetworkTrainer._instance != null)
             {
                 return NetworkTrainer._instance;
             }
-            NetworkTrainer nt = new NetworkTrainer();
-
-            for(int i = 0; i < size; i++)
+            NetworkTrainer nt;
+            try
             {
-                nt.neuralNetworks.Add(PokerNetwork.load(i.ToString()));
+                nt = new NetworkTrainer();
+
+                string[] networks = File.ReadAllText("network.bin").Split("|");
+
+                foreach (string n in networks)
+                {
+                    nt.neuralNetworks.Add(PokerNetwork.load(n));
+                }
+            } catch(FileNotFoundException)
+            {
+                nt = new NetworkTrainer(1000);
             }
 
             NetworkTrainer._instance = nt;
@@ -127,7 +143,7 @@ namespace UNSERcasino.Game.Poker.NN
 
         public static NetworkTrainer NMain()
         {
-            NetworkTrainer nt = NetworkTrainer.load(1000);
+            NetworkTrainer nt = NetworkTrainer.load();
 
             while(nt.Step())
             {}
@@ -207,7 +223,7 @@ namespace UNSERcasino.Game.Poker.NN
             return Array.IndexOf(stats, stats.Max());
         }
 
-        private int[] Train(Card[] hand, Card[] dealer, int cb, int cp, bool[] desiredResult)
+        public int[] Train(Card[] hand, Card[] dealer, int cb, int cp, bool[] desiredResult)
         {
             int[] stats = new int[5] { 0, 0, 0, 0, 0 };
 

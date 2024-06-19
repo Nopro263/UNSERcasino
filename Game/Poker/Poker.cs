@@ -63,7 +63,7 @@ namespace UNSERcasino.Game.Poker
 
             _cards = new Stack<Card>(c);
 
-            NetworkTrainer networkTrainer = NetworkTrainer.load(1000);
+            NetworkTrainer networkTrainer = NetworkTrainer.load();
 
             Players.Add(new PokerPlayerWithBalance(this, CasinoManager.Instance.Name, _getCards(), CasinoManager.Instance));
             Players.Add(new PokerPlayer(this, "Player2", _getCards()));
@@ -131,6 +131,10 @@ namespace UNSERcasino.Game.Poker
 
         public void Check(PokerPlayer player, int difference)
         {
+            if(!(player is NeuralPlayer))
+            {
+                NetworkTrainer.load().Train(player.Hand, DealerHand, CurrentBet, Pot, new bool[5] { false, true, false, false, false });
+            }
             if(_state == -1)
             {
                 _state = 0;
@@ -142,6 +146,10 @@ namespace UNSERcasino.Game.Poker
 
         public void Raise(PokerPlayer player, int difference, int amount)
         {
+            if (!(player is NeuralPlayer))
+            {
+                NetworkTrainer.load().Train(player.Hand, DealerHand, CurrentBet, Pot, new bool[5] { false, false, true, true, true });
+            }
             CurrentBet = player.Bet;
             _lastRaisePlayer = player;
             player.afterRaise(difference, amount);
@@ -151,6 +159,10 @@ namespace UNSERcasino.Game.Poker
 
         public void Fold(PokerPlayer player)
         {
+            if (!(player is NeuralPlayer))
+            {
+                NetworkTrainer.load().Train(player.Hand, DealerHand, CurrentBet, Pot, new bool[5] { true, false, false, false, false });
+            }
             player.afterFold();
             Next();
             _alivePlayers.Remove(player);
