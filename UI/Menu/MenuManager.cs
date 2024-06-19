@@ -1,4 +1,6 @@
-﻿namespace UNSERcasino.UI.Menu
+﻿using UNSERcasino.Game.Poker.NN;
+
+namespace UNSERcasino.UI.Menu
 {
     internal class MenuManager
     {
@@ -31,6 +33,7 @@
             if (stack.Count == 1) // last menu open?
             {
                 getTopMenu().onHide();
+                NetworkTrainer.saveAll();
                 Environment.Exit(0);
             }
             else

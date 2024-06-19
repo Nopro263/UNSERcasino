@@ -114,6 +114,14 @@ namespace UNSERcasino.Game.Poker.NN
             File.WriteAllText("network.bin", sb.ToString());
         }
 
+        public static void saveAll()
+        {
+            if(NetworkTrainer._instance != null)
+            {
+                NetworkTrainer._instance.save();
+            }
+        }
+
         public static NetworkTrainer load()
         {
             if(NetworkTrainer._instance != null)
