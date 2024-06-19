@@ -63,7 +63,7 @@ namespace UNSERcasino.Game.Poker
 
             _cards = new Stack<Card>(c);
 
-            NetworkTrainer networkTrainer = NetworkTrainer.NMain();
+            NetworkTrainer networkTrainer = NetworkTrainer.load(1000);
 
             Players.Add(new PokerPlayerWithBalance(this, CasinoManager.Instance.Name, _getCards(), CasinoManager.Instance));
             Players.Add(new PokerPlayer(this, "Player2", _getCards()));

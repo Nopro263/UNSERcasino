@@ -1,4 +1,5 @@
 ﻿using UNSERcasino.Game.Poker.Eval;
+using UNSERcasino.Game.Poker.NN;
 
 namespace UNSERcasino.UI.Menu
 {
@@ -25,10 +26,15 @@ namespace UNSERcasino.UI.Menu
             _text = new Text("abc");
 
             _scene.addView(new TextView(_text, false, false), Flow.START, Flow.START);
+
+            
         }
 
         public void Update()
         {
+            NetworkTrainer.NMain();
+            
+            MenuManager.close();
             TimeUtil.OnlyEvery(1, this);
             int nval = _view.Value + 1;
             if (nval == 7)

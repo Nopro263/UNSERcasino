@@ -21,6 +21,7 @@ namespace UNSERcasino.Game.Poker
 
             int result = _trainer.Predict(Hand, _poker.DealerHand, _poker.CurrentBet, _poker.Pot);
 
+            
             switch(result)
             {
                 case 0:

@@ -21,7 +21,7 @@
             _scene.addView(new TextView(new Text("┃                 ┃"), false, false), Flow.CENTER, Flow.CENTER, 0, 5);
             _scene.addView(new TextView(new Text("┗─────────────────┛"), false, false), Flow.CENTER, Flow.CENTER, 0, 6);
 
-            _scene.addView(new ButtonView(new Text("Test"), false), Flow.CENTER, Flow.CENTER);
+            _scene.addView(new ButtonView(new Text("Train"), false), Flow.CENTER, Flow.CENTER);
             _scene.addView(new ButtonView(new Text("Dice"), false), Flow.CENTER, Flow.CENTER, 0, 1);
             _scene.addView(new ButtonView(new Text("Poker"), false), Flow.CENTER, Flow.CENTER, 0, 2);
             _scene.addView(new ButtonView(new Text("Mines"), false), Flow.CENTER, Flow.CENTER, 0, 3);
@@ -35,7 +35,7 @@
             {
                 return;
             }
-            if (button.Text.getContent() == "Test")
+            if (button.Text.getContent() == "Train")
             {
                 MenuManager.open(new CrashMenu());
             }
