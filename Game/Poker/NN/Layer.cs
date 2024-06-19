@@ -66,7 +66,7 @@ namespace UNSERcasino.Game.Poker.NN
 
         public string saveToFile()
         {
-            string l = $"{numNodesIn} {numNodesOut}";
+            string l = $"{numNodesIn} {numNodesOut}\n";
             string b = String.Join(" ", biases) + "\n";
             string w = "";
             for(int i = 0; i < weights.GetLength(0); i++)
